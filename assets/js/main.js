@@ -9,6 +9,8 @@ class Portfolio {
         this.setupScrollEffects();
         this.setupInteractions();
         this.setupCarousel();
+        // Remove or disable the problematic function
+        // this.setupMobileAffiliationsCarousel();
         this.handlePageLoad();
     }
 
@@ -193,49 +195,28 @@ class Portfolio {
                 }, 3000); // Resume after 3 seconds of inactivity
             };
             
-            // Touch/swipe support with proper direction detection
+            // Touch/swipe support with auto-scroll pause
             let startX = 0;
-            let startY = 0;
             let scrollLeft = 0;
             let isDown = false;
-            let isHorizontalSwipe = false;
 
             container.addEventListener('touchstart', (e) => {
                 isDown = true;
                 pauseAutoScroll();
                 startX = e.touches[0].pageX - container.offsetLeft;
-                startY = e.touches[0].pageY;
                 scrollLeft = container.scrollLeft;
-                isHorizontalSwipe = false; // Reset swipe direction
             });
 
             container.addEventListener('touchmove', (e) => {
                 if (!isDown) return;
-                
+                e.preventDefault();
                 const x = e.touches[0].pageX - container.offsetLeft;
-                const y = e.touches[0].pageY;
-                
-                // Calculate movement distances
-                const deltaX = Math.abs(x - startX);
-                const deltaY = Math.abs(y - startY);
-                
-                // Determine swipe direction on first significant movement
-                if (!isHorizontalSwipe && (deltaX > 10 || deltaY > 10)) {
-                    isHorizontalSwipe = deltaX > deltaY;
-                }
-                
-                // Only prevent default and handle horizontal scrolling if it's a horizontal swipe
-                if (isHorizontalSwipe) {
-                    e.preventDefault();
-                    const walk = (x - startX) * 2;
-                    container.scrollLeft = scrollLeft - walk;
-                }
-                // For vertical swipes, let the browser handle normal scrolling
+                const walk = (x - startX) * 2;
+                container.scrollLeft = scrollLeft - walk;
             });
 
             container.addEventListener('touchend', () => {
                 isDown = false;
-                isHorizontalSwipe = false;
             });
 
             // Mouse drag support for desktop testing
@@ -375,6 +356,10 @@ class Portfolio {
             setTimeout(() => notification.remove(), 300);
         }, 3000);
     }
+
+    // REMOVED THE PROBLEMATIC FUNCTION ENTIRELY
+    // The affiliations now use pure CSS grid layout from the CSS file
+    // No JavaScript manipulation needed for mobile affiliations
 }
 
 document.addEventListener('DOMContentLoaded', () => {
