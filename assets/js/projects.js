@@ -2,18 +2,19 @@
 const projects = [
     {
         id: 'ascend',
-        title: 'Ascend v2: Enterprise Data Engineering Framework',
-        subtitle: 'Proprietary DNA Signature Technology',
-        description: 'Revolutionary modular data engineering framework featuring proprietary DNA signature extraction that captures statistical properties of datasets. Enables synthetic data generation preserving complex relationships with 99.5% statistical fidelity.',
+        title: 'Ascend: Enterprise Data Engineering Framework',
+        subtitle: 'Proprietary DNA Signature Technology & Rule-Based Synthesis',
+        description: 'Modular data engineering framework with proprietary DNA signature technology spanning flat file and relational database synthesis for synthetic data generation preserving complex relationships. Includes 30+ specialized modules for data analysis, curation, feature engineering and data transformation.',
         image: 'assets/images/projects/ascend-hero.jpg',
         technologies: ['Python', 'PySpark', 'PostgreSQL', 'MySQL', 'Statistical Modeling', 'Apache Spark'],
         achievements: [
-            '99.5% statistical fidelity preservation across massive datasets',
-            '13+ specialized modules for intelligent data curation',
-            'Processing capabilities exceeding 10M rows with optimized performance',
-            'Synthesis time reduced from hours to minutes through advanced algorithms',
-            'Adaptive binning algorithms for complex dependency management',
-            'Distribution-based transformations preserving database relationships'
+            '99.5% statistical fidelity with full cross-table relationship preservation',
+            'Flat File DNA extracts statistical fingerprints via multiple binning strategies with distributed correlation signatures',
+            'Database DNA captures three distinct types (Table, Relationship, Junction) using hybrid multi-type correlation engine',
+            'Rule-Based Synthesis Framework with configurable business logic, topological dependency ordering, and multi-hop join-path evaluation',
+            '13+ specialized data engineering modules including intelligent class balancing, outlier detection, and time series standardization',
+            'Processing datasets exceeding 10M rows while reducing synthesis time from hours to minutes',
+            '30+ specialized modules for data analysis, curation, feature engineering and transformation'
         ],
         metrics: {
             'Performance': '10x improvement',
@@ -21,14 +22,15 @@ const projects = [
             'Scale': '10M+ rows'
         },
         details: {
-            overview: 'Ascend v2 represents a breakthrough in data engineering, featuring proprietary DNA Signature Technology that revolutionizes how we handle massive datasets. The framework extracts and preserves statistical properties through adaptive binning algorithms, enabling rule-based synthetic data generation.',
+            overview: 'Ascend is a modular data engineering framework featuring proprietary DNA Signature Technology spanning flat file and relational database synthesis. Flat File DNA extracts statistical fingerprints via multiple binning strategies with distributed correlation signatures supporting time series analysis and PII anonymization. Database DNA captures three distinct DNA types (Table, Relationship, Junction) using a hybrid multi-type correlation engine with adaptive binning, degree-first child generation, and joint parent conditioning for N:N relationships, reducing terabyte-scale datasets to compact portable signatures.',
             keyFeatures: [
-                'DNA Signature Technology with statistical property preservation',
-                'Intelligent class balancing with optimal scaling factor calculation',
-                'Advanced outlier detection and correction mechanisms',
-                'Time series standardization and precision correction',
-                'Distributed computing optimization across Spark clusters',
-                'Enterprise-grade CLI tools for seamless pipeline execution'
+                'Flat File DNA with statistical fingerprints, distributed correlation signatures, and PII anonymization',
+                'Database DNA with Table, Relationship, and Junction DNA types via hybrid multi-type correlation engine',
+                'Rule-Based Synthesis Framework with multi-layered scopes, compound conditions, and two-phase generation',
+                'Topological dependency ordering with multi-hop join-path condition evaluation and filtered FK resolution',
+                'Intelligent class balancing with automatic optimal scaling factor calculation for imbalanced datasets',
+                'Encrypted signature packaging reducing terabyte-scale datasets to compact portable signatures',
+                'Production-ready CLI tools with distributed computing optimization across Spark clusters'
             ],
             technicalSpecs: {
                 'Architecture': 'Modular microservices with distributed processing',
