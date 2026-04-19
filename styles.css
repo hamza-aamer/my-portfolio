@@ -308,14 +308,16 @@ section{position:relative;padding:32px 20px;scroll-margin-top:60px}
 .work-sub{font-size:10px;color:var(--accent);letter-spacing:.2em;display:flex;align-items:center;gap:6px}
 
 .work-track{
-  display:flex;gap:12px;
+  display:flex;gap:0;
   overflow-x:auto;scroll-snap-type:x mandatory;
-  padding:0 20px 16px;-webkit-overflow-scrolling:touch;
+  padding:0 0 16px;-webkit-overflow-scrolling:touch;
   scrollbar-width:none;
+  overscroll-behavior-x:contain;
 }
 .work-track::-webkit-scrollbar{display:none}
 .work-slide{
-  flex:0 0 86%;scroll-snap-align:start;scroll-snap-stop:always;
+  flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;
+  padding:0 20px;
 }
 .case-card{
   background:var(--bg-2);border:1px solid var(--rule);
@@ -416,7 +418,8 @@ section{position:relative;padding:32px 20px;scroll-margin-top:60px}
 .timeline-sec{background:var(--bg)}
 .tl{position:relative;padding-left:28px;margin-top:8px}
 .tl-rail{position:absolute;left:7px;top:8px;bottom:8px;width:1px;background:var(--rule-strong)}
-.tl-item{position:relative;padding-bottom:16px}
+.tl-item{position:relative;padding-bottom:8px}
+.tl-item + .tl-item{margin-top:2px}
 .tl-node{
   position:absolute;left:-25px;top:6px;
   width:12px;height:12px;border-radius:50%;

@@ -190,13 +190,13 @@ function Work() {
   const scrollTo = (i) => {
     const track = trackRef.current; if (!track) return;
     const card = track.children[i];
-    if (card) track.scrollTo({ left: card.offsetLeft - 20, behavior: 'smooth' });
+    if (card) track.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
   };
 
   const onScroll = () => {
     const track = trackRef.current; if (!track) return;
     const w = track.clientWidth;
-    const idx = Math.round(track.scrollLeft / (w * 0.88));
+    const idx = Math.round(track.scrollLeft / w);
     if (idx !== active && idx >= 0 && idx < CASES.length) setActive(idx);
   };
 
