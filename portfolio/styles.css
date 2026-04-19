@@ -638,14 +638,13 @@ body{
 }
 
 /* ===== MOBILE GATE ===== */
-.mobile-gate{display:none}
-@media (max-width:900px){
-  .mobile-gate{
-    display:flex;position:fixed;inset:0;z-index:300;
-    background:var(--bg);
-    align-items:center;justify-content:center;
-    flex-direction:column;
-  }
+.mobile-gate[hidden]{display:none!important}
+.mobile-gate{
+  display:flex;position:fixed;inset:0;z-index:300;
+  background:var(--bg);
+  align-items:center;justify-content:center;
+  flex-direction:column;
+}
   .mg-inner{
     display:flex;flex-direction:column;align-items:center;
     gap:24px;padding:40px 32px;max-width:340px;text-align:center;
@@ -683,6 +682,4 @@ body{
     font-size:9px;letter-spacing:.15em;color:var(--fg-mute);
     padding-top:8px;
   }
-  /* hide everything else on mobile */
-  .nav,.loader,#main,.tweaks,.meta-hud,.time-hud,.progress-rail{display:none!important}
 }
