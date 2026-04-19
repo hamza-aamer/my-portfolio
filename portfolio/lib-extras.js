@@ -56,16 +56,30 @@
     });
   }
 
-  // Contact form
+  // Contact form — Formspree via AJAX
   const cf = document.getElementById('cf');
   if(cf){
     cf.addEventListener('submit', (e)=>{
       e.preventDefault();
       const btn = cf.querySelector('.cf-submit span');
       const orig = btn.textContent;
-      btn.textContent = 'Sent ✓';
-      cf.reset();
-      setTimeout(()=>{ btn.textContent = orig; }, 2400);
+      btn.textContent = 'Sending…';
+      fetch(cf.action, {
+        method: 'POST',
+        body: new FormData(cf),
+        headers: {'Accept': 'application/json'}
+      }).then(r=>{
+        if(r.ok){
+          btn.textContent = 'Sent \u2713';
+          cf.reset();
+        } else {
+          btn.textContent = 'Error — retry';
+        }
+        setTimeout(()=>{ btn.textContent = orig; }, 3000);
+      }).catch(()=>{
+        btn.textContent = 'Error — retry';
+        setTimeout(()=>{ btn.textContent = orig; }, 3000);
+      });
     });
   }
 
