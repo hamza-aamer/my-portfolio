@@ -1,509 +1,1166 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamza Aamer - AI Engineer & Product Lead</title>
-    <meta name="description" content="AI Engineer specializing in advanced data synthesis, multi-agent frameworks, and computer vision systems.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="assets/images/icons/favicon.jpg">
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
-</head>
-<body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="#home" class="brand-link">
-                    <div class="brand-text-stacked">
-                        <span class="brand-text-black">Hamza</span>
-                        <span class="brand-text-brown">Aamer</span>
-                    </div>
-                </a>
-            </div>
-            <div class="nav-links">
-                <a href="#about" class="nav-link">About</a>
-                <a href="#work" class="nav-link">Work</a>
-                <a href="assets/hamza_resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-btn">
-                    <span>Resume</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 7H17V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
+<!DOCTYPE html><html lang="en" class="lenis lenis-scrolling"><head>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hamza Aamer — AI Engineer &amp; Product Lead</title>
+<meta name="description" content="AI Engineer specializing in synthetic data, multi-agent frameworks, and computer vision.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="portfolio/styles.css?v=16">
+
+<!-- libs -->
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script async="" src="https://unpkg.com/es-module-shims@1.10.0/dist/es-module-shims.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<style data-id="immersive-translate-input-injected-css">.immersive-translate-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.immersive-translate-attach-loading::after {
+  content: " ";
+
+  --loading-color: #f78fb6;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  margin: 12px auto;
+  position: relative;
+  color: white;
+  left: -100px;
+  box-sizing: border-box;
+  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-2000%, -50%);
+  z-index: 100;
+}
+
+.immersive-translate-loading-spinner {
+  vertical-align: middle !important;
+  width: 10px !important;
+  height: 10px !important;
+  display: inline-block !important;
+  margin: 0 4px !important;
+  border: 2px rgba(221, 244, 255, 0.6) solid !important;
+  border-top: 2px rgba(0, 0, 0, 0.375) solid !important;
+  border-left: 2px rgba(0, 0, 0, 0.375) solid !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  -webkit-animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+  animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+}
+
+@-webkit-keyframes immersive-translate-loading-animation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@keyframes immersive-translate-loading-animation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.immersive-translate-input-loading {
+  --loading-color: #f78fb6;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  margin: 12px auto;
+  position: relative;
+  color: white;
+  left: -100px;
+  box-sizing: border-box;
+  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+}
+
+@keyframes immersiveTranslateShadowRolling {
+  0% {
+    box-shadow: 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  12% {
+    box-shadow: 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  25% {
+    box-shadow: 110px 0 var(--loading-color), 100px 0 var(--loading-color),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  36% {
+    box-shadow: 120px 0 var(--loading-color), 110px 0 var(--loading-color),
+      100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    box-shadow: 130px 0 var(--loading-color), 120px 0 var(--loading-color),
+      110px 0 var(--loading-color), 100px 0 var(--loading-color);
+  }
+
+  62% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color),
+      120px 0 var(--loading-color), 110px 0 var(--loading-color);
+  }
+
+  75% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      130px 0 var(--loading-color), 120px 0 var(--loading-color);
+  }
+
+  87% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color);
+  }
+
+  100% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.immersive-translate-modal {
+  position: fixed;
+  z-index: 2147483647;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 15px;
+}
+
+.immersive-translate-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 40px 24px 24px;
+  border-radius: 12px;
+  width: 350px;
+  font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
+    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-modal-content {
+    margin: 25% auto !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .immersive-translate-modal-content {
+    width: 80vw !important;
+    margin: 20vh auto !important;
+    padding: 20px 12px 12px !important;
+  }
+
+  .immersive-translate-modal-title {
+    font-size: 14px !important;
+  }
+
+  .immersive-translate-modal-body {
+    font-size: 13px !important;
+    max-height: 60vh !important;
+  }
+
+  .immersive-translate-btn {
+    font-size: 13px !important;
+    padding: 8px 16px !important;
+    margin: 0 4px !important;
+  }
+
+  .immersive-translate-modal-footer {
+    gap: 6px !important;
+    margin-top: 16px !important;
+  }
+}
+
+.immersive-translate-modal .immersive-translate-modal-content-in-input {
+  max-width: 500px;
+}
+.immersive-translate-modal-content-in-input .immersive-translate-modal-body {
+  text-align: left;
+  max-height: unset;
+}
+
+.immersive-translate-modal-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.immersive-translate-modal-body {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+  margin-top: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-modal-body {
+    max-height: 250px;
+    overflow-y: auto;
+  }
+}
+
+.immersive-translate-close {
+  color: #666666;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.immersive-translate-close:hover,
+.immersive-translate-close:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.immersive-translate-modal-footer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.immersive-translate-btn {
+  width: fit-content;
+  color: #fff;
+  background-color: #ea4c89;
+  border: none;
+  font-size: 14px;
+  margin: 0 8px;
+  padding: 9px 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.immersive-translate-btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.immersive-translate-btn:hover {
+  background-color: #f082ac;
+}
+.immersive-translate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.immersive-translate-btn:disabled:hover {
+  background-color: #ea4c89;
+}
+
+.immersive-translate-link-btn {
+  background-color: transparent;
+  color: #ea4c89;
+  border: none;
+  cursor: pointer;
+  height: 30px;
+  line-height: 30px;
+}
+
+.immersive-translate-cancel-btn {
+  /* gray color */
+  background-color: rgb(89, 107, 120);
+}
+
+.immersive-translate-cancel-btn:hover {
+  background-color: hsl(205, 20%, 32%);
+}
+
+.immersive-translate-action-btn {
+  background-color: transparent;
+  color: #ea4c89;
+  border: 1px solid #ea4c89;
+}
+
+.immersive-translate-btn svg {
+  margin-right: 5px;
+}
+
+.immersive-translate-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #ea4c89;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+.immersive-translate-primary-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #ea4c89;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+.immersive-translate-modal input[type="radio"] {
+  margin: 0 6px;
+  cursor: pointer;
+}
+
+.immersive-translate-modal label {
+  cursor: pointer;
+}
+
+.immersive-translate-close-action {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  cursor: pointer;
+}
+
+.imt-primary-button {
+  display: flex;
+  padding: 12px 80px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  background: #ea4c89;
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  border: none;
+  cursor: pointer;
+}
+
+.imt-retry-text {
+  color: #999;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  cursor: pointer;
+}
+
+.imt-action-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.imt-modal-content-text {
+  text-align: left;
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.imt-linear-gradient-text {
+  background: linear-gradient(90deg, #00a6ff 0%, #c369ff 52.4%, #ff4590 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.imt-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imt-linear-black-btn {
+  border-radius: 50px;
+  background: linear-gradient(66deg, #222 19%, #696969 94.25%);
+  height: 48px;
+  width: 100%;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+}
+</style></head>
+<body class="loaded">
+
+<!-- tweakable defaults -->
+<script>
+window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
+  "accent": "#b8502c",
+  "accent2": "#3b5a4a",
+  "motion": 8,
+  "audio": true,
+  "dark": false
+}/*EDITMODE-END*/;
+</script>
+
+<!-- Noise overlay -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor" aria-hidden="true">
+  <div class="cursor-dot" style="transform: translate(1598px, 1px) translate(-50%, -50%);"></div>
+  <div class="cursor-ring" style="transform: translate(1598px, 1px) translate(-50%, -50%);"></div>
+  <div class="cursor-label" id="cursorLabel" style="transform: translate(1598px, 1px);"></div>
+</div>
+
+<!-- Three.js fixed canvas (ambient + scroll scene) -->
+<canvas id="three-canvas" aria-hidden="true" data-engine="three.js r160" width="1865" height="1297" style="width: 1865px; height: 1297px;"></canvas>
+
+<!-- Progress rail -->
+<div class="progress-rail" aria-hidden="true">
+  <div class="progress-fill" id="progressFill" style="width: 6.99116%;"></div>
+</div>
+
+<!-- Meta HUD -->
+<div class="meta-hud" aria-hidden="true">
+  <div class="hud-row"><span class="hud-k">LAT</span><span class="hud-v">49.0069°N</span></div>
+  <div class="hud-row"><span class="hud-k">LNG</span><span class="hud-v">8.4037°E</span></div>
+  <div class="hud-row"><span class="hud-k">LOC</span><span class="hud-v">Karlsruhe, DE</span></div>
+  <div class="hud-row"><span class="hud-k">SYS</span><span class="hud-v"><span class="live-dot"></span>ONLINE</span></div>
+</div>
+
+<!-- Time on page -->
+<div class="time-hud" aria-hidden="true">
+  <span class="hud-k">DWELL</span>
+  <span class="hud-v" id="dwellTime">00:52</span>
+</div>
+
+<!-- Nav -->
+<nav class="nav scrolled" id="nav">
+  <a href="#home" class="brand" data-magnetic="" style="">
+    <span class="brand-ha">HA</span>
+    <span class="brand-meta">
+      <span class="brand-line">HAMZA AAMER</span>
+      <span class="brand-sub">AI / ML ENGINEER</span>
+    </span>
+  </a>
+  <div class="nav-links">
+    <a href="#about" class="nav-link" data-magnetic="" style=""><span class="nl-idx">01</span><span class="nl-t" data-scramble="">About</span></a>
+    <a href="#work" class="nav-link" data-magnetic="" style=""><span class="nl-idx">02</span><span class="nl-t" data-scramble="">Work</span></a>
+    <a href="#timeline" class="nav-link" data-magnetic="" style=""><span class="nl-idx">03</span><span class="nl-t" data-scramble="">Timeline</span></a>
+    <a href="#playground" class="nav-link" data-magnetic="" style=""><span class="nl-idx">04</span><span class="nl-t" data-scramble="">Playground</span></a>
+    <a href="#contact" class="nav-link" data-magnetic="" style=""><span class="nl-idx">05</span><span class="nl-t" data-scramble="">Contact</span></a>
+  </div>
+  <a href="#" class="nav-cta" data-magnetic="" id="resumeBtn">
+    <span data-scramble="">Resume</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 7H17V17M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+  </a>
+</nav>
+
+<!-- Loader -->
+<div class="loader done" id="loader">
+  <div class="loader-inner">
+    <div class="loader-row"><span class="mono">SYS.BOOT</span><span class="mono">v4.2.0</span></div>
+    <div class="loader-bar"><div class="loader-fill" id="loaderFill" style="width: 100%;"></div></div>
+    <div class="loader-row"><span class="mono" id="loaderStatus">Ready.</span><span class="mono" id="loaderPct">100%</span></div>
+    <div class="loader-name">
+      <span class="ls-serif">Hamza</span>
+      <span class="ls-serif ls-italic">Aamer</span>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ========== HERO ========== -->
+<section id="home" class="hero" data-section="00">
+  <div class="hero-grid">
+    <div class="hero-meta">
+      <span class="mono tag-blink">● PORTFOLIO / 2026</span>
+    </div>
+    <div class="hero-meta right">
+      <span class="mono">N 49.006884</span><br>
+      <span class="mono">E 08.403653</span>
+    </div>
+
+    <h1 class="hero-title">
+      <span class="ht-line" data-line="0">
+        <span class="ht-word"><span class="ht-char" style="--i: 0;">H</span><span class="ht-char" style="--i: 1;">a</span><span class="ht-char" style="--i: 2;">m</span><span class="ht-char" style="--i: 3;">z</span><span class="ht-char" style="--i: 4;">a</span></span>
+      </span>
+      <span class="ht-line ht-italic" data-line="1">
+        <span class="ht-word"><span class="ht-char" style="--i: 0;">A</span><span class="ht-char" style="--i: 1;">a</span><span class="ht-char" style="--i: 2;">m</span><span class="ht-char" style="--i: 3;">e</span><span class="ht-char" style="--i: 4;">r</span></span>
+      </span>
+    </h1>
+
+    <div class="hero-caption">
+      <div class="hc-idx mono">(01)</div>
+      <p class="hc-text">
+        AI Engineer &amp; Product Lead crafting <em>synthetic data engines</em>, multi-agent frameworks and computer-vision systems that reach production.
+      </p>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hs-item">
+        <div class="hs-n">5<span class="mono hs-sup">YRS</span></div>
+        <div class="hs-l mono">Shipping AI</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-n">99.5<span class="mono hs-sup">%</span></div>
+        <div class="hs-l mono">DNA Fidelity</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-n">10<span class="mono hs-sup">M+</span></div>
+        <div class="hs-l mono">Rows Synthesized</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-n">3<span class="mono hs-sup">CO</span></div>
+        <div class="hs-l mono">Active clients</div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span class="mono">SCROLL TO ENTER</span>
+      <div class="hs-track"><div class="hs-dot"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MANIFESTO / ABOUT ========== -->
+<section id="about" class="about" data-section="01">
+  <div class="section-head">
+    <span class="mono section-idx">§ 01 — MANIFESTO</span>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="manifesto">
+    <p class="manifesto-line in" data-reveal="">
+      The real magic happens <em>at the boundaries</em> — where research meets reality,
+    </p>
+    <p class="manifesto-line in" data-reveal="">
+      where software meets silicon, where human intent meets machine capability.
+    </p>
+    <p class="manifesto-line dim in" data-reveal="">
+      I build systems that survive contact with production.
+    </p>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-col">
+      <div class="mono col-label">(A) FIXATIONS</div>
+      <ul class="about-list">
+        <li data-reveal-stagger="" class="in">Agentic AI frameworks</li>
+        <li data-reveal-stagger="" class="in">CUDA optimization</li>
+        <li data-reveal-stagger="" class="in">Genetic prompt engineering</li>
+        <li data-reveal-stagger="" class="in">3D neural reconstruction</li>
+        <li data-reveal-stagger="" class="in">Synthetic data at scale</li>
+      </ul>
+    </div>
+    <div class="about-col">
+      <div class="mono col-label">(B) STACK</div>
+      <div class="skill-groups">
+        <div class="skill-group">
+          <div class="sg-head mono">AI / ML</div>
+          <div class="chips">
+            <span class="chip">Python</span><span class="chip">PyTorch</span>
+            <span class="chip">TensorFlow</span><span class="chip">YOLOv8</span>
+            <span class="chip">Open3D</span>
+          </div>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1 class="hero-name">
-                        <span class="name-part">Hamza</span>
-                        <span class="name-part">Aamer</span>
-                    </h1>
-                    <p class="hero-description">
-                        AI Engineer & Product Lead specializing in advanced data synthesis, 
-                        multi-agent frameworks, and computer vision systems.
-                    </p>
-                    <div class="hero-affiliations">
-                        <h3 class="affiliations-title">Affiliations</h3>
-                        <div class="affiliations-row">
-                            <a href="https://adept-techsolutions.com" target="_blank" rel="noopener noreferrer" class="affiliation-item">
-                                <img src="assets/images/companies/adept-logo.png" alt="Adept Tech Solutions" class="affiliation-logo">
-                                <h4 class="affiliation-name">Adept Tech Solutions</h4>
-                                <p class="affiliation-desc">Synthetic data compliance innovator</p>
-                            </a>
-                            <a href="https://antematter.io" target="_blank" rel="noopener noreferrer" class="affiliation-item">
-                                <img src="assets/images/companies/antematter-logo.png" alt="Antematter" class="affiliation-logo">
-                                <h4 class="affiliation-name">Antematter</h4>
-                                <p class="affiliation-desc">Agentic AI solutions provider</p>
-                            </a>
-                            <a href="https://isb.nu.edu.pk/datainsight/" target="_blank" rel="noopener noreferrer" class="affiliation-item">
-                                <img src="assets/images/companies/datainsight-logo.png" alt="DataInsight" class="affiliation-logo">
-                                <h4 class="affiliation-name">DataInsight</h4>
-                                <p class="affiliation-desc">Machine learning research laboratory</p>
-                            </a>
-                            <a href="https://afiniti.com" target="_blank" rel="noopener noreferrer" class="affiliation-item">
-                                <img src="assets/images/companies/afiniti-logo.png" alt="Afiniti" class="affiliation-logo">
-                                <h4 class="affiliation-name">Afiniti</h4>
-                                <p class="affiliation-desc">Enterprise software solutions provider</p>
-                            </a>
-                            <a href="https://www.nedge.cloud/" target="_blank" rel="noopener noreferrer" class="affiliation-item">
-                                <img src="assets/images/companies/nedge-logo.png" alt="Nedge Computing" class="affiliation-logo">
-                                <h4 class="affiliation-name">Nedge Computing</h4>
-                                <p class="affiliation-desc">Edge computing acceleration solutions</p>
-                            </a>
-                        </div>
-                        
-                        <!-- Mobile Resume Button -->
-                        <div class="mobile-resume-container">
-                            <a href="assets/hamza_resume.pdf" target="_blank" rel="noopener noreferrer" class="mobile-resume-btn">
-                                <span>View Resume</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7 7H17V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="profile-card">
-                        <div class="profile-image">
-                            <img src="assets/images/profile.jpg" alt="Hamza Aamer" class="profile-img">
-                            <div class="profile-glow"></div>
-                        </div>
-                        <div class="floating-elements">
-                            <div class="float-element" data-delay="0">AI</div>
-                            <div class="float-element" data-delay="0.5">ML</div>
-                            <div class="float-element" data-delay="1">Data</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="scroll-indicator">
-                <div class="scroll-dot"></div>
-                <div class="scroll-line"></div>
-            </div>
+        <div class="skill-group">
+          <div class="sg-head mono">Data</div>
+          <div class="chips">
+            <span class="chip">PySpark</span><span class="chip">PostgreSQL</span>
+            <span class="chip">Apache&nbsp;Spark</span><span class="chip">MySQL</span>
+          </div>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-text">About Me</span>
-                <div class="title-underline"></div>
-            </h2>
-            
-            <div class="about-grid">
-                <div class="about-text">
-                    <div class="text-block">
-                        <p>
-                            You know that feeling when you see AI capabilities advancing at a staggering rate? That's 
-                            what gets me up every morning.
-                        </p>
-                        <p>
-                            My current fixations: agentic AI frameworks, CUDA optimization, and the messy reality of 
-                            deploying intelligent systems at scale. I've been deep in everything from genetic algorithms 
-                            optimizing prompts to 3D neural reconstruction with Gaussian Splatting.
-                        </p>
-                        <p>
-                            The real magic happens at the boundaries; where research meets reality, where software meets 
-                            silicon, where human intent meets machine capability.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="skills-section">
-                    <h3 class="skills-title">Expertise</h3>
-                    <div class="skill-categories">
-                        <div class="skill-category">
-                            <h4>AI/ML</h4>
-                            <div class="skills-list">
-                                <span class="skill-tag">Python</span>
-                                <span class="skill-tag">PyTorch</span>
-                                <span class="skill-tag">TensorFlow</span>
-                                <span class="skill-tag">Computer Vision</span>
-                                <span class="skill-tag">YOLOv8</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <h4>Data Engineering</h4>
-                            <div class="skills-list">
-                                <span class="skill-tag">PySpark</span>
-                                <span class="skill-tag">PostgreSQL</span>
-                                <span class="skill-tag">MySQL</span>
-                                <span class="skill-tag">Apache Spark</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <h4>Frameworks</h4>
-                            <div class="skills-list">
-                                <span class="skill-tag">CrewAI</span>
-                                <span class="skill-tag">LangChain</span>
-                                <span class="skill-tag">Flask</span>
-                                <span class="skill-tag">Streamlit</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="education-section">
-                <h3 class="education-title">Education</h3>
-                <div class="education-cards">
-                    <div class="edu-card">
-                        <img src="assets/images/education/kit.png" alt="KIT Logo" class="edu-logo">
-                        <div class="edu-content">
-                            <h3>MS Computer Science</h3>
-                            <p>Karlsruhe Institute of Technology</p>
-                            <span class="edu-year">2025 - 2027</span>
-                        </div>
-                    </div>
-                    <div class="edu-card">
-                        <img src="assets/images/education/nuces.png" alt="NUCES Logo" class="edu-logo">
-                        <div class="edu-content">
-                            <h3>BS Computer Science</h3>
-                            <p>National University of Computer and Emerging Sciences</p>
-                            <span class="edu-year">2021 - 2025</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="skill-group">
+          <div class="sg-head mono">Agents</div>
+          <div class="chips">
+            <span class="chip">CrewAI</span><span class="chip">LangChain</span>
+            <span class="chip">ELIZA</span><span class="chip">Phidata</span>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+    <div class="about-col">
+      <div class="mono col-label">(C) CURRENT</div>
+      <div class="current-card">
+        <div class="cc-row"><span class="mono">STATUS</span><span><span class="live-dot"></span>Building</span></div>
+        <div class="cc-row"><span class="mono">ROLE</span><span>AI Engineer &amp; Product Lead</span></div>
+        <div class="cc-row"><span class="mono">AT</span><span>Adept Tech Solutions</span></div>
+        <div class="cc-row"><span class="mono">STUDYING</span><span>MS CS, KIT Karlsruhe</span></div>
+        <div class="cc-row"><span class="mono">OPEN TO</span><span>Research collabs, advisory</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Work Section -->
-    <section id="work" class="work">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-text">Notable Projects</span>
-                <div class="title-underline"></div>
-            </h2>
-            
-            <div class="projects-carousel">
-                <button class="carousel-btn carousel-btn-left" id="prevBtn" aria-label="Previous project">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                
-                <div class="projects-container">
-                    <div class="projects-track" id="projectsTrack">
-                        <!-- Project 1: Ascend -->
-                        <div class="project-card">
-                            <div class="project-image">
-                                <img src="assets/images/projects/ascend.png" alt="Ascend Architecture" class="project-img">
-                            </div>
-                            <div class="project-content">
-                                <div class="project-header">
-                                    <span class="project-role">Client: Adept Tech Solutions • Role: AI Engineer & Product Lead • Duration: 2025 - present</span>
-                                    <h3 class="project-title">Ascend: Enterprise Data Engineering Framework</h3>
-                                </div>
-                                <p class="project-description">
-                                    Modular data engineering framework with proprietary DNA Signature Technology spanning flat file and relational database synthesis. Flat File DNA extracts statistical fingerprints via multiple binning strategies; Database DNA captures three distinct types (Table, Relationship, Junction) using a hybrid multi-type correlation engine. Includes Rule-Based Synthesis Framework and 30+ specialized modules, maintaining 99.5% statistical fidelity.
-                                </p>
-                                <div class="project-technologies">
-                                    <span class="tech-tag">Python</span>
-                                    <span class="tech-tag">PySpark</span>
-                                    <span class="tech-tag">PostgreSQL</span>
-                                    <span class="tech-tag">Apache Spark</span>
-                                </div>
-                            </div>
-                        </div>
+<!-- ========== AFFILIATIONS MARQUEE ========== -->
+<section class="affiliations" aria-label="Affiliations">
+  <div class="section-head">
+    <span class="mono section-idx">§ 02 — AFFILIATIONS</span>
+    <div class="section-divider"></div>
+  </div>
+  <div class="marquee" id="marquee">
+    <div class="marquee-track">
+      <!-- set 1 -->
+      <div class="m-item"><span class="m-idx mono">★</span><span class="m-name">Adept Tech Solutions</span><span class="m-desc mono">synthetic data compliance</span></div>
+      <div class="m-item"><span class="m-idx mono">★</span><span class="m-name">Antematter</span><span class="m-desc mono">agentic ai solutions</span></div>
+      <div class="m-item"><span class="m-idx mono">★</span><span class="m-name">DataInsight</span><span class="m-desc mono">ml research laboratory</span></div>
+      <div class="m-item"><span class="m-idx mono">★</span><span class="m-name">Afiniti</span><span class="m-desc mono">enterprise software</span></div>
+      <div class="m-item"><span class="m-idx mono">★</span><span class="m-name">Nedge Computing</span><span class="m-desc mono">edge acceleration</span></div>
+      <div class="m-item"><span class="m-idx mono">★</span><span class="m-name">Karlsruhe Institute of Technology</span><span class="m-desc mono">ms computer science</span></div>
+      <!-- set 2 clone for seamless loop -->
+      <div class="m-item" aria-hidden="true"><span class="m-idx mono">★</span><span class="m-name">Adept Tech Solutions</span><span class="m-desc mono">synthetic data compliance</span></div>
+      <div class="m-item" aria-hidden="true"><span class="m-idx mono">★</span><span class="m-name">Antematter</span><span class="m-desc mono">agentic ai solutions</span></div>
+      <div class="m-item" aria-hidden="true"><span class="m-idx mono">★</span><span class="m-name">DataInsight</span><span class="m-desc mono">ml research laboratory</span></div>
+      <div class="m-item" aria-hidden="true"><span class="m-idx mono">★</span><span class="m-name">Afiniti</span><span class="m-desc mono">enterprise software</span></div>
+      <div class="m-item" aria-hidden="true"><span class="m-idx mono">★</span><span class="m-name">Nedge Computing</span><span class="m-desc mono">edge acceleration</span></div>
+      <div class="m-item" aria-hidden="true"><span class="m-idx mono">★</span><span class="m-name">Karlsruhe Institute of Technology</span><span class="m-desc mono">ms computer science</span></div>
+    </div>
+  </div>
+</section>
 
-                        <!-- Project 2: Artisan Roofing -->
-                        <div class="project-card">
-                            <div class="project-image">
-                                <img src="assets/images/projects/artisan.png" alt="Artisan Roofing Analysis" class="project-img">
-                            </div>
-                            <div class="project-content">
-                                <div class="project-header">
-                                    <span class="project-role">Client: Adept Tech Solutions • Role: AI Engineer & Product Lead • Duration: 2024 - present</span>
-                                    <h3 class="project-title">Artisan Roofing: AI-Powered Aerial Analysis Platform</h3>
-                                </div>
-                                <p class="project-description">
-                                    Professional roof measurement system integrating satellite imagery with LiDAR point cloud processing for automated roof component analysis. The platform uses YOLOv8 for detection, Open3D for 3D reconstruction, and multi-stage geometric algorithms to automatically classify roof components with 95% accuracy.
-                                </p>
-                                <div class="project-technologies">
-                                    <span class="tech-tag">YOLOv8</span>
-                                    <span class="tech-tag">Open3D</span>
-                                    <span class="tech-tag">Computer Vision</span>
-                                    <span class="tech-tag">LiDAR Processing</span>
-                                </div>
-                            </div>
-                        </div>
+<!-- ========== WORK / HORIZONTAL PINNED ========== -->
+<section id="work" class="work" data-section="02">
+  <div class="section-head">
+    <span class="mono section-idx">§ 03 — SELECTED WORK</span>
+    <div class="section-divider"></div>
+  </div>
 
-                        <!-- Project 3: Ant-AI -->
-                        <div class="project-card">
-                            <div class="project-image">
-                                <img src="assets/images/projects/antai.png" alt="Ant-AI Multi-Agent Framework" class="project-img">
-                            </div>
-                            <div class="project-content">
-                                <div class="project-header">
-                                    <span class="project-role">Client: Antematter • Role: AI Engineer • Duration: 2024 - 2025</span>
-                                    <h3 class="project-title">Ant-AI: Genetic Multi-Agent Prompt Optimization Framework</h3>
-                                </div>
-                                <p class="project-description">
-                                    First-of-its-kind genetic multi-agent framework for autonomous prompt optimization using CrewAI orchestration. The system employs specialized agents working collaboratively through genetic algorithms to optimize prompts for low-parameter LLMs, achieving 70% reduction in prompt ambiguity with full automation.
-                                </p>
-                                <div class="project-technologies">
-                                    <span class="tech-tag">CrewAI</span>
-                                    <span class="tech-tag">Genetic Algorithms</span>
-                                    <span class="tech-tag">LangChain</span>
-                                    <span class="tech-tag">Multi-Agent Systems</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="carousel-btn carousel-btn-right" id="nextBtn" aria-label="Next project">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-            </div>
-            
+  <div class="work-intro">
+    <h2 class="work-h">Three systems in production,<br><em>spanning synthesis, perception and agency.</em></h2>
+    <div class="work-sub mono">DRAG OR SCROLL → →</div>
+  </div>
 
-            
+  <div class="work-pin" id="workPin">
+    <div class="work-track" id="workTrack">
 
-            <!-- Experience Section -->
-            <div class="experience-section">
-                <h3 class="experience-title">Professional Experience</h3>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="job-header">
-                                <div class="job-info">
-                                    <h4>AI Engineer & Product Lead</h4>
-                                    <p>Adept Tech Solutions</p>
-                                    <span class="job-duration">Feb 2025 - Present</span>
-                                </div>
-                            </div>
-                            <div class="job-description">
-                                <p>Spearheaded development of advanced data synthesis and analysis systems using PySpark, statistical modeling, and computer vision, achieving 10x improvement in data generation accuracy. Engineered proprietary DNA Signature Technology spanning flat file and relational database synthesis with 99.5% statistical fidelity. Designed Rule-Based Synthesis Framework with configurable business logic and topological dependency ordering. Led deployment of production-ready CLI tools with distributed computing optimization across Spark clusters on Ascend, improving geospatial analysis accuracy by 40%.</p>
-                            </div>
-                            <div class="job-highlights">
-                                <div class="highlight">PySpark</div>
-                                <div class="highlight">DNA Signatures</div>
-                                <div class="highlight">Computer Vision</div>
-                                <div class="highlight">Open3D</div>
-                                <div class="highlight">PostgreSQL</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="job-header">
-                                <div class="job-info">
-                                    <h4>AI Engineer</h4>
-                                    <p>Antematter</p>
-                                    <span class="job-duration">Feb 2024 - Feb 2025</span>
-                                </div>
-                            </div>
-                            <div class="job-description">
-                                <p>Contributed to the development of various Multi-Agent Frameworks using orchestration frameworks, including CrewAI, LangChain, ELIZA, and Phidata, significantly boosting company outreach by 10x. Developed Ant-AI, a genetic multi-agent framework built with CrewAI to optimize system prompts for low-parameter LLMs, reducing input prompt ambiguity by 70% and fully automating prompt engineering.</p>
-                            </div>
-                            <div class="job-highlights">
-                                <div class="highlight">CrewAI</div>
-                                <div class="highlight">LangChain</div>
-                                <div class="highlight">ELIZA</div>
-                                <div class="highlight">Genetic Algorithms</div>
-                                <div class="highlight">Streamlit</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="job-header">
-                                <div class="job-info">
-                                    <h4>Research Analyst</h4>
-                                    <p>DataInsight</p>
-                                    <span class="job-duration">May 2023 - Dec 2023</span>
-                                </div>
-                            </div>
-                            <div class="job-description">
-                                <p>Made contributions to the domain of Machine Learning, actively participating in a project valued at $90,000. Leveraged Python, TensorFlow, and various image processing libraries to develop an AI-driven YOLO + image processing pipeline for efficient recognition of handwritten and printed text, enhancing dataset acquisition speed 2.5x.</p>
-                            </div>
-                            <div class="job-highlights">
-                                <div class="highlight">Python</div>
-                                <div class="highlight">TensorFlow</div>
-                                <div class="highlight">YOLO</div>
-                                <div class="highlight">TrOCR</div>
-                                <div class="highlight">DocParser</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="job-header">
-                                <div class="job-info">
-                                    <h4>Project Trainee</h4>
-                                    <p>Afiniti Software Solutions</p>
-                                    <span class="job-duration">Jun 2020 - Aug 2021</span>
-                                </div>
-                            </div>
-                            <div class="job-description">
-                                <p>Engaged in software development activities, including the design and implementation of Natural Language Processing (NLP) and Speech to Text systems powered by Artificial Intelligence. Actively participated in client interactions, ensuring their requirements were met with AI-enhanced solutions.</p>
-                            </div>
-                            <div class="job-highlights">
-                                <div class="highlight">NLP</div>
-                                <div class="highlight">Speech-to-Text</div>
-                                <div class="highlight">AI Systems</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- Ascend -->
+      <article class="case" data-case="ascend">
+        <div class="case-left">
+          <div class="case-index mono">(01 / 03)</div>
+          <div class="case-tag mono">ENTERPRISE · 2025—NOW</div>
+          <h3 class="case-title">Ascend.<span class="case-italic"> a data engine with DNA.</span></h3>
+          <p class="case-body">
+            A modular data-engineering framework with proprietary <em>DNA Signature Technology</em> spanning
+            flat-file and relational database synthesis. Terabyte-scale datasets compressed to portable
+            statistical fingerprints — reconstructable with 99.5% fidelity.
+          </p>
+          <div class="case-kv">
+            <div><span class="mono kv-k">FIDELITY</span><div class="kv-v">99.5<span class="kv-s">%</span></div></div>
+            <div><span class="mono kv-k">SCALE</span><div class="kv-v">10<span class="kv-s">M+</span></div></div>
+            <div><span class="mono kv-k">SPEED</span><div class="kv-v">10<span class="kv-s">×</span></div></div>
+          </div>
+          <div class="case-tech">
+            <span class="chip">PySpark</span><span class="chip">PostgreSQL</span>
+            <span class="chip">Apache Spark</span><span class="chip">Python</span>
+          </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h2 class="contact-title">Let's Connect</h2>
-                    <p class="contact-description">
-                        Ready to collaborate on cutting-edge AI solutions? 
-                        Let's discuss how we can build the future together.
-                    </p>
-                    
-                    <div class="contact-methods">
-                        <a href="mailto:hamzaaamer6@gmail.com" class="contact-method">
-                            <div class="method-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="method-info">
-                                <span class="method-label">Email</span>
-                                <span class="method-value">hamzaaamer6@gmail.com</span>
-                            </div>
-                        </a>
-                        <a href="tel:+923555345374" class="contact-method">
-                            <div class="method-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M22 16.92V19.92C22.0011 20.1985 21.9441 20.4742 21.8325 20.7293C21.7209 20.9844 21.5573 21.2136 21.3521 21.4019C21.1469 21.5902 20.9046 21.7335 20.6407 21.8227C20.3768 21.9119 20.0971 21.9452 19.82 21.92C16.7428 21.5856 13.787 20.5341 11.19 18.85C8.77382 17.3146 6.72533 15.2661 5.18999 12.85C3.49997 10.2412 2.44824 7.27099 2.11999 4.18C2.09494 3.90347 2.12787 3.62421 2.21649 3.36069C2.30512 3.09716 2.44756 2.85496 2.63476 2.64969C2.82196 2.44441 3.04988 2.28049 3.30379 2.16837C3.5577 2.05625 3.83233 1.99849 4.10999 2H7.10999C7.59522 1.99522 8.06569 2.16708 8.43373 2.48353C8.80177 2.79999 9.04201 3.23945 9.10999 3.72C9.23662 4.68007 9.47144 5.62273 9.80999 6.53C9.94454 6.88792 9.97348 7.27675 9.89381 7.65319C9.81415 8.02963 9.62885 8.36871 9.35999 8.63L8.08999 9.9C9.51355 12.3825 11.6175 14.4864 14.1 15.91L15.37 14.64C15.6313 14.3711 15.9704 14.1858 16.3468 14.1062C16.7233 14.0265 17.1121 14.0555 17.47 14.19C18.3773 14.5286 19.3199 14.7634 20.28 14.89C20.7658 14.9585 21.2094 15.2032 21.5265 15.5775C21.8437 15.9518 22.0122 16.4296 22 16.92Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="method-info">
-                                <span class="method-label">Phone</span>
-                                <span class="method-value">+92-355-534-5374</span>
-                            </div>
-                        </a>
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M21 10C21 17 12 23 12 23S3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="method-info">
-                                <span class="method-label">Location</span>
-                                <span class="method-value">Karlsruhe, Germany</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="social-links">
-                        <a href="https://linkedin.com/in/hamza-aamer" class="social-link" target="_blank">
-                            <div class="social-icon">
-                                <img src="assets/images/icons/linkedin.webp" alt="LinkedIn" width="16" height="16">
-                            </div>
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="https://github.com/hamza-aamer" class="social-link" target="_blank">
-                            <div class="social-icon">
-                                <img src="assets/images/icons/github.png" alt="GitHub" width="16" height="16">
-                            </div>
-                            <span>GitHub</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="contact-form-container">
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" required>
-                            <label for="name">Your Name</label>
-                            <div class="form-line"></div>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" required>
-                            <label for="email">Your Email</label>
-                            <div class="form-line"></div>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" name="subject" required>
-                            <label for="subject">Subject</label>
-                            <div class="form-line"></div>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" required></textarea>
-                            <label for="message">Your Message</label>
-                            <div class="form-line"></div>
-                        </div>
-                        <button type="submit" class="submit-btn">
-                            <span class="btn-text">Send Message</span>
-                            <div class="btn-loader"></div>
-                        </button>
-                    </form>
-                </div>
+        <div class="case-right">
+          <div class="vis-top">
+            <span>FIG.01</span>
+            <div class="vis-ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <span>DNA SIGNATURE</span>
+          </div>
+          <div class="vis-side left"><div class="vs-row"><span class="vs-k">φ</span><span class="vs-v accent2">0.995</span></div>
+            <div class="vs-row"><span class="vs-k">σ²</span><span class="vs-v ">0.002</span></div>
+            <div class="vs-row"><span class="vs-k">H</span><span class="vs-v ">7.42 bit</span></div>
+            <div class="vs-row"><span class="vs-k">DIM</span><span class="vs-v accent">512 → 64</span></div>
+            <div class="vs-bar"></div>
+          </div>
+          <div class="vis-side right"><div class="vs-row"><span class="vs-v accent">10⁹+</span><span class="vs-k">ROWS</span></div>
+            <div class="vs-row"><span class="vs-v accent2">99.5%</span><span class="vs-k">FIDEL</span></div>
+            <div class="vs-row"><span class="vs-v ">×127</span><span class="vs-k">COMP</span></div>
+            <div class="vs-row"><span class="vs-v "><30s</span><span class="vs-k">REBLD</span></div>
+            <div class="vs-bar"></div>
+          </div>
+          <div class="vis-bottom">
+            <span>X: 0.0000 → 1.0000</span>
+            <span>TRACE · ACTIVE ●</span>
+          </div>
+          <div class="case-visual vis-ascend" aria-hidden="true">
+            <div class="vis-label mono">FIG.01 — DNA SIGNATURE</div>
+            <div class="vis-stage">
+              <div class="helix" id="helix-ascend">
+                <!-- JS will inject helix rungs -->
+              </div>
+              <div class="scan"></div>
             </div>
+            <div class="vis-foot mono">
+              <span>TABLE_DNA · REL_DNA · JUNCTION_DNA</span>
+              <span class="blink">●</span>
+            </div>
+          </div>
         </div>
-    </section>
+      </article>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p class="footer-text">
-                © 2025 Hamza Aamer • Built with passion for AI and innovation
-            </p>
+      <!-- Artisan -->
+      <article class="case" data-case="artisan">
+        <div class="case-left">
+          <div class="case-index mono">(02 / 03)</div>
+          <div class="case-tag mono">COMPUTER VISION · 2024—NOW</div>
+          <h3 class="case-title">Artisan.<span class="case-italic"> roofs read from the sky.</span></h3>
+          <p class="case-body">
+            Satellite imagery fused with LiDAR point clouds. YOLOv8 detection, Open3D reconstruction,
+            multi-stage geometric algorithms that classify ridges, hips, valleys and rakes with
+            contractor-grade tolerance.
+          </p>
+          <div class="case-kv">
+            <div><span class="mono kv-k">ACCURACY</span><div class="kv-v">95<span class="kv-s">%</span></div></div>
+            <div><span class="mono kv-k">TOLERANCE</span><div class="kv-v">±2<span class="kv-s">%</span></div></div>
+            <div><span class="mono kv-k">RUNTIME</span><div class="kv-v">&lt;1<span class="kv-s">MIN</span></div></div>
+          </div>
+          <div class="case-tech">
+            <span class="chip">YOLOv8</span><span class="chip">Open3D</span>
+            <span class="chip">LiDAR</span><span class="chip">QGIS</span>
+          </div>
         </div>
-    </footer>
+        <div class="case-right">
+          <div class="vis-top">
+            <span>FIG.02</span>
+            <div class="vis-ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <span>AERIAL DECOMPOSITION</span>
+          </div>
+          <div class="vis-side left"><div class="vs-row"><span class="vs-k">θ</span><span class="vs-v accent2">22.5°</span></div>
+            <div class="vs-row"><span class="vs-k">PITCH</span><span class="vs-v ">5:12</span></div>
+            <div class="vs-row"><span class="vs-k">AREA</span><span class="vs-v ">2,340 ft²</span></div>
+            <div class="vs-row"><span class="vs-k">EDGES</span><span class="vs-v accent">14</span></div>
+            <div class="vs-bar"></div>
+          </div>
+          <div class="vis-side right"><div class="vs-row"><span class="vs-v accent">0.942</span><span class="vs-k">IoU</span></div>
+            <div class="vs-row"><span class="vs-v accent2">0.956</span><span class="vs-k">mAP</span></div>
+            <div class="vs-row"><span class="vs-v ">0.93</span><span class="vs-k">REC</span></div>
+            <div class="vs-row"><span class="vs-v ">38</span><span class="vs-k">FPS</span></div>
+            <div class="vs-bar"></div>
+          </div>
+          <div class="vis-bottom">
+            <span>LAT 40.712° LON −74.006°</span>
+            <span>ORTHO · 4096 × 4096</span>
+          </div>
+          <div class="case-visual vis-artisan" aria-hidden="true">
+            <div class="vis-label mono">FIG.02 — AERIAL DECOMPOSITION</div>
+            <div class="vis-stage">
+              <svg class="roof-svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="gridp" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(240,240,240,0.06)" stroke-width="1"></path>
+                  </pattern>
+                </defs>
+                <rect width="400" height="300" fill="url(#gridp)"></rect>
+                <g class="roof-lines">
+                  <polygon points="100,180 200,80 300,180 300,240 100,240" fill="none" stroke="var(--accent)" stroke-width="1.5" class="rl"></polygon>
+                  <polygon points="100,180 200,80 300,180" fill="rgba(184,80,44,0.08)" stroke="var(--accent)" stroke-width="1" class="rl"></polygon>
+                  <line x1="200" y1="80" x2="200" y2="240" stroke="var(--accent2)" stroke-width="1.5" class="rl" stroke-dasharray="4 4"></line>
+                  <circle cx="200" cy="80" r="4" fill="var(--accent2)" class="rp"></circle>
+                  <circle cx="100" cy="180" r="3" fill="var(--accent)" class="rp"></circle>
+                  <circle cx="300" cy="180" r="3" fill="var(--accent)" class="rp"></circle>
+                </g>
+                <g class="roof-tags" font-family="JetBrains Mono, monospace" font-size="8" fill="rgba(240,240,240,0.6)">
+                  <text x="210" y="75">RIDGE · 24.3m</text>
+                  <text x="50" y="175">HIP_L</text>
+                  <text x="308" y="175">HIP_R</text>
+                  <text x="210" y="165">VALLEY</text>
+                </g>
+                <g class="roof-scan">
+                  <line x1="0" y1="0" x2="0" y2="300" stroke="var(--accent2)" stroke-width="1" opacity="0.5" class="scan-line"></line>
+                </g>
+              </svg>
+            </div>
+            <div class="vis-foot mono">
+              <span>YOLO_V8 · OPEN3D · LIDAR_PCD</span>
+              <span class="blink">●</span>
+            </div>
+          </div>
+        </div>
+      </article>
 
-    <script src="assets/js/main.js"></script>
-</body>
-</html>
+      <!-- Ant-AI -->
+      <article class="case" data-case="antai">
+        <div class="case-left">
+          <div class="case-index mono">(03 / 03)</div>
+          <div class="case-tag mono">MULTI-AGENT · 2024—2025</div>
+          <h3 class="case-title">Ant-AI.<span class="case-italic"> prompts that evolve themselves.</span></h3>
+          <p class="case-body">
+            A genetic multi-agent framework built on CrewAI. Synthesis, QA, mutation and crossover
+            agents collaborate through evolutionary loops — reducing prompt ambiguity 70% for
+            low-parameter LLMs, fully autonomously.
+          </p>
+          <div class="case-kv">
+            <div><span class="mono kv-k">AMBIGUITY</span><div class="kv-v">−70<span class="kv-s">%</span></div></div>
+            <div><span class="mono kv-k">AUTOMATION</span><div class="kv-v">100<span class="kv-s">%</span></div></div>
+            <div><span class="mono kv-k">AGENTS</span><div class="kv-v">N<span class="kv-s">DYNAMIC</span></div></div>
+          </div>
+          <div class="case-tech">
+            <span class="chip">CrewAI</span><span class="chip">LangChain</span>
+            <span class="chip">Genetic Algos</span><span class="chip">Streamlit</span>
+          </div>
+        </div>
+        <div class="case-right">
+          <div class="vis-top">
+            <span>FIG.03</span>
+            <div class="vis-ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <span>AGENT SWARM</span>
+          </div>
+          <div class="vis-side left"><div class="vs-row"><span class="vs-k">N</span><span class="vs-v accent2">14</span></div>
+            <div class="vs-row"><span class="vs-k">EDGES</span><span class="vs-v ">38</span></div>
+            <div class="vs-row"><span class="vs-k">GEN</span><span class="vs-v accent">127</span></div>
+            <div class="vs-row"><span class="vs-k">FIT</span><span class="vs-v ">0.87</span></div>
+            <div class="vs-bar"></div>
+          </div>
+          <div class="vis-side right"><div class="vs-row"><span class="vs-v accent">−70%</span><span class="vs-k">AMBIG</span></div>
+            <div class="vs-row"><span class="vs-v ">0.143</span><span class="vs-k">LOSS</span></div>
+            <div class="vs-row"><span class="vs-v ">4.2 s</span><span class="vs-k">μ</span></div>
+            <div class="vs-row"><span class="vs-v accent2">4</span><span class="vs-k">ROLES</span></div>
+            <div class="vs-bar"></div>
+          </div>
+          <div class="vis-bottom">
+            <span>EPOCH 127 / 500</span>
+            <span>MUTATE · CROSSOVER · QA</span>
+          </div>
+          <div class="case-visual vis-antai" aria-hidden="true">
+            <div class="vis-label mono">FIG.03 — AGENT SWARM</div>
+            <div class="vis-stage">
+              <svg class="swarm-svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><g class="edges" stroke="var(--rule-strong)" stroke-width="1" fill="none"></g><g class="nodes"></g></svg>
+            </div>
+            <div class="vis-foot mono">
+              <span>SYNTHESIS · QA · MUTATION · CROSSOVER</span>
+              <span class="blink">●</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Closing panel -->
+      <article class="case case-end">
+        <div class="case-end-inner">
+          <div class="mono">( END OF SELECTED WORK )</div>
+          <h3 class="case-end-title">More is in flight.<br><em>Let's build something next.</em></h3>
+          <a href="#contact" class="btn-outline" data-magnetic="">
+            <span data-scramble="">Start a conversation</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 7H17V17M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== TIMELINE ========== -->
+<section id="timeline" class="timeline-sec" data-section="03">
+  <div class="section-head">
+    <span class="mono section-idx">§ 04 — TIMELINE</span>
+    <div class="section-divider"></div>
+  </div>
+
+  <h2 class="sec-h">Five years<br><em>of shipping intelligence.</em></h2>
+
+  <div class="timeline">
+    <div class="tl-line"></div>
+
+    <div class="tl-item in" data-reveal="">
+      <div class="tl-year mono">2025 — PRES.</div>
+      <div class="tl-card">
+        <div class="tl-head">
+          <h4>AI Engineer &amp; Product Lead</h4>
+          <span class="tl-co mono">ADEPT TECH SOLUTIONS</span>
+        </div>
+        <p>Spearheading advanced data synthesis &amp; analysis systems. Engineered proprietary DNA Signature Technology with 99.5% fidelity. Led production-ready CLI tooling with distributed Spark optimization.</p>
+        <div class="chips">
+          <span class="chip">PySpark</span><span class="chip">DNA Signatures</span>
+          <span class="chip">Computer Vision</span><span class="chip">Open3D</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-reveal="">
+      <div class="tl-year mono">2024 — 2025</div>
+      <div class="tl-card">
+        <div class="tl-head">
+          <h4>AI Engineer</h4>
+          <span class="tl-co mono">ANTEMATTER</span>
+        </div>
+        <p>Built multi-agent frameworks across CrewAI, LangChain, ELIZA, Phidata — boosting company outreach 10×. Authored Ant-AI, a genetic multi-agent prompt-optimization framework.</p>
+        <div class="chips">
+          <span class="chip">CrewAI</span><span class="chip">LangChain</span>
+          <span class="chip">ELIZA</span><span class="chip">Genetic Algos</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-reveal="">
+      <div class="tl-year mono">2023 — 2023</div>
+      <div class="tl-card">
+        <div class="tl-head">
+          <h4>Research Analyst</h4>
+          <span class="tl-co mono">DATAINSIGHT</span>
+        </div>
+        <p>$90K ML project. Built a YOLO + image-processing pipeline for handwritten/printed text recognition — 2.5× dataset acquisition speed.</p>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">TensorFlow</span>
+          <span class="chip">YOLO</span><span class="chip">TrOCR</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-reveal="">
+      <div class="tl-year mono">2020 — 2021</div>
+      <div class="tl-card">
+        <div class="tl-head">
+          <h4>Project Trainee</h4>
+          <span class="tl-co mono">AFINITI SOFTWARE SOLUTIONS</span>
+        </div>
+        <p>NLP and Speech-to-Text systems powered by AI. Client-facing technical delivery.</p>
+        <div class="chips">
+          <span class="chip">NLP</span><span class="chip">Speech-to-Text</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item tl-edu" data-reveal="">
+      <div class="tl-year mono">EDUCATION</div>
+      <div class="tl-card tl-card-edu">
+        <div class="edu-row">
+          <div class="edu-block">
+            <div class="edu-h">MS Computer Science</div>
+            <div class="edu-p mono">KARLSRUHE INST. OF TECH · 2025—2027</div>
+          </div>
+          <div class="edu-block">
+            <div class="edu-h">BS Computer Science</div>
+            <div class="edu-p mono">NUCES · 2021—2025</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PLAYGROUND ========== -->
+<section id="playground" class="playground" data-section="04">
+  <div class="section-head">
+    <span class="mono section-idx">§ 05 — PLAYGROUND</span>
+    <div class="section-divider"></div>
+  </div>
+
+  <h2 class="sec-h">Small experiments,<br><em>big questions.</em></h2>
+
+  <div class="pg-grid">
+    <a class="pg-card" href="https://github.com/hamza-aamer/Archeon" target="_blank" rel="noopener" data-magnetic="" data-cursor="open">
+      <div class="pg-tag mono">VR / GAUSSIAN SPLATS</div>
+      <h3 class="pg-h">Archeon</h3>
+      <p class="pg-p">Capture real-world spaces with a phone, reconstruct as Gaussian splats, explore in VR. The seam between atoms and pixels.</p>
+      <div class="pg-foot mono">
+        <span>2024</span>
+        <span class="pg-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="pg-card" href="https://github.com/hamza-aamer/F1-Car-Game" target="_blank" rel="noopener" data-magnetic="" data-cursor="open">
+      <div class="pg-tag mono">GRAPHICS / OPTIMIZATION</div>
+      <h3 class="pg-h">F1 Game</h3>
+      <p class="pg-p">Physics, rendering and AI opponents in a lightweight racing sandbox — a love letter to tight feedback loops.</p>
+      <div class="pg-foot mono">
+        <span>2023</span>
+        <span class="pg-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="pg-card" href="https://github.com/hamza-aamer/CaptureCart-A-Cognitive-Shopping-Fusion-Framework-for-the-Future" target="_blank" rel="noopener" data-magnetic="" data-cursor="open">
+      <div class="pg-tag mono">MULTIMODAL AI</div>
+      <h3 class="pg-h">CaptureCart</h3>
+      <p class="pg-p">Erases the seam between online and in-store shopping. Real-time recognition, unified catalogs, a single cart.</p>
+      <div class="pg-foot mono">
+        <span>2023</span>
+        <span class="pg-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="pg-card" href="https://github.com/hamza-aamer/Multi-Core-Neural-Network-Operating-System-in-C-" target="_blank" rel="noopener" data-magnetic="" data-cursor="open">
+      <div class="pg-tag mono">SYSTEMS</div>
+      <h3 class="pg-h">NN-OS</h3>
+      <p class="pg-p">Multi-core operating system running a neural network across processes &amp; threads. OS and ML in one codebase.</p>
+      <div class="pg-foot mono">
+        <span>2022</span>
+        <span class="pg-arrow">↗</span>
+      </div>
+    </a>
+
+    <div class="pg-card pg-gh" data-magnetic="">
+      <div class="pg-tag mono">LIVE / GITHUB</div>
+      <h3 class="pg-h">Contribution Rhythm</h3>
+      <p class="pg-p">A year of commits — every square a day in the life of this codebase.</p>
+      <div class="gh-graph" id="ghGraph"><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="4"></div><div class="gh-cell" data-lvl="3"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="1"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell" data-lvl="2"></div><div class="gh-cell"></div><div class="gh-cell" data-lvl="1"></div></div>
+      <div class="pg-foot mono">
+        <span>@hamza-aamer</span>
+        <span>UPDATED LIVE</span>
+      </div>
+    </div>
+
+    <div class="pg-card pg-now" data-magnetic="">
+      <div class="pg-tag mono">NOW</div>
+      <h3 class="pg-h">Currently reading</h3>
+      <ul class="now-list">
+        <li>• Building Machine Learning Systems — Chip Huyen</li>
+        <li>• The Annotated Transformer — Harvard NLP</li>
+        <li>• CUDA by Example — NVIDIA</li>
+      </ul>
+      <div class="pg-foot mono">
+        <span>UPDATED APR 2026</span>
+        <span>KARLSRUHE, DE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact" class="contact" data-section="05">
+  <div class="section-head">
+    <span class="mono section-idx">§ 06 — CONTACT</span>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="contact-wrap">
+    <div class="contact-big">
+      <h2 class="cbig-lead">Have a problem<br>worth solving?</h2>
+      <a href="mailto:hamzaaamer6@gmail.com" class="cbig-mail" data-magnetic="" data-cursor="mail">
+        <span class="cbm-serif">hamzaaamer6</span><span class="cbm-at">@</span><span class="cbm-serif">gmail.com</span>
+        <svg class="cbm-arrow" width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M7 7H17V17M7 17L17 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      </a>
+    </div>
+
+    <div class="contact-grid">
+      <div class="cg-col">
+        <div class="mono cg-k">(A) CHANNELS</div>
+        <ul class="cg-list">
+          <li><a href="mailto:hamzaaamer6@gmail.com" data-magnetic="">Email <span class="cg-v">hamzaaamer6@gmail.com</span></a></li>
+          <li><a href="tel:+923555345374" data-magnetic="">Phone <span class="cg-v">+92 355 534 5374</span></a></li>
+          <li><a href="https://linkedin.com/in/hamza-aamer" target="_blank" rel="noopener" data-magnetic="">LinkedIn <span class="cg-v">/hamza-aamer ↗</span></a></li>
+          <li><a href="https://github.com/hamza-aamer" target="_blank" rel="noopener" data-magnetic="">GitHub <span class="cg-v">/hamza-aamer ↗</span></a></li>
+        </ul>
+      </div>
+      <div class="cg-col">
+        <div class="mono cg-k">(B) LOCATION</div>
+        <ul class="cg-list cg-static">
+          <li>Karlsruhe, Germany <span class="cg-v mono">CET · UTC+1</span></li>
+          <li>Open to remote &amp; on-site</li>
+          <li>Available for research collaborations</li>
+        </ul>
+      </div>
+      <div class="cg-col">
+        <div class="mono cg-k">(C) BRIEF</div>
+        <form class="cf" id="cf">
+          <label class="cf-row">
+            <span class="cf-k mono">NAME</span>
+            <input required="" name="name" autocomplete="name">
+          </label>
+          <label class="cf-row">
+            <span class="cf-k mono">EMAIL</span>
+            <input required="" name="email" type="email">
+          </label>
+          <label class="cf-row">
+            <span class="cf-k mono">MSG</span>
+            <textarea required="" name="msg" rows="2"></textarea>
+          </label>
+          <button type="submit" class="cf-submit" data-magnetic="">
+            <span data-scramble="">Send brief</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 7H17V17M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="foot-col mono">© 2026 HAMZA AAMER</div>
+    <div class="foot-col foot-c mono">BUILT IN KARLSRUHE · CRAFTED WITH OBSESSION</div>
+    <div class="foot-col foot-r mono">v4.2.0 · <a href="#home">RETURN TO TOP ↑</a></div>
+  </footer>
+</section>
+
+</main>
+
+<!-- Tweaks panel (toggle via toolbar) -->
+<div class="tweaks open" id="tweaks" style="display:none">
+  <div class="tw-head mono">TWEAKS</div>
+  <label class="tw-row">
+    <span class="mono">Accent</span>
+    <input type="color" id="tw-accent">
+  </label>
+  <label class="tw-row">
+    <span class="mono">Accent 2</span>
+    <input type="color" id="tw-accent2">
+  </label>
+  <label class="tw-row">
+    <span class="mono">Motion</span>
+    <input type="range" id="tw-motion" min="0" max="10" step="1">
+    <span class="mono tw-val" id="tw-motion-v">8</span>
+  </label>
+  <label class="tw-row tw-toggle">
+    <span class="mono">Audio hover</span>
+    <input type="checkbox" id="tw-audio">
+  </label>
+  <label class="tw-row tw-toggle">
+    <span class="mono">Dark mode</span>
+    <input type="checkbox" id="tw-dark">
+  </label>
+  <div class="tw-hint mono">↑↑↓↓←→←→BA — try it</div>
+</div>
+
+<!-- Konami overlay injected dynamically -->
+
+<script src="portfolio/lib-scramble.js?v=8"></script>
+<script src="portfolio/lib-cursor.js?v=8"></script>
+<script src="portfolio/lib-magnetic.js?v=8"></script>
+<script src="portfolio/lib-loader.js?v=8"></script>
+<script src="portfolio/lib-reveal.js?v=8"></script>
+<script src="portfolio/lib-marquee.js?v=8"></script>
+<script src="portfolio/lib-work.js?v=19"></script>
+<script src="portfolio/lib-extras.js?v=17"></script>
+<script src="portfolio/lib-tweaks.js?v=9"></script>
+<script type="module" src="portfolio/lib-three.js?v=2"></script>
+<script src="portfolio/app.js"></script>
+
+
+
+</body></html>
