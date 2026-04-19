@@ -718,8 +718,8 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 </main>
 
 <!-- Mobile gate -->
-<div id="mobileGate" hidden style="display:none;position:fixed;inset:0;z-index:300;background:#f3efe6;align-items:center;justify-content:center;flex-direction:column;font-family:'Inter',system-ui,sans-serif">
-  <div style="display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px 32px;max-width:340px;text-align:center">
+<div id="mobileGate" hidden style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;width:100vw;width:100dvw;height:100vh;height:100dvh;min-height:100vh;min-height:100dvh;z-index:9999;background:#f3efe6;align-items:center;justify-content:center;flex-direction:column;font-family:'Inter',system-ui,sans-serif;overflow-y:auto;-webkit-overflow-scrolling:touch">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px 32px;max-width:340px;text-align:center;margin:auto">
     <div style="font-family:'Instrument Serif',Georgia,serif;font-size:72px;letter-spacing:-.04em;color:#1a1916">HA<span style="color:#b8502c">.</span></div>
     <div style="width:40px;height:1px;background:rgba(26,25,22,0.28)"></div>
     <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.25em;color:#3b5a4a;border:1px solid rgba(26,25,22,0.28);padding:6px 16px">SYS.NOTICE</div>
@@ -737,7 +737,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
     </div>
   </div>
 </div>
-<script>(function(){var g=document.getElementById('mobileGate');function c(){if(window.innerWidth<=900){g.hidden=false;g.style.display='flex'}else{g.hidden=true;g.style.display='none'}}c();window.addEventListener('resize',c)})()</script>
+<script>(function(){var g=document.getElementById('mobileGate');var h=document.documentElement,b=document.body;function c(){if(window.innerWidth<=900){g.hidden=false;g.style.display='flex';h.style.overflow='hidden';b.style.overflow='hidden';b.style.position='fixed';b.style.width='100%'}else{g.hidden=true;g.style.display='none';h.style.overflow='';b.style.overflow='';b.style.position='';b.style.width=''}}c();window.addEventListener('resize',c);window.addEventListener('orientationchange',c)})()</script>
 
 <!-- Tweaks panel (toggle via toolbar) -->
 <div class="tweaks open" id="tweaks" style="display:none">
@@ -775,7 +775,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 <script src="portfolio/lib-reveal.js?v=8"></script>
 <script src="portfolio/lib-marquee.js?v=8"></script>
 <script src="portfolio/lib-work.js?v=19"></script>
-<script src="portfolio/lib-extras.js?v=17"></script>
+<script src="portfolio/lib-extras.js?v=18"></script>
 <script src="portfolio/lib-tweaks.js?v=9"></script>
 <script type="module" src="portfolio/lib-three.js?v=2"></script>
 <script src="portfolio/app.js"></script>

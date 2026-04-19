@@ -56,16 +56,34 @@
     });
   }
 
-  // Contact form
+  // Contact form — submits to Formspree endpoint in form action
   const cf = document.getElementById('cf');
   if(cf){
-    cf.addEventListener('submit', (e)=>{
+    cf.addEventListener('submit', async (e)=>{
       e.preventDefault();
       const btn = cf.querySelector('.cf-submit span');
+      const submitBtn = cf.querySelector('.cf-submit');
       const orig = btn.textContent;
-      btn.textContent = 'Sent ✓';
-      cf.reset();
-      setTimeout(()=>{ btn.textContent = orig; }, 2400);
+      btn.textContent = 'Sending…';
+      submitBtn.disabled = true;
+      try {
+        const res = await fetch(cf.action, {
+          method: 'POST',
+          body: new FormData(cf),
+          headers: { 'Accept': 'application/json' }
+        });
+        if(res.ok){
+          btn.textContent = 'Sent ✓';
+          cf.reset();
+        } else {
+          const data = await res.json().catch(()=>({}));
+          btn.textContent = (data.errors && data.errors[0] && data.errors[0].message) ? 'Error — retry' : 'Failed — retry';
+        }
+      } catch(err){
+        btn.textContent = 'Network error';
+      } finally {
+        setTimeout(()=>{ btn.textContent = orig; submitBtn.disabled = false; }, 2800);
+      }
     });
   }
 
