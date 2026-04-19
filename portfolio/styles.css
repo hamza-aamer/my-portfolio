@@ -610,6 +610,33 @@ body{
 .k-h{font-family:var(--serif);font-size:64px;margin:16px 0;letter-spacing:-.03em}
 .k-p{color:var(--fg-dim);margin-bottom:24px}
 
+/* responsive */
+@media (max-width:900px){
+  body{ cursor:auto; }
+  .nav{grid-template-columns:auto 1fr auto;padding:14px 20px}
+  .nav-links{display:none}
+  .hero{padding:100px 20px 40px}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-meta.right{display:none}
+  .hero-stats{grid-column:1;grid-row:4;justify-self:start;max-width:100%}
+  .hero-caption{grid-column:1;grid-row:3}
+  .section-head,.sec-h,.manifesto,.work-intro,.contact-wrap{padding-left:20px;padding-right:20px}
+  .about-grid,.pg-grid,.contact-grid{grid-template-columns:1fr;margin-left:20px;margin-right:20px}
+  .about-col,.cg-col{border-right:0;border-bottom:1px solid var(--rule)}
+  .pg-card{border-right:0;min-height:auto}
+  .timeline{margin:40px 20px 0;padding-left:0;grid-template-columns:auto 1px 1fr;gap:0}
+  .tl-item > .tl-year{padding:24px 16px 24px 0;font-size:10px}
+  .tl-card{padding:24px 0 24px 24px}
+  .tl-card h4{font-size:24px}
+  .tl-card::before{width:16px}
+  .work-pin{height:auto}
+  .work-track{flex-direction:column;height:auto}
+  .case{grid-template-columns:1fr;flex:0 0 auto;padding:40px 20px;min-height:auto}
+  .edu-row{grid-template-columns:1fr}
+  .footer{grid-template-columns:1fr;gap:8px;text-align:left;padding:24px 20px}
+  .foot-c,.foot-r{text-align:left}
+}
+
 /* ===== MOBILE GATE ===== */
 .mobile-gate{display:none}
 @media (max-width:900px){
