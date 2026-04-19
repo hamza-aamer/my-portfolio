@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 
 <link rel="icon" href="assets/images/icons/favicon.jpg">
-<link rel="stylesheet" href="portfolio/styles.css?v=$TS">
+<link rel="stylesheet" href="portfolio/styles.css?v=16">
 
 <!-- libs -->
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
@@ -25,8 +25,9 @@
     "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
   }
 }
-</script></head>
-<body>
+</script>
+</head>
+<body class="loaded">
 
 <!-- tweakable defaults -->
 <script>
@@ -94,11 +95,11 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 </nav>
 
 <!-- Loader -->
-<div class="loader" id="loader">
+<div class="loader done" id="loader">
   <div class="loader-inner">
     <div class="loader-row"><span class="mono">SYS.BOOT</span><span class="mono">v4.2.0</span></div>
-    <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
-    <div class="loader-row"><span class="mono" id="loaderStatus"></span><span class="mono" id="loaderPct">0%</span></div>
+    <div class="loader-bar"><div class="loader-fill" id="loaderFill" style="width: 100%;"></div></div>
+    <div class="loader-row"><span class="mono" id="loaderStatus">Ready.</span><span class="mono" id="loaderPct">100%</span></div>
     <div class="loader-name">
       <span class="ls-serif">Hamza</span>
       <span class="ls-serif ls-italic">Aamer</span>
@@ -688,15 +689,15 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
         <form class="cf" id="cf" action="https://formspree.io/f/xrerknpw" method="POST">
           <label class="cf-row">
             <span class="cf-k mono">NAME</span>
-            <input required name="name" autocomplete="name">
+            <input required="" name="name" autocomplete="name">
           </label>
           <label class="cf-row">
             <span class="cf-k mono">EMAIL</span>
-            <input required name="_replyto" type="email">
+            <input required="" name="_replyto" type="email">
           </label>
           <label class="cf-row">
             <span class="cf-k mono">MSG</span>
-            <textarea required name="message" rows="2"></textarea>
+            <textarea required="" name="message" rows="2"></textarea>
           </label>
           <button type="submit" class="cf-submit" data-magnetic="">
             <span data-scramble="">Send brief</span>
@@ -715,6 +716,28 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 </section>
 
 </main>
+
+<!-- Mobile gate -->
+<div id="mobileGate" hidden style="display:none;position:fixed;inset:0;z-index:300;background:#f3efe6;align-items:center;justify-content:center;flex-direction:column;font-family:'Inter',system-ui,sans-serif">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px 32px;max-width:340px;text-align:center">
+    <div style="font-family:'Instrument Serif',Georgia,serif;font-size:72px;letter-spacing:-.04em;color:#1a1916">HA<span style="color:#b8502c">.</span></div>
+    <div style="width:40px;height:1px;background:rgba(26,25,22,0.28)"></div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.25em;color:#3b5a4a;border:1px solid rgba(26,25,22,0.28);padding:6px 16px">SYS.NOTICE</div>
+    <p style="font-family:'Instrument Serif',Georgia,serif;font-size:24px;line-height:1.3;letter-spacing:-.02em;color:#1a1916">This portfolio was engineered<br>for wide viewports.</p>
+    <p style="font-size:14px;color:#5a564d;line-height:1.6">Open on desktop for<br>the full experience.</p>
+    <div style="width:40px;height:1px;background:rgba(26,25,22,0.28)"></div>
+    <div style="display:flex;flex-direction:column;gap:10px;width:100%;border-top:1px solid rgba(26,25,22,0.14);padding-top:20px">
+      <a href="mailto:hamzaaamer6@gmail.com" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#5a564d;text-decoration:none;padding:8px 0;border-bottom:1px solid rgba(26,25,22,0.14)">hamzaaamer6@gmail.com</a>
+      <a href="https://linkedin.com/in/hamza-aamer" target="_blank" rel="noopener" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#5a564d;text-decoration:none;padding:8px 0;border-bottom:1px solid rgba(26,25,22,0.14)">linkedin /hamza-aamer</a>
+      <a href="https://github.com/hamza-aamer" target="_blank" rel="noopener" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#5a564d;text-decoration:none;padding:8px 0;border-bottom:1px solid rgba(26,25,22,0.14)">github /hamza-aamer</a>
+    </div>
+    <div style="display:flex;justify-content:space-between;width:100%;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;color:#8a8579;padding-top:8px">
+      <span>49.006&deg;N 8.403&deg;E</span>
+      <span>KARLSRUHE, DE</span>
+    </div>
+  </div>
+</div>
+<script>(function(){var g=document.getElementById('mobileGate');function c(){if(window.innerWidth<=900){g.hidden=false;g.style.display='flex'}else{g.hidden=true;g.style.display='none'}}c();window.addEventListener('resize',c)})()</script>
 
 <!-- Tweaks panel (toggle via toolbar) -->
 <div class="tweaks open" id="tweaks" style="display:none">
@@ -743,53 +766,18 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
   <div class="tw-hint mono">↑↑↓↓←→←→BA — try it</div>
 </div>
 
-<!-- Mobile gate — hidden by default, shown via JS on narrow viewports -->
-<div class="mobile-gate" id="mobileGate" hidden>
-  <div class="mg-inner">
-    <div class="mg-brand">HA<span class="mg-dot">.</span></div>
-    <div class="mg-divider"></div>
-    <div class="mg-notice mono">SYS.NOTICE</div>
-    <p class="mg-body">
-      This portfolio was engineered<br>for wide viewports.
-    </p>
-    <p class="mg-sub">Open on desktop for<br>the full experience.</p>
-    <div class="mg-divider"></div>
-    <div class="mg-links">
-      <a href="mailto:hamzaaamer6@gmail.com" class="mg-link mono">hamzaaamer6@gmail.com</a>
-      <a href="https://linkedin.com/in/hamza-aamer" target="_blank" rel="noopener" class="mg-link mono">linkedin /hamza-aamer</a>
-      <a href="https://github.com/hamza-aamer" target="_blank" rel="noopener" class="mg-link mono">github /hamza-aamer</a>
-    </div>
-    <div class="mg-coord mono">
-      <span>49.006&deg;N 8.403&deg;E</span>
-      <span>KARLSRUHE, DE</span>
-    </div>
-  </div>
-</div>
-<script>
-// Mobile gate — JS controlled, no CSS dependency
-(function(){
-  var g = document.getElementById('mobileGate');
-  function check(){
-    if(window.innerWidth <= 900){ g.hidden = false; }
-    else { g.hidden = true; }
-  }
-  check();
-  window.addEventListener('resize', check);
-})();
-</script>
-
 <!-- Konami overlay injected dynamically -->
 
-<script src="portfolio/lib-scramble.js?v=$TS"></script>
-<script src="portfolio/lib-cursor.js?v=$TS"></script>
-<script src="portfolio/lib-magnetic.js?v=$TS"></script>
-<script src="portfolio/lib-loader.js?v=$TS"></script>
-<script src="portfolio/lib-reveal.js?v=$TS"></script>
-<script src="portfolio/lib-marquee.js?v=$TS"></script>
-<script src="portfolio/lib-work.js?v=$TS"></script>
-<script src="portfolio/lib-extras.js?v=$TS"></script>
-<script src="portfolio/lib-tweaks.js?v=$TS"></script>
-<script type="module" src="portfolio/lib-three.js?v=$TS"></script>
+<script src="portfolio/lib-scramble.js?v=8"></script>
+<script src="portfolio/lib-cursor.js?v=8"></script>
+<script src="portfolio/lib-magnetic.js?v=8"></script>
+<script src="portfolio/lib-loader.js?v=8"></script>
+<script src="portfolio/lib-reveal.js?v=8"></script>
+<script src="portfolio/lib-marquee.js?v=8"></script>
+<script src="portfolio/lib-work.js?v=19"></script>
+<script src="portfolio/lib-extras.js?v=17"></script>
+<script src="portfolio/lib-tweaks.js?v=9"></script>
+<script type="module" src="portfolio/lib-three.js?v=2"></script>
 <script src="portfolio/app.js"></script>
 
 

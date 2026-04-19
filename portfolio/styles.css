@@ -45,7 +45,7 @@ body{
   position:fixed;inset:0;z-index:0;
   width:100vw;height:100vh;
   pointer-events:none;
-  opacity:.85;
+  opacity:.5;
 }
 
 /* progress */
@@ -612,7 +612,6 @@ body{
 
 /* responsive */
 @media (max-width:900px){
-  body{ cursor:auto; }
   .nav{grid-template-columns:auto 1fr auto;padding:14px 20px}
   .nav-links{display:none}
   .hero{padding:100px 20px 40px}
@@ -635,51 +634,4 @@ body{
   .edu-row{grid-template-columns:1fr}
   .footer{grid-template-columns:1fr;gap:8px;text-align:left;padding:24px 20px}
   .foot-c,.foot-r{text-align:left}
-}
-
-/* ===== MOBILE GATE ===== */
-.mobile-gate[hidden]{display:none!important}
-.mobile-gate{
-  display:flex;position:fixed;inset:0;z-index:300;
-  background:var(--bg);
-  align-items:center;justify-content:center;
-  flex-direction:column;
-}
-  .mg-inner{
-    display:flex;flex-direction:column;align-items:center;
-    gap:24px;padding:40px 32px;max-width:340px;text-align:center;
-  }
-  .mg-brand{
-    font-family:var(--serif);font-size:72px;font-weight:400;
-    letter-spacing:-.04em;line-height:1;color:var(--fg);
-  }
-  .mg-dot{color:var(--accent)}
-  .mg-divider{width:40px;height:1px;background:var(--rule-strong)}
-  .mg-notice{
-    font-size:10px;letter-spacing:.25em;color:var(--accent2);
-    border:1px solid var(--rule-strong);padding:6px 16px;border-radius:2px;
-  }
-  .mg-body{
-    font-family:var(--serif);font-size:24px;line-height:1.3;
-    letter-spacing:-.02em;color:var(--fg);font-weight:400;
-  }
-  .mg-sub{
-    font-size:14px;color:var(--fg-dim);line-height:1.6;
-  }
-  .mg-links{
-    display:flex;flex-direction:column;gap:10px;width:100%;
-    border-top:1px solid var(--rule);padding-top:20px;
-  }
-  .mg-link{
-    font-size:11px;letter-spacing:.08em;color:var(--fg-dim);
-    text-decoration:none;padding:8px 0;
-    border-bottom:1px solid var(--rule);
-    transition:color .2s;
-  }
-  .mg-link:hover,.mg-link:active{color:var(--accent)}
-  .mg-coord{
-    display:flex;justify-content:space-between;width:100%;
-    font-size:9px;letter-spacing:.15em;color:var(--fg-mute);
-    padding-top:8px;
-  }
 }
