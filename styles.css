@@ -418,20 +418,20 @@ section{position:relative;padding:32px 20px;scroll-margin-top:60px}
 .timeline-sec{background:var(--bg)}
 .tl{position:relative;padding-left:28px;margin-top:8px}
 .tl-rail{position:absolute;left:7px;top:8px;bottom:8px;width:1px;background:var(--rule-strong)}
-.tl-item{position:relative;padding-bottom:8px}
-.tl-item + .tl-item{margin-top:2px}
+.tl-item{position:relative;padding-bottom:0}
+.tl-item + .tl-item{margin-top:12px}
 .tl-node{
-  position:absolute;left:-25px;top:6px;
-  width:12px;height:12px;border-radius:50%;
+  position:absolute;left:-24px;top:5px;
+  width:8px;height:8px;border-radius:50%;
   border:2px solid var(--fg);background:var(--bg);
   transition:background .25s;
 }
 .tl-node.edu{background:var(--accent2);border-color:var(--accent2)}
-.tl-year{font-size:10px;color:var(--fg-mute);letter-spacing:.14em;margin-bottom:8px}
+.tl-year{font-size:9px;color:var(--fg-mute);letter-spacing:.14em;margin-bottom:4px}
 .tl-card{
   width:100%;text-align:left;
   background:var(--bg-2);border:1px solid var(--rule);border-radius:4px;
-  padding:14px;
+  padding:10px 14px;
   transition:border-color .25s, background .25s;
 }
 .tl-card.is-open{border-color:var(--fg)}
