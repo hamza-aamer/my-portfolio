@@ -2,6 +2,12 @@
 
 
 <meta charset="UTF-8">
+<script>
+  (function(){
+    var isMobile = /Android|iPhone|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.matchMedia('(max-width: 820px)').matches;
+    if (isMobile) location.replace('/mobile/');
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HA.</title>
 <meta name="description" content="Data Science Team Lead specializing in synthetic data, multi-agent frameworks, and computer vision.">

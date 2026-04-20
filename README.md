@@ -5,8 +5,8 @@ Personal portfolio site with two fully designed versions: an editorial desktop e
 ## Versions
 
 - **`desktop.html`** — full desktop / web portfolio. Horizontal-pin work carousel, topographic contour background, editorial typography, affiliations marquee with black inverse band, timeline, playground, contact.
-- **`Mobile Portfolio.html`** — mobile build framed inside an iOS device bezel for preview. Stacked sections, tab-bar nav, swipeable work cards, mobile-tuned type scale.
-- **`index.html`** — currently serves the desktop layout directly. A `index-router.html` is included if you want UA-based auto-routing (mobile → `Mobile Portfolio.html`, desktop → `desktop.html`); rename it to `index.html` to enable.
+- **`/mobile/`** — mobile build. Full-bleed, stacked sections, tab-bar nav, swipeable work cards, mobile-tuned type scale.
+- **`index.html`** — UA-based router: mobile → `/mobile/`, desktop → `desktop.html`.
 
 ## Stack
 
@@ -19,10 +19,10 @@ Personal portfolio site with two fully designed versions: an editorial desktop e
 
 ```
 .
-├── index.html               # desktop (current landing)
-├── desktop.html             # copy of desktop (for router use)
-├── index-router.html        # optional UA-based router
-├── Mobile Portfolio.html    # mobile build (iOS frame)
+├── index.html               # UA-based router (mobile → /mobile/, desktop → desktop.html)
+├── desktop.html             # desktop build
+├── mobile/
+│   └── index.html           # mobile build
 │
 ├── styles.css               # mobile styles
 ├── components/              # mobile React components

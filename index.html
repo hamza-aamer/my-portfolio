@@ -7,13 +7,13 @@
   <script>
     (function(){
       var isMobile = /Android|iPhone|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.matchMedia('(max-width: 820px)').matches;
-      var target = isMobile ? 'Mobile Portfolio.html' : 'desktop.html';
+      var target = isMobile ? '/mobile/' : 'desktop.html';
       location.replace(target);
     })();
   </script>
   <meta http-equiv="refresh" content="0; url=desktop.html"/>
 </head>
 <body>
-  <p>Redirecting… <a href="desktop.html">Desktop</a> · <a href="Mobile Portfolio.html">Mobile</a></p>
+  <p>Redirecting… <a href="desktop.html">Desktop</a> · <a href="/mobile/">Mobile</a></p>
 </body>
 </html>

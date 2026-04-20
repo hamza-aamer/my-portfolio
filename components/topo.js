@@ -1,15 +1,12 @@
 // Topographic contour background — WebGL shader from desktop, tuned for mobile
-// Uses plain Three.js, attached to #topo-canvas inside the device-screen.
+// Attached to #topo-canvas; tracks window scroll.
 
 (function(){
   const canvas = document.getElementById('topo-canvas');
   if (!canvas || !window.THREE) return;
 
-  const screen = document.getElementById('screen');
-  if (!screen) return;
-
-  const W = () => canvas.clientWidth || screen.clientWidth;
-  const H = () => canvas.clientHeight || screen.clientHeight;
+  const W = () => canvas.clientWidth || window.innerWidth;
+  const H = () => canvas.clientHeight || window.innerHeight;
 
   const css = getComputedStyle(document.documentElement);
   const hex = (v, fb) => new THREE.Color((css.getPropertyValue(v).trim() || fb));
@@ -109,13 +106,14 @@
   const quad = new THREE.Mesh(new THREE.PlaneGeometry(2,2), mat);
   scene.add(quad);
 
-  // Scroll progress inside device-screen
+  // Scroll progress (window)
   let scrollProg = 0;
   const updateScroll = () => {
-    const max = Math.max(1, screen.scrollHeight - screen.clientHeight);
-    scrollProg = Math.min(1, screen.scrollTop / max);
+    const doc = document.documentElement;
+    const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+    scrollProg = Math.min(1, (window.scrollY || doc.scrollTop) / max);
   };
-  screen.addEventListener('scroll', updateScroll, { passive: true });
+  window.addEventListener('scroll', updateScroll, { passive: true });
 
   const onResize = () => {
     renderer.setSize(W(), H(), false);

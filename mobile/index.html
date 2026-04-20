@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>
+  (function(){
+    var isMobile = /Android|iPhone|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.matchMedia('(max-width: 820px)').matches;
+    if (!isMobile) location.replace('/desktop.html');
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3efe6">
+<title>HA. — Mobile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css?v=18">
+<style>
+  html,body{height:100%;margin:0;background:#f3efe6}
+  body{overflow-x:hidden;position:relative}
+
+  /* Topographic canvas — fixed backdrop behind hero */
+  #topo-canvas{
+    position:fixed;top:0;left:0;width:100%;height:100vh;
+    pointer-events:none;z-index:1;opacity:.85;
+  }
+  #root{position:relative;z-index:2}
+
+  /* Keep content clear of the fixed tab bar */
+  #root > main{padding-bottom:calc(76px + env(safe-area-inset-bottom, 0px))}
+
+  /* TabBar + Drawer pinned to viewport */
+  .tabbar{
+    position:fixed;
+    bottom:0;left:0;right:0;z-index:50;
+    padding-bottom:env(safe-area-inset-bottom, 0px);
+  }
+  .drawer{
+    position:fixed;
+    top:0;left:0;right:0;bottom:0;z-index:100;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="topo-canvas" aria-hidden="true"></canvas>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+
+<script type="text/babel" src="/components/Shared.jsx"></script>
+<script type="text/babel" src="/components/Nav.jsx"></script>
+<script type="text/babel" src="/components/Top.jsx"></script>
+<script type="text/babel" src="/components/Work.jsx"></script>
+<script type="text/babel" src="/components/Rest.jsx"></script>
+<script src="/components/topo.js"></script>
+
+<script type="text/babel">
+function App() {
+  const [drawer, setDrawer] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
+  const [active, setActive] = React.useState('home');
+  const [dwell, setDwell] = React.useState('00:00');
+
+  // Dwell timer
+  React.useEffect(() => {
+    const start = Date.now();
+    const id = setInterval(() => {
+      const s = Math.floor((Date.now() - start) / 1000);
+      const m = String(Math.floor(s / 60)).padStart(2, '0');
+      const ss = String(s % 60).padStart(2, '0');
+      setDwell(`${m}:${ss}`);
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Window scroll tracking
+  React.useEffect(() => {
+    const sections = ['home', 'about', 'work', 'timeline', 'playground', 'contact'];
+
+    const onScroll = () => {
+      const top = window.scrollY || document.documentElement.scrollTop;
+      setScrolled(top > 20);
+
+      let current = 'home';
+      const offset = 120;
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const r = el.getBoundingClientRect();
+        if (r.top < offset) current = id;
+      }
+      setActive(current);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const goTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  return (
+    <>
+      <TopBar onMenu={() => setDrawer(true)} scrolled={scrolled} dwell={dwell}/>
+      <main>
+        <Hero/>
+        <About/>
+        <Affiliations/>
+        <Work/>
+        <Timeline/>
+        <Playground/>
+        <Contact/>
+      </main>
+      {ReactDOM.createPortal(<TabBar active={active} onGo={goTo}/>, document.body)}
+      {ReactDOM.createPortal(<Drawer open={drawer} onClose={() => setDrawer(false)} active={active}/>, document.body)}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
