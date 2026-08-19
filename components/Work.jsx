@@ -3,10 +3,10 @@
 const CASES = [
   {
     id: 'ascend',
-    tag: 'ENTERPRISE · 2025—NOW',
+    tag: 'ENTERPRISE · 2025—2026',
     title: 'Ascend.',
     italic: 'a data engine with DNA.',
-    body: 'A modular data-engineering framework with proprietary DNA Signature Technology spanning flat-file and relational database synthesis. Terabyte-scale datasets compressed to portable statistical fingerprints — reconstructable with 99.5% fidelity.',
+    body: 'Built at Adept Tech Solutions — a modular data-engineering framework with proprietary DNA Signature Technology spanning flat-file and relational database synthesis. Terabyte-scale datasets compressed to portable statistical fingerprints — reconstructed with 99.5% fidelity.',
     kvs: [['FIDELITY','99.5','%'],['SCALE','10','M+'],['SPEED','10','×']],
     tech: ['PySpark','PostgreSQL','Apache Spark','Python'],
     fig: 'FIG.01 — DNA SIGNATURE',
@@ -16,7 +16,7 @@ const CASES = [
   },
   {
     id: 'artisan',
-    tag: 'COMPUTER VISION · 2024—NOW',
+    tag: 'COMPUTER VISION · 2024—2025',
     title: 'Artisan.',
     italic: 'roofs read from the sky.',
     body: 'Satellite imagery fused with LiDAR point clouds. YOLOv8 detection, Open3D reconstruction, multi-stage geometric algorithms that classify ridges, hips, valleys and rakes with contractor-grade tolerance.',

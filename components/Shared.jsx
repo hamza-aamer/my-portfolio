@@ -70,6 +70,13 @@ const Icon = {
   ),
 };
 
+// Career start — single source of truth for every "years shipping" figure.
+const CAREER_START_YEAR = 2020;
+const YEARS_SHIPPING = new Date().getFullYear() - CAREER_START_YEAR;
+const YEARS_SHIPPING_WORD =
+  ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve'][YEARS_SHIPPING]
+  || String(YEARS_SHIPPING);
+
 // Reveal-on-scroll wrapper. Uses IntersectionObserver.
 function Reveal({ children, delay = 0, as: Tag = 'div', className = '', style = {} }) {
   const ref = React.useRef(null);
@@ -107,4 +114,4 @@ function SectionHead({ idx, label }) {
   );
 }
 
-Object.assign(window, { Icon, Reveal, SectionHead });
+Object.assign(window, { Icon, Reveal, SectionHead, CAREER_START_YEAR, YEARS_SHIPPING, YEARS_SHIPPING_WORD });

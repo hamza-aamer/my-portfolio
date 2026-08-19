@@ -1,9 +1,11 @@
 // Timeline, Playground, Contact
 
 const TIMELINE = [
-  { year: '2025 — PRES.', role: 'Data Science Team Lead', co: 'ADEPT TECH SOLUTIONS', body: 'Spearheading advanced data synthesis & analysis systems. Engineered proprietary DNA Signature Technology with 99.5% fidelity.', chips: ['PySpark','DNA Signatures','Computer Vision','Open3D'] },
+  { year: '2026 — PRES.', role: 'Research Assistant (HiWi)', co: 'CHAIR FOR EMBEDDED SYSTEMS (CES/ITEC), KIT', body: 'Research on ML-driven GPU resource management for LLM inference, extending the gpu_ext eBPF/struct_ops framework to expose scheduling, memory and frequency control on real hardware. Designed a channel-disable scheduling policy separating latency-critical from best-effort workloads (up to 15× latency improvement). Reproduced kernel-level DVFS results and characterised GPU frequency-switching cost via NVML.', chips: ['eBPF','CUDA','NVML','Linux Kernel','GPU Scheduling'] },
+  { year: '2026 — PRES.', role: 'Research Assistant (HiWi)', co: 'TECO — PERVASIVE COMPUTING SYSTEMS, KIT', body: "Full-stack development on edge-ml, a microservice platform for training and deploying ML models on wearable and IoT sensor time-series. Implemented on-device model export via Google ExecuTorch, compiling PyTorch classifiers with preprocessing into .pte artifacts for mobile and embedded targets. Built the platform's multi-architecture CI/CD pipeline.", chips: ['FastAPI','PyTorch','ExecuTorch','React','Docker'] },
+  { year: '2025 — 2026', role: 'Data Science Team Lead', co: 'ADEPT TECH SOLUTIONS', body: 'Spearheaded advanced data synthesis & analysis systems. Engineered proprietary DNA Signature Technology with 99.5% fidelity.', chips: ['PySpark','DNA Signatures','Computer Vision','Open3D'] },
   { year: '2024 — 2025', role: 'AI Engineer', co: 'ANTEMATTER', body: 'Built multi-agent frameworks across CrewAI, LangChain, ELIZA, Phidata — boosting company outreach 10×. Authored Ant-AI, a genetic multi-agent prompt-optimization framework.', chips: ['CrewAI','LangChain','ELIZA','Genetic Algos'] },
-  { year: '2023 — 2023', role: 'Research Analyst', co: 'DATAINSIGHT', body: '$90K ML project. Built a YOLO + image-processing pipeline for handwritten/printed text recognition — 2.5× dataset acquisition speed.', chips: ['Python','TensorFlow','YOLO','TrOCR'] },
+  { year: '2023 — 2023', role: 'Research Assistant', co: 'DATAINSIGHT RESEARCH LAB, FAST-NUCES', body: '$90K ML project. Built a YOLO + image-processing pipeline for handwritten/printed text recognition — 2.5× dataset acquisition speed.', chips: ['Python','TensorFlow','YOLO','TrOCR'] },
   { year: '2020 — 2021', role: 'Project Trainee', co: 'AFINITI SOFTWARE SOLUTIONS', body: 'NLP and Speech-to-Text systems powered by AI. Client-facing technical delivery.', chips: ['NLP','Speech-to-Text'] },
 ];
 
@@ -12,7 +14,7 @@ function Timeline() {
   return (
     <section id="timeline" className="timeline-sec" data-screen-label="04 Timeline">
       <SectionHead idx="04" label="TIMELINE"/>
-      <h2 className="sec-h">Five years<br/><em>of shipping<br/>intelligence.</em></h2>
+      <h2 className="sec-h">{YEARS_SHIPPING_WORD} years<br/><em>of shipping<br/>intelligence.</em></h2>
       <div className="tl">
         <div className="tl-rail"/>
         {TIMELINE.map((t, i) => (
@@ -37,7 +39,7 @@ function Timeline() {
           <div className="mono tl-year">EDUCATION</div>
           <div className="tl-edu">
             <div className="edu-block">
-              <div className="edu-h">MS Computer Science</div>
+              <div className="edu-h">MS Computer Science, Human-centred Machine Intelligence</div>
               <div className="mono edu-p">KARLSRUHE INST. OF TECH · 2025—2027</div>
             </div>
             <div className="edu-block">
@@ -54,8 +56,8 @@ function Timeline() {
 const PLAY = [
   { tag: 'VR / GAUSSIAN SPLATS', title: 'Archeon', body: 'Capture real-world spaces with a phone, reconstruct as Gaussian splats, explore in VR. The seam between atoms and pixels.', year: '2024', href: 'https://github.com/hamza-aamer/Archeon' },
   { tag: 'GRAPHICS / OPTIMIZATION', title: 'F1 Game', body: 'Physics, rendering and AI opponents in a lightweight racing sandbox — a love letter to tight feedback loops.', year: '2023', href: 'https://github.com/hamza-aamer/F1-Car-Game' },
-  { tag: 'MULTIMODAL AI', title: 'CaptureCart', body: 'Erases the seam between online and in-store shopping. Real-time recognition, unified catalogs, a single cart.', year: '2023', href: 'https://github.com/hamza-aamer/CaptureCart-A-Cognitive-Shopping-Fusion-Framework-for-the-Future' },
-  { tag: 'SYSTEMS', title: 'NN-OS', body: 'Multi-core operating system running a neural network across processes & threads. OS and ML in one codebase.', year: '2022', href: 'https://github.com/hamza-aamer/Multi-Core-Neural-Network-Operating-System-in-C-' },
+  { tag: 'MULTIMODAL AI', title: 'NeuroCart', body: 'Erases the seam between online and in-store shopping. Real-time recognition, unified catalogs, a single cart.', year: '2023', href: 'https://github.com/hamza-aamer/CaptureCart-A-Cognitive-Shopping-Fusion-Framework-for-the-Future' },
+  { tag: 'SYSTEMS', title: 'Multi-Core Neural Network Operating System', body: 'Multi-core operating system running a neural network across processes & threads. OS and ML in one codebase.', year: '2022', href: 'https://github.com/hamza-aamer/Multi-Core-Neural-Network-Operating-System-in-C-' },
 ];
 
 function GhGraph() {
@@ -110,12 +112,12 @@ function Playground() {
           <div className="mono pg-tag">NOW</div>
           <h3 className="pg-h">Currently reading</h3>
           <ul className="now-list">
-            <li>Building ML Systems — Chip Huyen</li>
-            <li>The Annotated Transformer — Harvard NLP</li>
-            <li>CUDA by Example — NVIDIA</li>
+            <li>Programming Massively Parallel Processors — Kirk &amp; Hwu</li>
+            <li>Linux Kernel Development — Robert Love</li>
+            <li>Learning eBPF — Liz Rice</li>
           </ul>
           <div className="pg-foot">
-            <span className="mono">UPDATED APR 2026</span>
+            <span className="mono">IN ROTATION</span>
             <span className="mono">KARLSRUHE, DE</span>
           </div>
         </Reveal>
@@ -210,7 +212,7 @@ function Contact() {
       <footer className="footer">
         <div className="mono">© 2026 HAMZA AAMER</div>
         <div className="mono">BUILT IN KARLSRUHE · CRAFTED WITH OBSESSION</div>
-        <div className="mono">v4.2.0 · <a href="#home" onClick={(e)=>{e.preventDefault();document.getElementById('home').scrollIntoView({behavior:'smooth'})}}>RETURN TO TOP ↑</a></div>
+        <div className="mono">v4.3.0 · <a href="#home" onClick={(e)=>{e.preventDefault();document.getElementById('home').scrollIntoView({behavior:'smooth'})}}>RETURN TO TOP ↑</a></div>
       </footer>
     </section>
   );

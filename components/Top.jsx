@@ -23,7 +23,7 @@ function Hero() {
         <div className="hm-row hm-row-2">
           <div className="hm-now">
             <span className="mono hm-k">NOW</span>
-            <span className="hm-v">Shipping synthetic→real CV pipelines at <em>Ascend</em></span>
+            <span className="hm-v">Researching ML-driven GPU scheduling for LLM inference at <em>KIT</em></span>
           </div>
         </div>
       </Reveal>
@@ -64,16 +64,16 @@ function Hero() {
       <Reveal delay={900} className="hero-caption">
         <span className="mono hc-idx">(01)</span>
         <p className="hc-text">
-          Data Science Team Lead crafting <em>synthetic data engines</em>, multi-agent frameworks and computer-vision systems that reach production.
+          Research Assistant at KIT working on <em>GPU resource management</em> for LLM inference and on-device ML for wearables. Previously: synthetic data engines, multi-agent frameworks and computer-vision systems in production.
         </p>
       </Reveal>
 
       <Reveal delay={1100} className="hero-stats">
         {[
-          { n: '5', s: 'YRS', l: 'Shipping AI' },
+          { n: String(YEARS_SHIPPING), s: 'YRS', l: 'Shipping AI' },
           { n: '99.5', s: '%', l: 'DNA Fidelity' },
           { n: '10', s: 'M+', l: 'Rows Synth.' },
-          { n: '3', s: 'CO', l: 'Active clients' },
+          { n: '2', s: 'LABS', l: 'KIT Research' },
         ].map((s, i) => (
           <div key={i} className="hs-item">
             <div className="hs-n">{s.n}<span className="mono hs-sup">{s.s}</span></div>
@@ -107,8 +107,16 @@ function About() {
             <div className="chips">{['Python','PyTorch','TensorFlow','YOLOv8','Open3D'].map(c=><span key={c} className="chip">{c}</span>)}</div>
           </div>
           <div className="skill-group">
+            <div className="sg-head mono">Systems / Edge</div>
+            <div className="chips">{['eBPF','CUDA','NVML','Linux Kernel','ExecuTorch'].map(c=><span key={c} className="chip">{c}</span>)}</div>
+          </div>
+          <div className="skill-group">
             <div className="sg-head mono">Data</div>
             <div className="chips">{['PySpark','PostgreSQL','Apache Spark','MySQL'].map(c=><span key={c} className="chip">{c}</span>)}</div>
+          </div>
+          <div className="skill-group">
+            <div className="sg-head mono">Web / Infra</div>
+            <div className="chips">{['FastAPI','React','Docker','GitHub Actions'].map(c=><span key={c} className="chip">{c}</span>)}</div>
           </div>
           <div className="skill-group">
             <div className="sg-head mono">Agents</div>
@@ -122,10 +130,10 @@ function About() {
       body: (
         <div className="current-card">
           {[
-            ['STATUS', <span><span className="live-dot"/>Building</span>],
-            ['ROLE', 'Data Science Team Lead'],
-            ['AT', 'Adept Tech Solutions'],
-            ['STUDYING', 'MS CS, KIT Karlsruhe'],
+            ['STATUS', <span><span className="live-dot"/>Researching</span>],
+            ['ROLE', 'Research Assistant (HiWi) ×2'],
+            ['AT', 'KIT — CES/ITEC & TECO'],
+            ['STUDYING', 'MS CS, Human-centred MI · KIT'],
             ['OPEN TO', 'Research collabs, advisory'],
           ].map(([k,v],i)=>(
             <div key={i} className="cc-row"><span className="mono cc-k">{k}</span><span className="cc-v">{v}</span></div>

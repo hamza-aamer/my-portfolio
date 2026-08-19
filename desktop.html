@@ -10,7 +10,7 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HA.</title>
-<meta name="description" content="Data Science Team Lead specializing in synthetic data, multi-agent frameworks, and computer vision.">
+<meta name="description" content="Research Assistant at KIT working on ML-driven GPU resource management for LLM inference and on-device ML for wearables — previously synthetic data, multi-agent frameworks and computer vision in production.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -44,6 +44,22 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
   "audio": true,
   "dark": false
 }/*EDITMODE-END*/;
+</script>
+
+<!-- Single source of truth for every "years shipping" figure on the page.
+     [data-years] gets the digit, [data-years-word] gets the English word. -->
+<script>
+window.__CAREER_START_YEAR__ = 2020;
+(function(){
+  var yrs = new Date().getFullYear() - window.__CAREER_START_YEAR__;
+  var words = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve'];
+  function fill(){
+    document.querySelectorAll('[data-years]').forEach(function(el){ el.textContent = yrs; });
+    document.querySelectorAll('[data-years-word]').forEach(function(el){ el.textContent = words[yrs] || yrs; });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fill);
+  else fill();
+})();
 </script>
 
 <!-- Noise overlay -->
@@ -84,7 +100,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
     <span class="brand-ha">HA</span>
     <span class="brand-meta">
       <span class="brand-line">HAMZA AAMER</span>
-      <span class="brand-sub">DS TEAM LEAD</span>
+      <span class="brand-sub">RESEARCH ASST · KIT</span>
     </span>
   </a>
   <div class="nav-links">
@@ -103,7 +119,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 <!-- Loader -->
 <div class="loader" id="loader">
   <div class="loader-inner">
-    <div class="loader-row"><span class="mono">SYS.BOOT</span><span class="mono">v4.2.0</span></div>
+    <div class="loader-row"><span class="mono">SYS.BOOT</span><span class="mono">v4.3.0</span></div>
     <div class="loader-bar"><div class="loader-fill" id="loaderFill" style="width: 0%;"></div></div>
     <div class="loader-row"><span class="mono" id="loaderStatus">Initializing…</span><span class="mono" id="loaderPct">0%</span></div>
     <div class="loader-name">
@@ -138,13 +154,13 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
     <div class="hero-caption">
       <div class="hc-idx mono">(01)</div>
       <p class="hc-text">
-        Data Science Team Lead crafting <em>synthetic data engines</em>, multi-agent frameworks and computer-vision systems that reach production.
+        Research Assistant at KIT working on <em>GPU resource management</em> for LLM inference and on-device ML for wearables. Previously: synthetic data engines, multi-agent frameworks and computer-vision systems in production.
       </p>
     </div>
 
     <div class="hero-stats">
       <div class="hs-item">
-        <div class="hs-n">5<span class="mono hs-sup">YRS</span></div>
+        <div class="hs-n"><span data-years="">6</span><span class="mono hs-sup">YRS</span></div>
         <div class="hs-l mono">Shipping AI</div>
       </div>
       <div class="hs-item">
@@ -156,8 +172,8 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
         <div class="hs-l mono">Rows Synthesized</div>
       </div>
       <div class="hs-item">
-        <div class="hs-n">3<span class="mono hs-sup">CO</span></div>
-        <div class="hs-l mono">Active clients</div>
+        <div class="hs-n">2<span class="mono hs-sup">LABS</span></div>
+        <div class="hs-l mono">KIT Research</div>
       </div>
     </div>
 
@@ -210,10 +226,25 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
           </div>
         </div>
         <div class="skill-group">
+          <div class="sg-head mono">Systems / Edge</div>
+          <div class="chips">
+            <span class="chip">eBPF</span><span class="chip">CUDA</span>
+            <span class="chip">NVML</span><span class="chip">Linux&nbsp;Kernel</span>
+            <span class="chip">ExecuTorch</span>
+          </div>
+        </div>
+        <div class="skill-group">
           <div class="sg-head mono">Data</div>
           <div class="chips">
             <span class="chip">PySpark</span><span class="chip">PostgreSQL</span>
             <span class="chip">Apache&nbsp;Spark</span><span class="chip">MySQL</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="sg-head mono">Web / Infra</div>
+          <div class="chips">
+            <span class="chip">FastAPI</span><span class="chip">React</span>
+            <span class="chip">Docker</span><span class="chip">GitHub&nbsp;Actions</span>
           </div>
         </div>
         <div class="skill-group">
@@ -228,10 +259,10 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
     <div class="about-col">
       <div class="mono col-label">(C) CURRENT</div>
       <div class="current-card">
-        <div class="cc-row"><span class="mono">STATUS</span><span><span class="live-dot"></span>Building</span></div>
-        <div class="cc-row"><span class="mono">ROLE</span><span>Data Science Team Lead</span></div>
-        <div class="cc-row"><span class="mono">AT</span><span>Adept Tech Solutions</span></div>
-        <div class="cc-row"><span class="mono">STUDYING</span><span>MS CS, KIT Karlsruhe</span></div>
+        <div class="cc-row"><span class="mono">STATUS</span><span><span class="live-dot"></span>Researching</span></div>
+        <div class="cc-row"><span class="mono">ROLE</span><span>Research Assistant (HiWi) ×2</span></div>
+        <div class="cc-row"><span class="mono">AT</span><span>KIT — CES/ITEC &amp; TECO</span></div>
+        <div class="cc-row"><span class="mono">STUDYING</span><span>MS CS, Human-centred MI · KIT</span></div>
         <div class="cc-row"><span class="mono">OPEN TO</span><span>Research collabs, advisory</span></div>
       </div>
     </div>
@@ -283,12 +314,13 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
       <article class="case" data-case="ascend">
         <div class="case-left">
           <div class="case-index mono">(01 / 03)</div>
-          <div class="case-tag mono">ENTERPRISE · 2025—NOW</div>
+          <div class="case-tag mono">ENTERPRISE · 2025—2026</div>
           <h3 class="case-title">Ascend.<span class="case-italic"> a data engine with DNA.</span></h3>
           <p class="case-body">
-            A modular data-engineering framework with proprietary <em>DNA Signature Technology</em> spanning
-            flat-file and relational database synthesis. Terabyte-scale datasets compressed to portable
-            statistical fingerprints — reconstructable with 99.5% fidelity.
+            Built at Adept Tech Solutions — a modular data-engineering framework with proprietary
+            <em>DNA Signature Technology</em> spanning flat-file and relational database synthesis.
+            Terabyte-scale datasets compressed to portable statistical fingerprints — reconstructed
+            with 99.5% fidelity.
           </p>
           <div class="case-kv">
             <div><span class="mono kv-k">FIDELITY</span><div class="kv-v">99.5<span class="kv-s">%</span></div></div>
@@ -342,7 +374,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
       <article class="case" data-case="artisan">
         <div class="case-left">
           <div class="case-index mono">(02 / 03)</div>
-          <div class="case-tag mono">COMPUTER VISION · 2024—NOW</div>
+          <div class="case-tag mono">COMPUTER VISION · 2024—2025</div>
           <h3 class="case-title">Artisan.<span class="case-italic"> roofs read from the sky.</span></h3>
           <p class="case-body">
             Satellite imagery fused with LiDAR point clouds. YOLOv8 detection, Open3D reconstruction,
@@ -497,19 +529,51 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
     <div class="section-divider"></div>
   </div>
 
-  <h2 class="sec-h">Five years<br><em>of shipping intelligence.</em></h2>
+  <h2 class="sec-h"><span data-years-word="">Six</span> years<br><em>of shipping intelligence.</em></h2>
 
   <div class="timeline">
     <div class="tl-line"></div>
 
     <div class="tl-item in" data-reveal="">
-      <div class="tl-year mono">2025 — PRES.</div>
+      <div class="tl-year mono">2026 — PRES.</div>
+      <div class="tl-card">
+        <div class="tl-head">
+          <h4>Research Assistant (HiWi)</h4>
+          <span class="tl-co mono">CHAIR FOR EMBEDDED SYSTEMS (CES/ITEC), KIT</span>
+        </div>
+        <p>Research on ML-driven GPU resource management for LLM inference, extending the gpu_ext eBPF/struct_ops framework to expose scheduling, memory and frequency control on real hardware. Designed a channel-disable scheduling policy separating latency-critical from best-effort workloads (up to 15× latency improvement). Reproduced kernel-level DVFS results and characterised GPU frequency-switching cost via NVML.</p>
+        <div class="chips">
+          <span class="chip">eBPF</span><span class="chip">CUDA</span>
+          <span class="chip">NVML</span><span class="chip">Linux Kernel</span>
+          <span class="chip">GPU Scheduling</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-reveal="">
+      <div class="tl-year mono">2026 — PRES.</div>
+      <div class="tl-card">
+        <div class="tl-head">
+          <h4>Research Assistant (HiWi)</h4>
+          <span class="tl-co mono">TECO — PERVASIVE COMPUTING SYSTEMS, KIT</span>
+        </div>
+        <p>Full-stack development on edge-ml, a microservice platform for training and deploying ML models on wearable and IoT sensor time-series. Implemented on-device model export via Google ExecuTorch, compiling PyTorch classifiers with preprocessing into .pte artifacts for mobile and embedded targets. Built the platform's multi-architecture CI/CD pipeline.</p>
+        <div class="chips">
+          <span class="chip">FastAPI</span><span class="chip">PyTorch</span>
+          <span class="chip">ExecuTorch</span><span class="chip">React</span>
+          <span class="chip">Docker</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-reveal="">
+      <div class="tl-year mono">2025 — 2026</div>
       <div class="tl-card">
         <div class="tl-head">
           <h4>Data Science Team Lead</h4>
           <span class="tl-co mono">ADEPT TECH SOLUTIONS</span>
         </div>
-        <p>Spearheading advanced data synthesis &amp; analysis systems. Engineered proprietary DNA Signature Technology with 99.5% fidelity. Led production-ready CLI tooling with distributed Spark optimization.</p>
+        <p>Spearheaded advanced data synthesis &amp; analysis systems. Engineered proprietary DNA Signature Technology with 99.5% fidelity. Led production-ready CLI tooling with distributed Spark optimization.</p>
         <div class="chips">
           <span class="chip">PySpark</span><span class="chip">DNA Signatures</span>
           <span class="chip">Computer Vision</span><span class="chip">Open3D</span>
@@ -536,8 +600,8 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
       <div class="tl-year mono">2023 — 2023</div>
       <div class="tl-card">
         <div class="tl-head">
-          <h4>Research Analyst</h4>
-          <span class="tl-co mono">DATAINSIGHT</span>
+          <h4>Research Assistant</h4>
+          <span class="tl-co mono">DATAINSIGHT RESEARCH LAB, FAST-NUCES</span>
         </div>
         <p>$90K ML project. Built a YOLO + image-processing pipeline for handwritten/printed text recognition — 2.5× dataset acquisition speed.</p>
         <div class="chips">
@@ -566,7 +630,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
       <div class="tl-card tl-card-edu">
         <div class="edu-row">
           <div class="edu-block">
-            <div class="edu-h">MS Computer Science</div>
+            <div class="edu-h">MS Computer Science, Human-centred Machine Intelligence</div>
             <div class="edu-p mono">KARLSRUHE INST. OF TECH · 2025—2027</div>
           </div>
           <div class="edu-block">
@@ -611,7 +675,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 
     <a class="pg-card" href="https://github.com/hamza-aamer/CaptureCart-A-Cognitive-Shopping-Fusion-Framework-for-the-Future" target="_blank" rel="noopener" data-magnetic="" data-cursor="open">
       <div class="pg-tag mono">MULTIMODAL AI</div>
-      <h3 class="pg-h">CaptureCart</h3>
+      <h3 class="pg-h">NeuroCart</h3>
       <p class="pg-p">Erases the seam between online and in-store shopping. Real-time recognition, unified catalogs, a single cart.</p>
       <div class="pg-foot mono">
         <span>2023</span>
@@ -621,7 +685,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 
     <a class="pg-card" href="https://github.com/hamza-aamer/Multi-Core-Neural-Network-Operating-System-in-C-" target="_blank" rel="noopener" data-magnetic="" data-cursor="open">
       <div class="pg-tag mono">SYSTEMS</div>
-      <h3 class="pg-h">NN-OS</h3>
+      <h3 class="pg-h">Multi-Core Neural Network Operating System</h3>
       <p class="pg-p">Multi-core operating system running a neural network across processes &amp; threads. OS and ML in one codebase.</p>
       <div class="pg-foot mono">
         <span>2022</span>
@@ -644,12 +708,12 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
       <div class="pg-tag mono">NOW</div>
       <h3 class="pg-h">Currently reading</h3>
       <ul class="now-list">
-        <li>• Building Machine Learning Systems — Chip Huyen</li>
-        <li>• The Annotated Transformer — Harvard NLP</li>
-        <li>• CUDA by Example — NVIDIA</li>
+        <li>• Programming Massively Parallel Processors — Kirk &amp; Hwu</li>
+        <li>• Linux Kernel Development — Robert Love</li>
+        <li>• Learning eBPF — Liz Rice</li>
       </ul>
       <div class="pg-foot mono">
-        <span>UPDATED APR 2026</span>
+        <span>IN ROTATION</span>
         <span>KARLSRUHE, DE</span>
       </div>
     </div>
@@ -717,7 +781,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
   <footer class="footer">
     <div class="foot-col mono">© 2026 HAMZA AAMER</div>
     <div class="foot-col foot-c mono">BUILT IN KARLSRUHE · CRAFTED WITH OBSESSION</div>
-    <div class="foot-col foot-r mono">v4.2.0 · <a href="#home">RETURN TO TOP ↑</a></div>
+    <div class="foot-col foot-r mono">v4.3.0 · <a href="#home">RETURN TO TOP ↑</a></div>
   </footer>
 </section>
 

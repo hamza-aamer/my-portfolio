@@ -7,7 +7,7 @@ function TopBar({ onMenu, scrolled, dwell }) {
         <span className="brand-sq">HA</span>
         <span className="brand-meta">
           <span className="mono brand-l1">HAMZA AAMER</span>
-          <span className="mono brand-l2">DS TEAM LEAD</span>
+          <span className="mono brand-l2">RESEARCH ASST · KIT</span>
         </span>
       </a>
       <div className="top-right">
