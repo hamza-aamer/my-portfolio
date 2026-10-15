@@ -1,58 +1,39 @@
-# Hamza Aamer — Portfolio
+# Hamza Aamer: portfolio
 
-Personal portfolio site with two fully designed versions: an editorial desktop experience and a native-feeling mobile build.
-
-## Versions
-
-- **`desktop.html`** — full desktop / web portfolio. Horizontal-pin work carousel, topographic contour background, editorial typography, affiliations marquee with black inverse band, timeline, playground, contact.
-- **`/mobile/`** — mobile build. Full-bleed, stacked sections, tab-bar nav, swipeable work cards, mobile-tuned type scale.
-- **`index.html`** — UA-based router: mobile → `/mobile/`, desktop → `desktop.html`.
+Source for [its-hamza.com](https://its-hamza.com). It is a single page with full-screen case studies at `#/work/<id>`.
 
 ## Stack
 
-- Vanilla HTML / CSS / JS for desktop
-- React 18 + Babel standalone (inline JSX) for mobile build
-- Three.js for the topographic contour shader on desktop
-- No build step — every page opens directly in a browser
-
-## Layout
-
-```
-.
-├── index.html               # UA-based router (mobile → /mobile/, desktop → desktop.html)
-├── desktop.html             # desktop build
-├── mobile/
-│   └── index.html           # mobile build
-│
-├── styles.css               # mobile styles
-├── components/              # mobile React components
-│   ├── Top.jsx              # hero, manifesto, affiliations
-│   ├── Work.jsx             # work carousel
-│   ├── Rest.jsx             # timeline, playground, contact
-│   └── topo.js              # mobile topo canvas
-│
-├── portfolio/               # desktop assets
-│   ├── styles.css           # desktop styles
-│   ├── lib-*.js             # desktop feature scripts
-│   └── ...
-│
-├── assets/                  # shared images, icons, data
-├── frames/                  # device-frame starter component
-└── screenshots/             # design exploration captures
-```
+- Vite + React 19
+- [Motion](https://motion.dev) for scroll reveals, layout springs (filter reflow, timeline) and the hero entrance
+- The View Transitions API for the shared-element morph into a case study. Browsers without it fall back to a Motion crossfade, and `prefers-reduced-motion` turns both off.
+- Gelasio (display) and Schibsted Grotesk (text), self-hosted through Fontsource
 
 ## Running locally
 
-No build. Open `index.html` in a browser, or serve the folder:
+```
+npm install
+npm run dev       # http://localhost:5173
+npm run build     # outputs dist/
+npm run preview
+```
+
+## Where things live
 
 ```
-python3 -m http.server 8000
-# then visit http://localhost:8000
+src/data.js              all content: projects, research, experience, education
+src/components/          one file per section, plus CaseStudy.jsx
+src/lib/motion.jsx       reveal, mask-line, shutter and count-up primitives
+src/lib/route.js         hash routing for case studies, wrapped in view transitions
+src/styles.css           tokens first, then sections in page order
+public/world/            the KIT campus photograph and its credit (credits.json)
+design/reference/        the original process infographics, redrawn in the case studies
+PRODUCT.md               product facts and content rules
+DESIGN.md                the visual system
 ```
 
-## Design notes
+Facts come from `public/resume.pdf`. Where the résumé and older copy disagree, the résumé wins. Every case-study section is optional: if a field is missing, that section is left out rather than filled with placeholder text.
 
-- Warm paper palette (`#f3efe6` / `#1a1916`), single orange accent (`#b8502c`) and muted green (`#3b5a4a`).
-- Instrument Serif for display, Inter for UI, JetBrains Mono for metadata.
-- Editorial rhythm on desktop: paper → black marquee band → paper → black footer band creates visual breathing.
-- Mobile treats the whole hero as a newspaper front-page "issue" — edition number, timestamp, now-playing strip, portrait tile, masthead title, and a stats rail above the tab bar.
+## Deploying
+
+`.github/workflows/deploy.yml` builds `dist/` and publishes it to GitHub Pages. Under Settings → Pages, the repository's source must be **GitHub Actions**. `public/CNAME` keeps the custom domain.
