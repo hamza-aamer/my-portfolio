@@ -1,32 +1,72 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { kitPicture, person } from '../data.js';
 
 const credits = [kitPicture];
+const WORD = 'HAMZA AAMER';
 
-// The wordmark runs margin to margin: the viewBox is fitted to the word's
-// own measured box once the face has loaded, so the letters are never stretched.
+// The name across the foot of the page, letter by letter. Each letter swells
+// toward the pointer (or a finger), and when nothing is near, a slow wave
+// passes through the name on its own.
 function Wordmark() {
-  const text = useRef(null);
-  const [box, setBox] = useState('0 0 980 112');
-  useLayoutEffect(() => {
-    const fit = () => {
-      if (!text.current) return;
-      const b = text.current.getBBox();
-      setBox(`${b.x} ${b.y + b.height * 0.12} ${b.width} ${b.height * 0.8}`);
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    const letters = [...el.querySelectorAll('[data-l]')];
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pointer = { x: -9999, y: -9999, near: 0 };
+    const state = letters.map(() => ({ w: 400, s: 90 }));
+    let raf = 0;
+    let visible = false;
+
+    const tick = (now) => {
+      raf = requestAnimationFrame(tick);
+      const box = el.getBoundingClientRect();
+      const inside = pointer.y > box.top - 160 && pointer.y < box.bottom + 160;
+      pointer.near += ((inside ? 1 : 0) - pointer.near) * 0.08;
+      letters.forEach((l, i) => {
+        const r = l.getBoundingClientRect();
+        const d = Math.abs(pointer.x - (r.left + r.width / 2)) / Math.max(240, box.width * 0.22);
+        const hit = Math.max(0, 1 - d) * pointer.near;
+        const wave = (Math.sin(now / 700 - i * 0.6) + 1) / 2 * (1 - pointer.near);
+        const amt = Math.max(hit, wave * 0.85);
+        const tw = 250 + amt * 650;
+        const ts = 70 + amt * 55;
+        state[i].w += (tw - state[i].w) * 0.18;
+        state[i].s += (ts - state[i].s) * 0.18;
+        l.style.fontVariationSettings = `'wght' ${state[i].w.toFixed(0)}, 'wdth' ${state[i].s.toFixed(1)}`;
+      });
     };
-    fit();
-    document.fonts?.ready.then(fit);
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      cancelAnimationFrame(raf);
+      if (visible && !reduce) raf = requestAnimationFrame(tick);
+    });
+    io.observe(el);
+    const onMove = (e) => {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+    };
+    window.addEventListener('pointermove', onMove, { passive: true });
+    window.addEventListener('pointerdown', onMove, { passive: true });
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerdown', onMove);
+    };
   }, []);
   return (
-    <svg className="footer__mark" viewBox={box} role="img" aria-label={person.name}>
-      <text ref={text} x="0" y="100">{person.name}</text>
-    </svg>
+    <p className="footer__mark" ref={ref} aria-label={person.name}>
+      {[...WORD].map((c, i) => (
+        <span key={i} data-l aria-hidden="true" className={c === ' ' ? 'footer__gap' : undefined}>{c === ' ' ? '\u00a0' : c}</span>
+      ))}
+    </p>
   );
 }
 
 export default function Footer() {
   return (
-    <footer className="footer on-ink">
+    <footer className="footer" data-chapter="cream">
       <div className="footer__cols">
         <div className="footer__col">
           <span>Contact</span>

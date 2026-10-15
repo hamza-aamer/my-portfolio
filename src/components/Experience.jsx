@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
 import { axis, experience, projectById } from '../data.js';
-import { EASE, Item, MaskLines, SPRING_LAYOUT, Stagger, rise } from '../lib/motion.jsx';
+import { EASE, Item, SPRING_LAYOUT, Stagger, Stretch, rise } from '../lib/motion.jsx';
 import { ArrowRight, Plus } from './Icons.jsx';
 
 const years = [];
@@ -108,9 +108,12 @@ export default function Experience() {
   });
 
   return (
-    <section className="experience" id="experience" aria-labelledby="experience-h">
+    <section className="experience" id="experience" aria-labelledby="experience-h" data-chapter="cream">
+      <div className="experience__top">
+        <Stretch id="experience-h" className="h2" lines={['Experience']} />
+        <div className="experience__stage" data-stage="network" aria-hidden="true" />
+      </div>
       <div className="lineup__head">
-        <MaskLines as="h2" id="experience-h" className="h2" lines={['Experience']} />
         <div className="axis" aria-hidden="true">
           {years.filter((y) => y < axis.to).map((y) => <span key={y} style={{ left: `${pct(y)}%` }}>{y}</span>)}
         </div>

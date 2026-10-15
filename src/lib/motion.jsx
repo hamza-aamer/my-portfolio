@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, animate, useInView, useReducedMotion } from 'motion/react';
+import { motion, animate, useInView, useMotionTemplate, useReducedMotion, useScroll, useTransform } from 'motion/react';
 
 export const EASE = [0.22, 1, 0.36, 1];
 export const SPRING_PRESS = { type: 'spring', stiffness: 380, damping: 32 };
@@ -122,5 +122,31 @@ export function Count({ value, className }) {
     <span ref={ref} className={className} aria-label={String(value)}>
       <span aria-hidden="true">{shown}</span>
     </span>
+  );
+}
+
+// A display heading whose letters widen and thicken as it climbs the screen:
+// condensed and light at the bottom edge, expanded and black by the upper third.
+export function Stretch({ as = 'h2', lines, className = '', id, from = 62 }) {
+  const ref = useRef(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start 0.32'] });
+  const wdth = useTransform(scrollYProgress, [0, 1], reduce ? [125, 125] : [from, 125]);
+  const wght = useTransform(scrollYProgress, [0, 1], reduce ? [900, 900] : [380, 900]);
+  const fvs = useMotionTemplate`'wdth' ${wdth}, 'wght' ${wght}`;
+  const Tag = motion[as];
+  return (
+    <Tag ref={ref} id={id} className={`stretch ${className}`} style={{ fontVariationSettings: fvs, '--chars': Math.max(...lines.map((l) => l.length)) }} initial={reduce ? false : 'hidden'} whileInView="show" viewport={VIEW}>
+      {lines.map((line, i) => (
+        <span className="mask-line" key={i}>
+          <motion.span
+            style={{ display: 'block' }}
+            variants={{ hidden: { y: '108%' }, show: { y: '0%', transition: { duration: 0.95, ease: EASE, delay: i * 0.1 } } }}
+          >
+            {line}
+          </motion.span>
+        </span>
+      ))}
+    </Tag>
   );
 }

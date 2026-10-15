@@ -1,10 +1,16 @@
 import { education, person } from '../data.js';
-import { Item, Stagger } from '../lib/motion.jsx';
+import { Item, Stagger, Stretch } from '../lib/motion.jsx';
 
 export default function About() {
   return (
-    <section className="about" id="about" aria-labelledby="about-h">
-      <h2 className="sr" id="about-h">About</h2>
+    <section className="about" id="about" aria-labelledby="about-h" data-chapter="yellow">
+      <div className="about__top">
+        <Stretch id="about-h" className="h2" lines={['About']} />
+        <figure className="about__fan">
+          <div className="about__stage" data-stage="fan" aria-hidden="true" />
+          <figcaption>Karlsruhe, the fan city: 32 streets radiate from the palace tower. I live and study here.</figcaption>
+        </figure>
+      </div>
       <Stagger className="about__cols" gap={0.1}>
         <Item as="p">
           <strong>I’m Hamza Aamer</strong>, a Senior AI Engineer at <span className="hl">Aiden Risk</span> and a

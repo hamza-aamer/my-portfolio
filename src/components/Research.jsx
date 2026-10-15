@@ -1,23 +1,58 @@
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { kitPicture, research } from '../data.js';
-import { Item, MaskLines, Stagger, rise } from '../lib/motion.jsx';
+import { Item, Stagger, Stretch, rise } from '../lib/motion.jsx';
 
-const specimens = [
-  { figure: '15×', name: 'Channel-disable scheduling', note: 'Latency for latency-critical LLM requests, kept apart from best-effort work. Up to 15× better.' },
-  { figure: '5–12%', name: 'Unified-memory policies', note: 'Throughput from prefetch and oversubscription policies, evaluated on real hardware.' },
-];
+// Scroll is the dial: the latency bar for a critical request shrinks as the
+// figure counts up, until it is one fifteenth of where it started.
+function Fifteen() {
+  const ref = useRef(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
+  const k = useTransform(scrollYProgress, [0.08, 0.82], [1, 15], { clamp: true });
+  const [shown, setShown] = useState(reduce ? 15 : 1);
+  useMotionValueEvent(k, 'change', (v) => setShown(Math.round(v)));
+  const factor = reduce ? 15 : shown;
+  const after = useTransform(k, (v) => 1 / (reduce ? 15 : v));
+  const tilt = useTransform(scrollYProgress, [0, 1], [-6, 6]);
+
+  return (
+    <div className="fifteen" ref={ref}>
+      <div className="fifteen__pin">
+        <p className="fifteen__label">
+          <strong>Channel-disable scheduling.</strong> Latency for latency-critical LLM requests, kept apart
+          from best-effort work on the same GPU.
+        </p>
+        <motion.p className="fifteen__figure num" style={{ rotate: reduce ? 0 : tilt }} aria-label="Up to 15 times better latency">
+          <span aria-hidden="true">{factor}×</span>
+        </motion.p>
+        <div className="fifteen__bars" aria-hidden="true">
+          <div className="fifteen__row">
+            <span>Before</span>
+            <span className="fifteen__bar fifteen__bar--before" />
+          </div>
+          <div className="fifteen__row">
+            <span>With the policy</span>
+            <motion.span className="fifteen__bar fifteen__bar--after" style={{ scaleX: after }} />
+          </div>
+        </div>
+        <p className="fifteen__note">Up to 15× better. Unified-memory prefetch and oversubscription policies added 5–12% throughput.</p>
+      </div>
+    </div>
+  );
+}
 
 function Plate() {
   const ref = useRef(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], reduce ? ['0%', '0%'] : ['-6%', '6%']);
+  const y = useTransform(scrollYProgress, [0, 1], reduce ? ['0%', '0%'] : ['-8%', '8%']);
+  const clip = useTransform(scrollYProgress, [0, 0.35], reduce ? ['inset(0% 0% 0% 0%)', 'inset(0% 0% 0% 0%)'] : ['inset(18% 12% 18% 12%)', 'inset(0% 0% 0% 0%)']);
   return (
-    <figure>
-      <div className="plate" ref={ref}>
+    <figure className="kit" data-chapter="blue" ref={ref}>
+      <motion.div className="plate" style={{ clipPath: clip }}>
         <motion.img style={{ y }} src={kitPicture.src} alt={kitPicture.alt} loading="lazy" decoding="async" width="1920" height="1440" />
-      </div>
+      </motion.div>
       <figcaption className="credit">
         Karlsruhe Institute of Technology. <a href={kitPicture.href} target="_blank" rel="noreferrer">{kitPicture.credit}</a>, {kitPicture.licence}.
       </figcaption>
@@ -28,37 +63,26 @@ function Plate() {
 export default function Research() {
   return (
     <>
-      <section className="section research" id="research" aria-labelledby="research-h">
+      <section className="research" id="research" aria-labelledby="research-h" data-chapter="blue">
         <div className="research__top">
-          <MaskLines as="h2" id="research-h" className="h2" lines={['Research']} />
-          <Stagger className="lede" as="div">
-            <Item as="p">
-              Alongside industry work I hold two research assistant (HiWi) positions at KIT: GPU resource
-              management for LLM inference at the Chair for Embedded Systems, and on-device machine learning
-              for wearables at TECO. Before Karlsruhe, I worked on document understanding at DataInsight.
-            </Item>
-          </Stagger>
+          <div>
+            <Stretch id="research-h" className="h2" lines={['Research']} />
+            <Stagger className="lede" as="div">
+              <Item as="p">
+                Alongside industry work I hold two research assistant (HiWi) positions at KIT: GPU resource
+                management for LLM inference at the Chair for Embedded Systems, and on-device machine learning
+                for wearables at TECO. Before Karlsruhe, I worked on document understanding at DataInsight.
+              </Item>
+            </Stagger>
+          </div>
+          <div className="research__stage" data-stage="chip" aria-hidden="true" />
         </div>
 
-        <Stagger className="specimens" gap={0.14}>
-          {specimens.map((s) => (
-            <Item className="specimen" key={s.name}>
-              <p className="specimen__label"><strong>{s.name}.</strong> {s.note}</p>
-              <div className="specimen__box">
-                <motion.p
-                  className="specimen__figure"
-                  variants={{ hidden: { y: '30%' }, show: { y: '0%', transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] } } }}
-                >
-                  {s.figure}
-                </motion.p>
-              </div>
-            </Item>
-          ))}
-        </Stagger>
+        <Fifteen />
 
         <div className="record">
-          {research.map((r) => (
-            <Stagger as="article" className="record__item" key={r.id} aria-labelledby={`r-${r.id}`} gap={0.08}>
+          {research.map((r, i) => (
+            <Stagger as="article" className={`record__item record__item--${i}`} key={r.id} aria-labelledby={`r-${r.id}`} gap={0.08}>
               <Item className="record__side">
                 <h3 className="record__lab" id={`r-${r.id}`}>{r.lab}</h3>
                 <p className="record__sub">{r.role}{r.lead.startsWith('Prof') ? `, with ${r.lead}` : `, ${r.lead}`}</p>

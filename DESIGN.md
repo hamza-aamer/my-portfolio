@@ -1,71 +1,104 @@
 # Design
 
-The site reads like a magazine feature on one engineer: large type on white paper, real pictures, and one colour moment. It deliberately avoids the newsprint look of the previous version (cream paper, italic display, tracked monospace labels, mastheads, marquees).
+The site is a primary-colour Bauhaus poster that moves. One cloud of coloured points rebuilds itself as you scroll:
+- your name;
+- your portrait;
+- a circle, square and triangle;
+- a GPU die;
+- a neural network;
+- the Karlsruhe fan;
+- an @.
+
+Every section floods the page with its own ground colour. The owner asked for bright colours, crazy visuals and no dark sections (2026-10-16). This design replaces the quiet editorial version of 2026-10-15.
 
 ## Tokens (`src/styles.css`, `:root`)
 
-| Role | Token | Value | Use |
-|---|---|---|---|
-| Ground | `--paper` | `#FFFFFF` | Page. It matches the portrait's background, so the photo melts into the page. |
-| Panel | `--paper-2` | `#F1F1F1` | Experience band, tags, filters, case-study bar buttons |
-| Panel step | `--paper-3` | `#E6E6E6` | Timeline track, hover state of panels |
-| Ink | `--ink` | `#111111` | Text, the primary button, footer ground |
-| Soft ink | `--ink-soft` | `#575757` | Secondary text (7.2:1 on paper, 6.4:1 on panel) |
-| Accent | `--accent` | `#2433FF` | Contact field, active filter, list markers, résumé link, button hover |
-| Accent deep | `--accent-ink` | `#1A26CC` | Alternate contact rows, base of the Ascend stack diagram |
-| Accent tint | `--accent-tint` | `#DFE2FF` | About highlights, diagram stages |
-| On accent | `--on-accent` / `--on-accent-soft` | `#FFFFFF` / `#C9CDFF` | Text on the ultramarine field (7.0:1 / 4.56:1) |
+| Role | Token | Value |
+|---|---|---|
+| Cream ground | `--cream` | `#F6F1E7` |
+| Red (shapes, points) | `--red` | `#E63322` |
+| Red ground (text on it) | `--red-deep` | `#D42A1A` (cream text 4.5:1) |
+| Blue | `--blue` | `#1F4BFF` (cream text 5.3:1) |
+| Yellow | `--yellow` | `#FFCB05` (ink text 12.4:1) |
+| Ink | `--ink` | `#111111` |
 
-Surfaces are separated by steps in tone, never by rules or shadows. Corners are square throughout. The only round shape is the arrow button in Contact.
+**Chapters.** Each section declares `data-chapter` (cream, yellow, blue or red). `src/lib/chapters.js` sets `html[data-chapter]` for the section that crosses the middle of the screen. The page's `--bg`, `--fg`, `--fg-soft` and `--wash` then cross-fade to that chapter, and the mobile browser's theme colour follows. The order is:
+1. Hero: cream.
+2. Who: yellow.
+3. Tapes: yellow.
+4. Work: cream.
+5. Research and the KIT photograph: blue.
+6. Experience: cream.
+7. About: yellow.
+8. Contact: red.
+9. Footer: cream.
 
 ## Type
 
-- **Gelasio** 500/600 for display, headings, statements and figures. Tracking is −0.045em at display size and −0.015em at lead size.
-- **Schibsted Grotesk Variable** for text, UI and captions.
-- There are five sizes and no others: `--t-xxl` clamp(84px, 12.5vw, 204px), `--t-xl` clamp(36px, 5vw, 76px), `--t-l` clamp(22px, 2.15vw, 32px), `--t-m` 17px, `--t-s` 14px.
-- Headlines are two lines at most at every width. Statements are `<p>` elements at `--t-l`.
-- There is no monospace, no eyebrow labels and no index numbering. Dates use tabular figures (`.num`).
+The page uses two families:
+- **Archivo Variable** (wdth 62–125, wght 100–900):
+  - Display text is set at 900 weight, 125% width and uppercase.
+  - Archivo is also the UI and text face.
+- **Gelasio**: statements, roles, About prose, case-study problems.
 
-## Layout
+Headings use `<Stretch>` (`src/lib/motion.jsx`). They widen from 62% to 125% width and thicken from 380 to 900 weight as they climb the screen. Their size is capped by `--chars`, so the longest line always fits the page.
 
-- Margins `--m` are 24px (16px on phones). The gutter `--gap` is 16px. Sections are spaced `--section` apart: clamp(112px, 13vw, 200px).
-- Each section has its own composition:
-  - **Hero:** stepped two-line name over the portrait.
-  - **Figures:** results set inside a sentence.
-  - **Work:** staggered 4-column tiles with deliberately empty cells. The heading owns the empty cell in row 1.
-  - **Research:** two giant figures compared, then the record.
-  - **Experience:** line-up rows with span bars on a 2020–2027 axis.
-  - **About:** two columns of lead-size prose with highlights.
-  - **Contact:** display-size rows on ultramarine.
-  - **Footer:** inverted, with a fitted full-width wordmark.
-- Below 860px each section switches to its own phone composition. It is not a squeezed version of the desktop layout.
+## The particle field (`src/lib/field.js`, `src/lib/shapes.js`, `src/components/Field.jsx`)
+
+**Rendering.**
+- A single raw WebGL draw call: 15,000 points on desktop, 6,500 on phones. No three.js.
+- The canvas is fixed under the page content. Text always reads above it.
+
+**Stages.**
+- Any element with `data-stage="name|portrait|bauhaus|chip|network|fan|at"` is a stage. Its shape is fitted inside the element's box, so the points scroll with the page.
+- When the next stage comes within a screen of the middle, the points travel to it along curved paths, with a per-point delay.
+
+**Shapes.**
+- Text is sampled from Archivo on a canvas.
+- The portrait is a four-tone halftone of `portrait.jpg`.
+- The other shapes are generated.
+
+**Colour.**
+- Each point carries red, blue, yellow or ink.
+- Each chapter remaps them (`PALETTES`), so no point disappears into its ground.
+
+**Motion.**
+- At rest the points breathe.
+- Fast scrolling stretches them into streaks.
+- The pointer, or a finger, pushes them aside. The push grows with pointer speed and is larger over `[data-reveal]`.
+- On first load the points fly in from everywhere.
+- Reduced motion snaps between shapes and turns off the breathing, streaks and intro.
+
+## Signature interactions
+
+- **Portrait peek (Who):** over the dotted portrait, a circle of the real photograph opens under the pointer, and the points part around it. A button shows the whole photograph, for touch and keyboard users.
+- **X-ray lens (`src/components/Pointer.jsx`):**
+  - Hold anywhere on desktop, or switch on X-ray in the header or with the hero badge.
+  - The lens turns whatever is under it into a blue and white blueprint, using a backdrop-filter invert plus a blue screen blend.
+  - It overlays the page's 12-column grid and an 8px baseline.
+  - It reads out the element at its centre: tag, typeface, weight, size and box, or the WebGL stage and its point count.
+  - On touch the lens sits mid-screen and is dragged with a thumb.
+  - Esc turns it off.
+- **Cursor:** a red dot plus a ring that lags behind and springs. Over controls the ring fills yellow. On `[data-cursor]` targets it shows a label: Open, Look, X-ray, Write.
+- **Magnetic controls:** anything marked `[data-magnetic]` leans toward the pointer.
+- **Tapes:** two crossing strips of real tool names. They speed up and reverse with the scroll, and skew with scroll velocity.
+- **Work:** the section pins, and vertical scroll moves a row of eight generated posters sideways.
+  - Each poster's circle, square and triangle are seeded by the project id. They slide and turn at three depths as the poster crosses the screen.
+  - Posters tilt in 3D under the pointer.
+  - A View Transition grows the poster into the case study's problem plate.
+- **15×:** a pinned scrub. The figure counts from 1× to 15× while the latency bar for a critical request shrinks to one fifteenth.
+- **Footer wordmark:** each letter swells in weight and width toward the pointer. When nothing is near, a slow wave runs through the name.
+- **Intro curtain:** three primaries pop in and a count runs to 100. Three coloured panels then lift away while the points assemble the name. It shows once per session and never under reduced motion.
+- **Smooth scrolling:** Lenis, for mouse and trackpad only. It pauses while a case study is open.
 
 ## Imagery
 
-- **Portrait:** `public/images/portrait.jpg`, with the near-white background lifted to pure white. The original is `profile.jpg`.
-- **Projects:** no pictures, by the owner's choice. The portrait is the only image of him, and the work is shown as information rather than imagery. Each tile is a typographic plate on `--paper-2` carrying the lead result (where one exists) and the one-line problem, and it turns accent-tint on hover. The plate morphs into the case study's opening "Problem" band.
-- **KIT campus:** `public/world/kit.jpg`, an open-licence photograph used as the one full-bleed image between Research and Experience. It is credited in its caption, the footer and `public/world/credits.json`.
-- **Process diagrams:** drawn in CSS from the stage labels of the original infographics (`design/reference/`):
-  - Artisan: stages that widen.
-  - Ant-AI: a staircase.
-  - Ascend: a stack of layers that darkens toward the base.
+- **Portrait:** `public/images/portrait.jpg`. It appears as the dotted halftone and as the photograph revealed beneath it, multiplied onto the yellow.
+- **KIT campus:** `public/world/kit.jpg`, CC BY 3.0, credited in its caption and in the footer. It is printed as a yellow-and-black duotone and opens from an inset as it enters.
+- **Projects:** no pictures, by the owner's choice. Each poster's art is a generated composition, and the text sits on a solid ground.
 
-## Motion (`src/lib/motion.jsx`, Motion 14)
+## Rules
 
-- **Easing:** expo-out `[0.22, 1, 0.36, 1]` for every arrival. Press springs use 380/32, layout springs 260/30.
-- **Signature:** the hero name lines rise out of masks, 110ms apart. The portrait opens like a shutter, settles from a 1.1 scale, and drifts slower than the page on scroll.
-- **Case studies:** View Transitions API with shared `pic-<id>` (tile plate → problem band) and `title-<id>` names. Tiles only carry the names while no case study is open. Browsers without View Transitions get a Motion fade and rise.
-- **Reveals:** each section reveals its parts in order, once:
-  - Headings use mask lines.
-  - Prose, lists and tags use staggered rises 60–90ms apart.
-  - Pictures use the shutter.
-  - Figures count up.
-  - Timeline bars grow along X.
-- **Layout:** filter reflow uses `AnimatePresence mode="popLayout"` with layout springs. Experience panels expand on the layout spring.
-- **Rules:** only transforms, opacity and clip-path animate. `MotionConfig reducedMotion="user"` plus CSS fallbacks keep content and drop the travel, and view transitions are skipped under reduced motion.
-
-## Components
-
-- **Buttons:** `.button` is solid ink and square, at least 52px tall. It turns accent on hover and scales to 0.97 on press. `.filter`, `.case__step` and `.copy` are 44px panel buttons.
-- **Links:** `.link` underlines at 35% opacity, rising to full on hover.
-- **Case study:** `role="dialog"`, Esc closes, Tab is trapped, and focus moves to the title on open and back to the tile on close. Moving between case studies replaces the history entry, so one Back always leaves the overlay.
+- Particle shapes may be abstract. Facts stay exactly as in `data.js`.
+- Every effect has a reduced-motion path and a no-WebGL fallback: the h1 shows the real name, and the photograph is shown in full.
+- Labels are sentence case, with no tracked micro-caps.

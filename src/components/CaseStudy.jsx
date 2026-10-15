@@ -5,6 +5,8 @@ import { canTransition } from '../lib/route.js';
 import { Count, EASE, Item, Stagger } from '../lib/motion.jsx';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Close } from './Icons.jsx';
 
+const GROUNDS = ['red', 'blue', 'yellow'];
+
 function Approach({ p }) {
   if (!p.approach) return null;
   const variant = p.diagram ? ` approach--${p.diagram}` : '';
@@ -76,7 +78,8 @@ export default function CaseStudy({ id, onClose }) {
   return (
     <motion.div
       ref={scroller}
-      className="case"
+      className={`case case--${GROUNDS[index % GROUNDS.length]}`}
+      data-lenis-prevent
       role="dialog"
       aria-modal="true"
       aria-labelledby="case-title"
