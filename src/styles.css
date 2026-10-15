@@ -245,7 +245,7 @@ a { color: inherit; text-decoration: none; }
 .hero__shapes { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 .hero__shape { position: absolute; display: block; }
 .hero__shape > span { background: currentColor; }
-.hero__shape--circle { color: var(--red); width: 26vw; aspect-ratio: 1; top: -9vw; right: -9vw; }
+.hero__shape--circle { color: var(--red); width: 18vw; aspect-ratio: 1; top: -6vw; right: -8vw; }
 .hero__shape--circle > span { border-radius: 50%; }
 .hero__shape--square { color: var(--blue); width: 5.5vw; aspect-ratio: 1; top: 7%; left: 24vw; }
 .hero__shape--tri { color: var(--yellow); width: 19vw; aspect-ratio: 1 / 0.88; top: 46%; left: -4vw; }
