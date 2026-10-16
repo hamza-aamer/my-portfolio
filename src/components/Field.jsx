@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { createField } from '../lib/field.js';
 import { PALETTES, watchChapters } from '../lib/chapters.js';
+import { WAVE_EVENT } from '../lib/wave.js';
 import { bauhausShape, chipShape, DISPLAY_FONT, fanShape, networkShape, portraitShape, textShape } from '../lib/shapes.js';
 
 const loadImage = (src) => new Promise((resolve, reject) => {
@@ -41,7 +42,8 @@ export default function Field() {
     const n = narrow ? 6500 : 15000;
     let field;
     try {
-      field = createField(canvas.current, { n, motion: !reduce });
+      // On a phone the flick of a thumb is fast; the streaks are kept short.
+      field = createField(canvas.current, { n, motion: !reduce, streak: narrow ? 0.35 : 1, compact: narrow });
     } catch {
       field = null;
     }
@@ -80,10 +82,14 @@ export default function Field() {
       field.start();
     });
 
+    // Only a mouse pushes the points. A finger on glass is a scroll, and a
+    // hole that stayed where the thumb first landed would tear the shapes;
+    // fingers make shockwaves instead (src/lib/wave.js).
     let lastX = 0;
     let lastY = 0;
     let lastT = 0;
     const onMove = (e) => {
+      if (e.pointerType !== 'mouse') return;
       const now = performance.now();
       const dt = Math.max(8, now - lastT);
       const speed = Math.hypot(e.clientX - lastX, e.clientY - lastY) / (dt / 16);
@@ -94,14 +100,10 @@ export default function Field() {
       field.boost(e.target.closest?.('[data-reveal]') ? (narrow ? 90 : 150) : 0);
     };
     const onLeave = () => field.leave();
-    const onUp = (e) => {
-      if (e.pointerType !== 'mouse') setTimeout(onLeave, 450);
-    };
+    const onWave = (e) => field.shock(e.detail.x, e.detail.y, e.detail.strength);
     window.addEventListener('pointermove', onMove, { passive: true });
-    window.addEventListener('pointerdown', onMove, { passive: true });
-    window.addEventListener('pointerup', onUp, { passive: true });
-    window.addEventListener('pointercancel', onUp, { passive: true });
     document.documentElement.addEventListener('pointerleave', onLeave);
+    window.addEventListener(WAVE_EVENT, onWave);
 
     // Text stages are re-cut when the window changes shape.
     let timer = 0;
@@ -133,10 +135,8 @@ export default function Field() {
       field.destroy();
       root.classList.remove('has-field');
       window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerdown', onMove);
-      window.removeEventListener('pointerup', onUp);
-      window.removeEventListener('pointercancel', onUp);
       document.documentElement.removeEventListener('pointerleave', onLeave);
+      window.removeEventListener(WAVE_EVENT, onWave);
       window.removeEventListener('resize', onResize);
       document.removeEventListener('visibilitychange', onVisible);
     };

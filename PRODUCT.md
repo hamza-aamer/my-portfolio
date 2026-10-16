@@ -33,7 +33,7 @@ His work spans the whole stack: kernel-level GPU resource management (eBPF/struc
 - Roles and projects share one data model. A project may belong to the role that built it, or be independent or academic.
 - Client and employer projects (Ascend, Artisan, Ant-AI) are proprietary: no source links. Independent projects link to GitHub.
 - The "Ask the notebook" LLM Q&A and the GPU scheduler "Lab" simulation from the previous site are **dropped** in this redesign. The owner did not opt to keep them. The Silicon → Product capability stack and the ⌘K palette are also dropped (owner decision, 2026-10-15).
-- Visual direction (owner, 2026-10-16): bright Primary Bauhaus colours with no dark sections, and bold interactive visuals: a WebGL particle field, the x-ray lens, scroll-driven type and posters. Decorative visuals may be abstract; facts may not.
+- Visual direction (owner, 2026-10-16): bright Primary Bauhaus colours with no dark sections, and bold interactive visuals: a WebGL particle field, tap-anywhere shockwaves, scroll-driven type and posters. The x-ray lens was removed at the owner's request (2026-10-17). Phones must scroll freely: nothing pins below desktop. Decorative visuals may be abstract; facts may not.
 - Research positions (CES/ITEC and TECO HiWi roles at KIT, and the DataInsight research assistantship) appear in their own Research section, separate from industry work experience. The owner considers them research experience, not work experience. They are not case studies in the projects grid.
 
 ## Brand Commitments

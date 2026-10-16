@@ -16,6 +16,7 @@ import Pointer from './components/Pointer.jsx';
 import Intro from './components/Intro.jsx';
 import { useCaseRoute } from './lib/route.js';
 import { pauseSmooth, resumeSmooth, smoothAnchors, startSmooth } from './lib/smooth.js';
+import { startWaves } from './lib/wave.js';
 
 export default function App() {
   const { id, close } = useCaseRoute();
@@ -23,9 +24,11 @@ export default function App() {
   useEffect(() => {
     const stop = startSmooth();
     const off = smoothAnchors();
+    const offWaves = startWaves();
     return () => {
       stop();
       off();
+      offWaves();
     };
   }, []);
 

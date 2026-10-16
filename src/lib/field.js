@@ -23,6 +23,9 @@ uniform float uMotion;
 uniform vec2 uRes;
 uniform vec2 uMouse;
 uniform float uMouseR;
+uniform float uStreak;
+uniform float uFlight;
+uniform vec4 uShock[4];
 uniform vec3 uPal[4];
 varying vec3 vCol;
 varying float vAlpha;
@@ -40,19 +43,35 @@ void main() {
   vec2 dir = pb - pa;
   float len = length(dir);
   vec2 perp = len > 0.001 ? vec2(-dir.y, dir.x) / len : vec2(0.0);
-  p += perp * sin(tp * 3.14159) * (aRand.y - 0.5) * min(len, 700.0) * 0.7 * uMotion;
+  p += perp * sin(tp * 3.14159) * (aRand.y - 0.5) * min(len, min(700.0, uRes.x * 0.5)) * 0.7 * uMotion;
 
   // Breathing at rest, and streaks when the page is flung.
   float t = uTime;
   p += vec2(sin(t * 0.8 + aRand.z * 40.0), cos(t * 0.7 + aRand.w * 40.0)) * 1.1 * uMotion;
-  p.y += uVel * (aRand.x - 0.5) * 1.4 * uMotion;
-  p.x += uVel * (aRand.w - 0.5) * 0.5 * uMotion;
+  p.y += uVel * (aRand.x - 0.5) * 1.4 * uStreak * uMotion;
+  p.x += uVel * (aRand.w - 0.5) * 0.5 * uStreak * uMotion;
 
   // The first arrival: from everywhere into the name.
   float ip = clamp((uIntro - aRand.y * 0.45) / 0.55, 0.0, 1.0);
   ip = 1.0 - pow(1.0 - ip, 3.0);
   vec2 scatter = vec2(aRand.z, aRand.w) * uRes * 1.2 - uRes * 0.1;
   p = mix(scatter, p, ip);
+
+  // Shockwaves from a tap or click: a ring that rolls outward, shoving the
+  // points it passes and flipping them to the next colour for a moment.
+  float glow = 0.0;
+  for (int k = 0; k < 4; k++) {
+    vec4 s = uShock[k];
+    if (s.w > 0.0) {
+      float e = clamp(s.z / 1.1, 0.0, 1.0);
+      float radius = s.w * (1.0 - pow(1.0 - e, 3.0));
+      vec2 sd = p - s.xy;
+      float sl = length(sd);
+      float band = exp(-pow((sl - radius) / 84.0, 2.0)) * (1.0 - e);
+      p += (sl > 0.001 ? sd / sl : vec2(0.0)) * band * 72.0 * uMotion;
+      glow = max(glow, band * uMotion);
+    }
+  }
 
   // The pointer pushes points aside.
   vec2 d = p - uMouse;
@@ -63,15 +82,19 @@ void main() {
 
   vec2 clip = (p / uRes) * 2.0 - 1.0;
   gl_Position = vec4(clip.x, -clip.y, 0.0, 1.0);
-  gl_PointSize = mix(uSizeA, uSizeB, tp) * uDpr * (1.0 + f * 0.8);
+  // Points in flight thin out, so text they cross on the way stays clean.
+  float flight = sin(tp * 3.14159) * uFlight * uMotion;
+  gl_PointSize = mix(uSizeA, uSizeB, tp) * uDpr * (1.0 + f * 0.8 + glow * 1.3) * (1.0 - flight * 0.4);
 
-  int ci = int(tp < 0.5 ? aColFrom : aColTo);
+  float cf = tp < 0.5 ? aColFrom : aColTo;
+  if (glow > 0.3) cf = mod(cf + 1.0, 4.0);
+  int ci = int(cf + 0.5);
   vec3 c = uPal[0];
   if (ci == 1) c = uPal[1];
   if (ci == 2) c = uPal[2];
   if (ci == 3) c = uPal[3];
   vCol = c;
-  vAlpha = ip;
+  vAlpha = ip * (1.0 - flight);
 }
 `;
 
@@ -98,7 +121,20 @@ function compile(gl, type, src) {
 
 const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
 
-export function createField(canvas, { n, motion = true }) {
+// The large viewport height (browser bars hidden). The canvas is sized to it
+// once, so the address bar sliding in and out never re-sizes the canvas.
+function largeHeight() {
+  const probe = document.createElement('div');
+  probe.style.cssText = 'position:fixed;top:0;left:0;width:0;height:100lvh;visibility:hidden;pointer-events:none';
+  document.body.appendChild(probe);
+  const v = probe.offsetHeight;
+  probe.remove();
+  return Math.max(v || 0, window.innerHeight);
+}
+
+const SHOCKS = 4;
+
+export function createField(canvas, { n, motion = true, streak = 1, compact = false }) {
   const gl = canvas.getContext('webgl', { alpha: true, antialias: false, premultipliedAlpha: true, powerPreference: 'high-performance' });
   if (!gl) return null;
 
@@ -111,7 +147,7 @@ export function createField(canvas, { n, motion = true }) {
 
   const loc = (name) => gl.getUniformLocation(prog, name);
   const u = Object.fromEntries(
-    ['uA', 'uB', 'uT', 'uTime', 'uIntro', 'uVel', 'uDpr', 'uSizeA', 'uSizeB', 'uMotion', 'uRes', 'uMouse', 'uMouseR'].map((k) => [k, loc(k)]),
+    ['uA', 'uB', 'uT', 'uTime', 'uIntro', 'uVel', 'uDpr', 'uSizeA', 'uSizeB', 'uMotion', 'uRes', 'uMouse', 'uMouseR', 'uStreak', 'uFlight', 'uShock'].map((k) => [k, loc(k)]),
   );
   const uPal = loc('uPal');
 
@@ -155,11 +191,21 @@ export function createField(canvas, { n, motion = true }) {
   let w = 0;
   let h = 0;
   let dpr = 1;
+  const shocks = Array.from({ length: SHOCKS }, () => ({ x: 0, y: 0, at: 0, reach: 0 }));
+  const shockData = new Float32Array(SHOCKS * 4);
+  let nextShock = 0;
 
+  // Re-allocating a canvas clears it, so it only happens when the size
+  // really changes: a rotation or a resized window, not a scrolling toolbar.
   function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = window.innerWidth;
-    h = window.innerHeight;
+    const nd = Math.min(window.devicePixelRatio || 1, 2);
+    const nw = window.innerWidth;
+    const nh = largeHeight();
+    if (nw === w && nh === h && nd === dpr) return;
+    dpr = nd;
+    w = nw;
+    h = nh;
+    canvas.style.height = `${h}px`;
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(h * dpr);
     gl.viewport(0, 0, canvas.width, canvas.height);
@@ -188,7 +234,7 @@ export function createField(canvas, { n, motion = true }) {
 
     // Where the middle of the screen sits between two stage centres.
     const fits = ready.map(fit);
-    const vc = h * 0.5;
+    const vc = window.innerHeight * 0.5;
     let i = -1;
     for (let k = 0; k < fits.length; k += 1) if (fits[k].mid <= vc) i = k;
     let t = 0;
@@ -199,9 +245,12 @@ export function createField(canvas, { n, motion = true }) {
       // The points stay with the shape they hold until the next stage is
       // within a screen of the middle, then rain into it. Far-apart stages
       // never leave a cloud of points hanging over the text between them.
+      // On a phone the trip is shorter still: it starts once the next stage
+      // is well on screen and lands before it reaches the middle.
       const below = fits[b].mid - vc;
       const span = Math.min(h * 0.85, fits[b].mid - fits[a].mid);
-      t = 1 - (below - span * 0.12) / (span * 0.76);
+      const [lo, hi] = compact ? [0.1, 0.62] : [0.12, 0.88];
+      t = 1 - (below - span * lo) / (span * (hi - lo));
       t = Math.min(1, Math.max(0, t));
     }
     if (pair[0] !== a || pair[1] !== b) {
@@ -247,6 +296,15 @@ export function createField(canvas, { n, motion = true }) {
     gl.uniform2f(u.uRes, w, h);
     gl.uniform2f(u.uMouse, mouse.sx, mouse.sy);
     gl.uniform1f(u.uMouseR, mouse.r);
+    gl.uniform1f(u.uStreak, streak);
+    gl.uniform1f(u.uFlight, compact ? 0.75 : 0.35);
+    for (let k = 0; k < SHOCKS; k += 1) {
+      const s = shocks[k];
+      const age = (now - s.at) / 1000;
+      if (s.reach && age > 1.15) s.reach = 0;
+      shockData.set([s.x, s.y, age, s.reach], k * 4);
+    }
+    gl.uniform4fv(u.uShock, shockData);
     if (palette) gl.uniform3fv(uPal, new Float32Array(palette.flat()));
     gl.drawArrays(gl.POINTS, 0, n);
   }
@@ -292,6 +350,15 @@ export function createField(canvas, { n, motion = true }) {
     },
     boost(px) {
       mouse.boost = px;
+    },
+    shock(x, y, strength = 1) {
+      if (!motion) return;
+      const s = shocks[nextShock];
+      nextShock = (nextShock + 1) % SHOCKS;
+      s.x = x;
+      s.y = y;
+      s.at = performance.now();
+      s.reach = Math.hypot(w, window.innerHeight) * 0.45 * Math.min(1.6, strength);
     },
     resize,
     start,

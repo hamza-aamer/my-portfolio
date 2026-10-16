@@ -2,14 +2,18 @@ import { useRef, useState } from 'react';
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { kitPicture, research } from '../data.js';
 import { Item, Stagger, Stretch, rise } from '../lib/motion.jsx';
+import { useScrub } from '../lib/media.js';
 
 // Scroll is the dial: the latency bar for a critical request shrinks as the
-// figure counts up, until it is one fifteenth of where it started.
+// figure counts up, until it is one fifteenth of where it started. On a
+// desktop the block pins while it counts; on a phone it never holds the
+// page, and counts as it travels up the screen.
 function Fifteen() {
   const ref = useRef(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
-  const k = useTransform(scrollYProgress, [0.08, 0.82], [1, 15], { clamp: true });
+  const pin = useScrub();
+  const { scrollYProgress } = useScroll({ target: ref, offset: pin ? ['start start', 'end end'] : ['start 0.9', 'end 0.55'] });
+  const k = useTransform(scrollYProgress, pin ? [0.08, 0.82] : [0.1, 0.9], [1, 15], { clamp: true });
   const [shown, setShown] = useState(reduce ? 15 : 1);
   useMotionValueEvent(k, 'change', (v) => setShown(Math.round(v)));
   const factor = reduce ? 15 : shown;
@@ -17,7 +21,7 @@ function Fifteen() {
   const tilt = useTransform(scrollYProgress, [0, 1], [-6, 6]);
 
   return (
-    <div className="fifteen" ref={ref}>
+    <div className={`fifteen${pin ? '' : ' fifteen--flow'}`} ref={ref}>
       <div className="fifteen__pin">
         <p className="fifteen__label">
           <strong>Channel-disable scheduling.</strong> Latency for latency-critical LLM requests, kept apart

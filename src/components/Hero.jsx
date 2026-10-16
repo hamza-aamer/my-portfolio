@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
 import { person } from '../data.js';
 import { EASE } from '../lib/motion.jsx';
-import { XRAY_EVENT } from './Pointer.jsx';
+import { wave } from '../lib/wave.js';
 import { ArrowDown } from './Icons.jsx';
 
 // Four flat primaries float around the name. Each drifts at its own depth
@@ -26,32 +26,28 @@ function Shape({ s, scroll, px, py }) {
   );
 }
 
-function XrayBadge() {
-  const [on, setOn] = useState(false);
+// The badge sends the biggest wave of all, from the middle of the name.
+// The same thing happens, smaller, wherever the page is tapped or clicked.
+function WaveBadge() {
   const [fine] = useState(() => window.matchMedia('(pointer: fine)').matches);
-  useEffect(() => {
-    const onState = (e) => setOn(Boolean(e.detail));
-    window.addEventListener('xray:state', onState);
-    return () => window.removeEventListener('xray:state', onState);
-  }, []);
-  const text = fine ? 'Hold anywhere to x-ray the page · ' : 'Tap to x-ray the page · drag the lens · ';
+  const fire = () => {
+    const name = document.getElementById('hero-name')?.getBoundingClientRect();
+    if (name) wave(name.left + name.width / 2, name.top + name.height / 2, 1.6);
+  };
+  const text = fine ? 'Click anywhere to send a shockwave · ' : 'Tap anywhere to send a shockwave · ';
   return (
-    <button
-      type="button"
-      className="badge"
-      aria-pressed={on}
-      onClick={() => window.dispatchEvent(new CustomEvent(XRAY_EVENT))}
-      data-magnetic
-      data-cursor={on ? 'Off' : 'X-ray'}
-    >
-      <span className="sr">X-ray lens</span>
+    <button type="button" className="badge" onClick={fire} data-magnetic data-cursor="Boom">
+      <span className="sr">Send a shockwave through the name</span>
       <svg viewBox="0 0 200 200" aria-hidden="true" className="badge__ring">
         <defs>
           <path id="badge-path" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
         </defs>
         <text><textPath href="#badge-path">{text}</textPath></text>
       </svg>
-      <span className="badge__core" aria-hidden="true">{on ? 'On' : 'X'}</span>
+      <span className="badge__core" aria-hidden="true">
+        <span className="badge__wave" />
+        <span className="badge__wave" />
+      </span>
     </button>
   );
 }
@@ -115,7 +111,7 @@ export default function Hero() {
           </div>
         </motion.div>
         <motion.div className="hero__badge" {...up(1.5)}>
-          <XrayBadge />
+          <WaveBadge />
         </motion.div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, animate, useInView, useMotionTemplate, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { motion, animate, useInView, useMotionTemplate, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { useScrub } from './media.js';
 
 export const EASE = [0.22, 1, 0.36, 1];
 export const SPRING_PRESS = { type: 'spring', stiffness: 380, damping: 32 };
@@ -126,13 +127,34 @@ export function Count({ value, className }) {
 }
 
 // A display heading whose letters widen and thicken as it climbs the screen:
-// condensed and light at the bottom edge, expanded and black by the upper third.
+// condensed and light at the bottom edge, expanded and black by the upper
+// third. On phones the scroll stays free of layout work: the heading makes
+// the same move once, on its own, as it arrives.
 export function Stretch({ as = 'h2', lines, className = '', id, from = 62 }) {
   const ref = useRef(null);
   const reduce = useReducedMotion();
+  const scrub = useScrub();
+  const inView = useInView(ref, VIEW);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start 0.32'] });
-  const wdth = useTransform(scrollYProgress, [0, 1], reduce ? [125, 125] : [from, 125]);
-  const wght = useTransform(scrollYProgress, [0, 1], reduce ? [900, 900] : [380, 900]);
+  const amount = useMotionValue(reduce ? 1 : 0);
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    if (scrub && !reduce) amount.set(v);
+  });
+  useEffect(() => {
+    if (reduce) {
+      amount.set(1);
+      return undefined;
+    }
+    if (scrub) {
+      amount.set(scrollYProgress.get());
+      return undefined;
+    }
+    if (!inView) return undefined;
+    const run = animate(amount, 1, { duration: 1.2, ease: EASE, delay: 0.15 });
+    return () => run.stop();
+  }, [scrub, reduce, inView, amount, scrollYProgress]);
+  const wdth = useTransform(amount, [0, 1], [from, 125]);
+  const wght = useTransform(amount, [0, 1], [380, 900]);
   const fvs = useMotionTemplate`'wdth' ${wdth}, 'wght' ${wght}`;
   const Tag = motion[as];
   return (

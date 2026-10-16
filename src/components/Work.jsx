@@ -1,8 +1,9 @@
-import { useLayoutEffect, useRef, useState } from 'react';
-import { motion, useMotionValueEvent, useScroll, useSpring, useTransform } from 'motion/react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { motion, useMotionValue, useMotionValueEvent, useScroll, useSpring, useTransform } from 'motion/react';
 import { person, projects } from '../data.js';
 import { rng } from '../lib/shapes.js';
 import { Stretch } from '../lib/motion.jsx';
+import { useScrub } from '../lib/media.js';
 import { ArrowRight, ArrowUpRight } from './Icons.jsx';
 
 const GROUNDS = ['red', 'blue', 'yellow'];
@@ -51,6 +52,10 @@ function Poster({ p, i, activeId, onFocusCard }) {
     e.currentTarget.style.setProperty('--tx', 0);
     e.currentTarget.style.setProperty('--ty', 0);
   };
+  // Only keyboard focus steers the row; a tap or click must never move the page.
+  const onFocus = (e) => {
+    if (onFocusCard && e.currentTarget.matches(':focus-visible')) onFocusCard(i);
+  };
   return (
     <li className="work__item" data-card>
       <a
@@ -61,7 +66,7 @@ function Poster({ p, i, activeId, onFocusCard }) {
         data-cursor="Open"
         onPointerMove={onMove}
         onPointerLeave={onLeave}
-        onFocus={() => onFocusCard(i)}
+        onFocus={onFocus}
       >
         <span className="poster__face" style={{ viewTransitionName: vt ? `pic-${p.id}` : 'none' }}>
           <span className="poster__art-wrap"><Composition id={p.id} ground={ground} /></span>
@@ -87,7 +92,47 @@ function Poster({ p, i, activeId, onFocusCard }) {
   );
 }
 
-export default function Work({ activeId }) {
+function Intro({ as: Tag = 'li', lede }) {
+  return (
+    <Tag className="work__intro">
+      <Stretch id="work-h" className="h2" lines={['Selected', 'work']} />
+      <p className="work__lede">{lede}</p>
+      <div className="work__stage" data-stage="bauhaus" aria-hidden="true" />
+    </Tag>
+  );
+}
+
+function End() {
+  return (
+    <li className="work__end">
+      <a href={person.github} target="_blank" rel="noreferrer" className="work__more" data-cursor="GitHub">
+        <span>More on<br />GitHub</span>
+        <ArrowUpRight size={48} />
+      </a>
+    </li>
+  );
+}
+
+// Each poster knows where it stands across the screen (−1 left, 0 centre,
+// 1 right): its shapes slide and turn by that amount, at three depths.
+// Returns the index of the poster nearest the centre.
+function place(cards, centreOf) {
+  const vw = window.innerWidth;
+  let best = 0;
+  let bestD = Infinity;
+  cards.forEach((c, i) => {
+    const p = (centreOf(c) - vw / 2) / vw;
+    c.style.setProperty('--p', p.toFixed(3));
+    if (Math.abs(p) < bestD) {
+      bestD = Math.abs(p);
+      best = i;
+    }
+  });
+  return best;
+}
+
+// Desktop: the section pins, and the vertical scroll slides the row sideways.
+function Pinned({ activeId }) {
   const section = useRef(null);
   const track = useRef(null);
   const [distance, setDistance] = useState(0);
@@ -113,24 +158,13 @@ export default function Work({ activeId }) {
     };
   }, []);
 
-  // Each poster knows where it stands on screen (−1 left, 0 centre, 1 right):
-  // its shapes slide and turn by that amount, at three depths.
   useMotionValueEvent(x, 'change', () => {
     const cards = track.current?.querySelectorAll('[data-card]');
     if (!cards) return;
-    const vw = window.innerWidth;
-    let best = 0;
-    let bestD = Infinity;
-    cards.forEach((c, i) => {
+    setIndex(place(cards, (c) => {
       const r = c.getBoundingClientRect();
-      const p = (r.left + r.width / 2 - vw / 2) / vw;
-      c.style.setProperty('--p', p.toFixed(3));
-      if (Math.abs(p) < bestD) {
-        bestD = Math.abs(p);
-        best = i;
-      }
-    });
-    setIndex(best);
+      return r.left + r.width / 2;
+    }));
   });
 
   // A keyboard user tabbing along the row brings each poster into view.
@@ -145,7 +179,7 @@ export default function Work({ activeId }) {
 
   return (
     <section
-      className="work"
+      className="work work--pinned"
       id="work"
       ref={section}
       aria-labelledby="work-h"
@@ -154,22 +188,11 @@ export default function Work({ activeId }) {
     >
       <div className="work__pin">
         <motion.ol className="work__track" ref={track} style={{ x }}>
-          <li className="work__intro">
-            <Stretch id="work-h" className="h2" lines={['Selected', 'work']} />
-            <p className="work__lede">
-              Eight projects: synthetic data, agents, vision and 3D, and systems in C. Keep scrolling and they slide past.
-            </p>
-            <div className="work__stage" data-stage="bauhaus" aria-hidden="true" />
-          </li>
+          <Intro lede="Eight projects: synthetic data, agents, vision and 3D, and systems in C. Keep scrolling and they slide past." />
           {projects.map((p, i) => (
             <Poster key={p.id} p={p} i={i} activeId={activeId} onFocusCard={onFocusCard} />
           ))}
-          <li className="work__end">
-            <a href={person.github} target="_blank" rel="noreferrer" className="work__more" data-cursor="GitHub">
-              <span>More on<br />GitHub</span>
-              <ArrowUpRight size={48} />
-            </a>
-          </li>
+          <End />
         </motion.ol>
         <div className="work__count num" aria-hidden="true">
           <span className="work__bar"><motion.span style={{ scaleX: scrollYProgress }} /></span>
@@ -178,4 +201,56 @@ export default function Work({ activeId }) {
       </div>
     </section>
   );
+}
+
+// Phones and tablets: nothing pins. The posters sit in a row the thumb
+// swipes natively, snapping one poster at a time; the page keeps scrolling.
+function Swipe({ activeId }) {
+  const rail = useRef(null);
+  const [index, setIndex] = useState(0);
+  const progress = useMotionValue(0);
+
+  useEffect(() => {
+    const el = rail.current;
+    if (!el) return undefined;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const max = el.scrollWidth - el.clientWidth;
+      progress.set(max > 0 ? el.scrollLeft / max : 0);
+      const cards = el.querySelectorAll('[data-card]');
+      setIndex(place(cards, (c) => c.offsetLeft - el.scrollLeft + c.offsetWidth / 2));
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    el.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [progress]);
+
+  return (
+    <section className="work work--swipe" id="work" aria-labelledby="work-h" data-chapter="cream">
+      <Intro as="div" lede="Eight projects: synthetic data, agents, vision and 3D, and systems in C. Swipe along the row." />
+      <ol className="work__rail" ref={rail} aria-label="Projects">
+        {projects.map((p, i) => (
+          <Poster key={p.id} p={p} i={i} activeId={activeId} />
+        ))}
+        <End />
+      </ol>
+      <div className="work__count num" aria-hidden="true">
+        <span className="work__bar"><motion.span style={{ scaleX: progress }} /></span>
+        <span>{index + 1} / {projects.length} · {projects[Math.min(index, projects.length - 1)]?.title}</span>
+      </div>
+    </section>
+  );
+}
+
+export default function Work({ activeId }) {
+  return useScrub() ? <Pinned activeId={activeId} /> : <Swipe activeId={activeId} />;
 }

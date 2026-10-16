@@ -3,7 +3,6 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/
 import { person } from '../data.js';
 import { EASE } from '../lib/motion.jsx';
 import { Close } from './Icons.jsx';
-import { XRAY_EVENT } from './Pointer.jsx';
 
 const links = [
   { href: '#work', label: 'Work' },
@@ -17,13 +16,6 @@ export default function Header() {
   const [solid, setSolid] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
-  const [xray, setXray] = useState(false);
-  useEffect(() => {
-    const onState = (e) => setXray(Boolean(e.detail));
-    window.addEventListener('xray:state', onState);
-    return () => window.removeEventListener('xray:state', onState);
-  }, []);
-  const toggleXray = () => window.dispatchEvent(new CustomEvent(XRAY_EVENT));
   const menuButton = useRef(null);
   const firstLink = useRef(null);
 
@@ -74,10 +66,6 @@ export default function Header() {
           ))}
           <a className="nav__resume link" href={person.resume} target="_blank" rel="noreferrer">Résumé (PDF)</a>
         </nav>
-        <button type="button" className="xray-toggle" aria-pressed={xray} onClick={toggleXray} data-magnetic>
-          <span className="xray-toggle__dot" aria-hidden="true" />
-          X-ray
-        </button>
         <button
           ref={menuButton}
           className="menu-button"

@@ -26,11 +26,12 @@ export default function Intro() {
     }
     document.documentElement.classList.add('is-intro');
     const c = animate(0, 100, { duration: 1, ease: [0.65, 0, 0.35, 1], onUpdate: (v) => setCount(Math.round(v)) });
-    const t1 = setTimeout(() => setLift(true), 1100);
-    const t2 = setTimeout(() => {
-      setShow(false);
+    // The page can scroll as soon as the panels start to lift.
+    const t1 = setTimeout(() => {
+      setLift(true);
       document.documentElement.classList.remove('is-intro');
-    }, 2100);
+    }, 1100);
+    const t2 = setTimeout(() => setShow(false), 2100);
     return () => {
       c.stop();
       clearTimeout(t1);

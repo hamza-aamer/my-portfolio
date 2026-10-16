@@ -23,9 +23,14 @@ function Wordmark() {
       const box = el.getBoundingClientRect();
       const inside = pointer.y > box.top - 160 && pointer.y < box.bottom + 160;
       pointer.near += ((inside ? 1 : 0) - pointer.near) * 0.08;
-      letters.forEach((l, i) => {
+      // All the reading happens before any writing, so the browser lays
+      // the name out once per frame instead of once per letter.
+      const centres = letters.map((l) => {
         const r = l.getBoundingClientRect();
-        const d = Math.abs(pointer.x - (r.left + r.width / 2)) / Math.max(240, box.width * 0.22);
+        return r.left + r.width / 2;
+      });
+      letters.forEach((l, i) => {
+        const d = Math.abs(pointer.x - centres[i]) / Math.max(240, box.width * 0.22);
         const hit = Math.max(0, 1 - d) * pointer.near;
         const wave = (Math.sin(now / 700 - i * 0.6) + 1) / 2 * (1 - pointer.near);
         const amt = Math.max(hit, wave * 0.85);

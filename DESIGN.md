@@ -65,28 +65,25 @@ Headings use `<Stretch>` (`src/lib/motion.jsx`). They widen from 62% to 125% wid
 **Motion.**
 - At rest the points breathe.
 - Fast scrolling stretches them into streaks.
-- The pointer, or a finger, pushes them aside. The push grows with pointer speed and is larger over `[data-reveal]`.
+- The mouse pushes them aside (a finger does not: on glass it is a scroll). The push grows with pointer speed and is larger over `[data-reveal]`.
 - On first load the points fly in from everywhere.
 - Reduced motion snaps between shapes and turns off the breathing, streaks and intro.
 
 ## Signature interactions
 
 - **Portrait peek (Who):** over the dotted portrait, a circle of the real photograph opens under the pointer, and the points part around it. A button shows the whole photograph, for touch and keyboard users.
-- **X-ray lens (`src/components/Pointer.jsx`):**
-  - Hold anywhere on desktop, or switch on X-ray in the header or with the hero badge.
-  - The lens turns whatever is under it into a blue and white blueprint, using a backdrop-filter invert plus a blue screen blend.
-  - It overlays the page's 12-column grid and an 8px baseline.
-  - It reads out the element at its centre: tag, typeface, weight, size and box, or the WebGL stage and its point count.
-  - On touch the lens sits mid-screen and is dragged with a thumb.
-  - Esc turns it off.
-- **Cursor:** a red dot plus a ring that lags behind and springs. Over controls the ring fills yellow. On `[data-cursor]` targets it shows a label: Open, Look, X-ray, Write.
+- **Shockwaves (`src/lib/wave.js`):**
+  - Tap or click anywhere that is not a control. A ring of primary colour rolls out from that spot, shoves the points it passes and flips them to the next colour for a moment.
+  - The hero badge sends the biggest wave, from the middle of the name.
+  - Taps only: a swipe is always a scroll. Reduced motion drops the ring and the push.
+- **Cursor:** a red dot plus a ring that lags behind and springs. Over controls the ring fills yellow. On `[data-cursor]` targets it shows a label: Open, Look, Boom, Write.
 - **Magnetic controls:** anything marked `[data-magnetic]` leans toward the pointer.
 - **Tapes:** two crossing strips of real tool names. They speed up and reverse with the scroll, and skew with scroll velocity.
-- **Work:** the section pins, and vertical scroll moves a row of eight generated posters sideways.
+- **Work:** on desktop the section pins, and vertical scroll moves a row of eight generated posters sideways. On phones and tablets nothing pins: the posters sit in a native swipe row that snaps one poster at a time.
   - Each poster's circle, square and triangle are seeded by the project id. They slide and turn at three depths as the poster crosses the screen.
   - Posters tilt in 3D under the pointer.
   - A View Transition grows the poster into the case study's problem plate.
-- **15×:** a pinned scrub. The figure counts from 1× to 15× while the latency bar for a critical request shrinks to one fifteenth.
+- **15×:** a pinned scrub on desktop; on phones it counts as it travels up the screen, without holding the page. The figure counts from 1× to 15× while the latency bar for a critical request shrinks to one fifteenth.
 - **Footer wordmark:** each letter swells in weight and width toward the pointer. When nothing is near, a slow wave runs through the name.
 - **Intro curtain:** three primaries pop in and a count runs to 100. Three coloured panels then lift away while the points assemble the name. It shows once per session and never under reduced motion.
 - **Smooth scrolling:** Lenis, for mouse and trackpad only. It pauses while a case study is open.
@@ -102,3 +99,11 @@ Headings use `<Stretch>` (`src/lib/motion.jsx`). They widen from 62% to 125% wid
 - Particle shapes may be abstract. Facts stay exactly as in `data.js`.
 - Every effect has a reduced-motion path and a no-WebGL fallback: the h1 shows the real name, and the photograph is shown in full.
 - Labels are sentence case, with no tracked micro-caps.
+
+## Phones
+
+`src/lib/media.js` decides: scroll-scrubbed effects need a fine pointer and at least 861px. Without them:
+- nothing pins (Work swipes natively, 15× flows);
+- `<Stretch>` headings make their widening move once, on arrival, instead of re-laying out on every scroll frame;
+- the canvas is sized once to the large viewport (`100lvh`), so the address bar sliding never re-sizes or clears it;
+- points in flight between shapes fade and travel a shorter distance, so they never cloud the text.
