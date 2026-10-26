@@ -177,20 +177,24 @@ export function portraitShape(img, n, seed = 7) {
     if (!inside[i]) continue;
     const l = lum[i];
     // A stipple: the darker the photograph, the denser the dots, so the
-    // face reads by its light and shade like an engraving.
+    // face reads by its light and shade like an engraving. Skin keeps a
+    // floor of density so the face never thins out to bare patches.
     const e = edge(px, py);
-    let keep = Math.pow(1 - l, 1.5) + 0.05 + e * 0.5;
+    let keep;
     let tone;
     if (skin[i]) {
       const d = l - mean(px, py);
       tone = e > 0.5 || d < -0.08 ? INK : d < -0.03 ? BLUE : RED;
-    } else if (y > 0.78) {
-      // The shirt, kept light so it doesn't swallow the points.
+      keep = 0.24 + 0.9 * Math.pow(1 - l, 1.4) + e * 0.5;
+    } else if (y > 0.67) {
+      // Everything dark below the beard is the shirt: one colour, kept
+      // light so it doesn't swallow the points.
       tone = BLUE;
-      keep = 0.3;
+      keep = 0.26;
     } else {
       // Grey strands in the hair and beard catch the light in blue.
       tone = l > 0.3 ? BLUE : INK;
+      keep = Math.min(0.68, Math.pow(1 - l, 1.5) + 0.05 + e * 0.5);
     }
     if (rand() > keep) continue;
     cands.push([x, y, tone]);
