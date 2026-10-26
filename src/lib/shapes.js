@@ -103,12 +103,13 @@ export function textShape(lines, n, aspect, seed = 3) {
 // The portrait as a dithered print of the cut-out photograph: one point per
 // printed dot, placed by error diffusion so the light and shade of the face
 // survive at a few thousand points. Only the person is printed (the
-// cut-out's alpha): ink throughout, with blue where grey catches the light
-// in the hair, and the black shirt as a dark texture.
+// cut-out's alpha), in ink, with blue where grey catches the light in the
+// hair. The face is lightened and sharpened against its surroundings so the
+// features carry it; the black shirt prints as a dark texture.
 export function portraitShape(img, n, seed = 7) {
   const rand = rng(seed);
   const aspect = img.naturalWidth / img.naturalHeight;
-  const h = 320;
+  const h = 400;
   const w = Math.round(h * aspect);
   const c = document.createElement('canvas');
   c.width = w;
@@ -128,9 +129,7 @@ export function portraitShape(img, n, seed = 7) {
     skin[i] = inside[i] && lum[i] > 0.28 && data[k] - data[k + 2] > 35 ? 1 : 0;
   }
 
-  // Mean brightness of the skin around each pixel (summed-area tables over
-  // skin only, so hair and beard never make the skin beside them look lit):
-  // darker than its surroundings is shadow, lighter is highlight.
+  // Mean brightness of the figure around each pixel, from summed-area tables.
   const W = w + 1;
   const sum = new Float64Array(W * (h + 1));
   const cnt = new Float64Array(W * (h + 1));
@@ -139,7 +138,7 @@ export function portraitShape(img, n, seed = 7) {
     let rc = 0;
     for (let x = 0; x < w; x += 1) {
       const i = y * w + x;
-      if (skin[i]) {
+      if (inside[i]) {
         rs += lum[i];
         rc += 1;
       }
@@ -147,51 +146,38 @@ export function portraitShape(img, n, seed = 7) {
       cnt[(y + 1) * W + x + 1] = cnt[y * W + x + 1] + rc;
     }
   }
-  const R = 6;
   const box = (t, x0, y0, x1, y1) => t[y1 * W + x1] - t[y0 * W + x1] - t[y1 * W + x0] + t[y0 * W + x0];
   const mean = (x, y) => {
+    const R = 6;
     const x0 = Math.max(0, x - R);
     const y0 = Math.max(0, y - R);
     const x1 = Math.min(w, x + R + 1);
     const y1 = Math.min(h, y + R + 1);
-    const c = box(cnt, x0, y0, x1, y1);
-    return c ? box(sum, x0, y0, x1, y1) / c : lum[y * w + x];
-  };
-  const edge = (x, y) => {
-    if (x < 1 || y < 1 || x >= w - 1 || y >= h - 1) return 0;
-    const L = (dx, dy) => lum[(y + dy) * w + x + dx];
-    const gx = L(1, -1) + 2 * L(1, 0) + L(1, 1) - L(-1, -1) - 2 * L(-1, 0) - L(-1, 1);
-    const gy = L(-1, 1) + 2 * L(0, 1) + L(1, 1) - L(-1, -1) - 2 * L(0, -1) - L(1, -1);
-    return Math.min(1, Math.hypot(gx, gy));
+    const k = box(cnt, x0, y0, x1, y1);
+    return k ? box(sum, x0, y0, x1, y1) / k : lum[y * w + x];
   };
 
-  // The tone each pixel should print at (0 white, 1 black). Skin is
-  // lightened and sharpened against its surroundings so the features carry
-  // the face; the black shirt prints dark, but open enough to stay a texture.
+  // The tone each pixel should print at (0 nothing, 1 solid ink).
+  const SHIRT = 0.8;
   const ink = new Float32Array(w * h);
   let total = 0;
   for (let y = 0; y < h; y += 1) {
     for (let x = 0; x < w; x += 1) {
       const i = y * w + x;
       if (!inside[i]) continue;
-      const l = lum[i];
+      const l0 = lum[i];
+      const l = Math.min(1, Math.max(0, l0 + 1.6 * (l0 - mean(x, y))));
       let t;
-      if (skin[i]) {
-        const sharp = l + 1.6 * (l - mean(x, y));
-        t = 1 - Math.min(1, Math.max(0, (sharp - 0.3) / 0.5));
-        t = Math.pow(t, 1.15);
-      } else if (y / h > 0.67) {
-        t = 0.6;
-      } else {
-        t = Math.min(1, (1 - l) * 1.05);
-      }
+      if (skin[i]) t = 1 - Math.min(1, Math.max(0, (l - 0.22) / 0.62));
+      else if (y / h > SHIRT) t = 0.72;
+      else t = Math.min(1, (1 - l) * 1.05);
       ink[i] = t;
       total += t;
     }
   }
 
-  // Error diffusion (Floyd–Steinberg) on a grid sized so that about `n`
-  // cells print. Each printed cell becomes one point.
+  // A grid sized so that about `n` cells print, each cell the average of
+  // the pixels it covers, so small features survive the step down.
   const k = Math.sqrt(n / Math.max(1, total));
   const gw = Math.max(1, Math.round(w * k));
   const gh = Math.max(1, Math.round(h * k));
@@ -199,34 +185,53 @@ export function portraitShape(img, n, seed = 7) {
   const mask = new Uint8Array(gw * gh);
   const grey = new Uint8Array(gw * gh);
   for (let gy = 0; gy < gh; gy += 1) {
+    const y0 = Math.floor((gy / gh) * h);
+    const y1 = Math.max(y0 + 1, Math.floor(((gy + 1) / gh) * h));
     for (let gx = 0; gx < gw; gx += 1) {
-      const sx = Math.min(w - 1, Math.floor(((gx + 0.5) / gw) * w));
-      const sy = Math.min(h - 1, Math.floor(((gy + 0.5) / gh) * h));
-      const i = sy * w + sx;
+      const x0 = Math.floor((gx / gw) * w);
+      const x1 = Math.max(x0 + 1, Math.floor(((gx + 1) / gw) * w));
+      let a = 0;
+      let m = 0;
+      let gr = 0;
+      let all = 0;
+      for (let y = y0; y < y1; y += 1) {
+        for (let x = x0; x < x1; x += 1) {
+          const i = y * w + x;
+          all += 1;
+          if (!inside[i]) continue;
+          m += 1;
+          a += ink[i];
+          if (!skin[i] && y / h <= SHIRT && lum[i] > 0.3) gr += 1;
+        }
+      }
       const g = gy * gw + gx;
-      mask[g] = inside[i];
-      grid[g] = ink[i];
-      grey[g] = !skin[i] && sy / h <= 0.67 && lum[i] > 0.3 ? 1 : 0;
+      mask[g] = m * 2 >= all ? 1 : 0;
+      grid[g] = m ? a / m : 0;
+      grey[g] = gr * 2 > m ? 1 : 0;
     }
   }
+
+  // Error diffusion (Floyd–Steinberg), serpentine so no row drifts one way.
+  // Each printed cell becomes one point.
   const cands = [];
-  const spread = (gx, gy, err) => {
-    if (gx < 0 || gx >= gw || gy >= gh) return;
-    const g = gy * gw + gx;
-    if (mask[g]) grid[g] += err;
+  const put = (x, y, e) => {
+    if (x < 0 || x >= gw || y >= gh) return;
+    const g = y * gw + x;
+    if (mask[g]) grid[g] += e;
   };
   for (let gy = 0; gy < gh; gy += 1) {
-    for (let gx = 0; gx < gw; gx += 1) {
+    const dir = gy % 2 ? -1 : 1;
+    for (let s = 0; s < gw; s += 1) {
+      const gx = dir === 1 ? s : gw - 1 - s;
       const g = gy * gw + gx;
       if (!mask[g]) continue;
       const on = grid[g] > 0.5 ? 1 : 0;
       const err = grid[g] - on;
-      spread(gx + 1, gy, (err * 7) / 16);
-      spread(gx - 1, gy + 1, (err * 3) / 16);
-      spread(gx, gy + 1, (err * 5) / 16);
-      spread(gx + 1, gy + 1, err / 16);
+      put(gx + dir, gy, (err * 7) / 16);
+      put(gx - dir, gy + 1, (err * 3) / 16);
+      put(gx, gy + 1, (err * 5) / 16);
+      put(gx + dir, gy + 1, err / 16);
       if (!on) continue;
-      // Grey strands in the hair catch the light in blue; the rest is ink.
       const tone = grey[g] && rand() < 0.7 ? BLUE : INK;
       cands.push([(gx + 0.5 + (rand() - 0.5) * 0.5) / gw, (gy + 0.5 + (rand() - 0.5) * 0.5) / gh, tone]);
     }

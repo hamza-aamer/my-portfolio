@@ -27,7 +27,7 @@ export const domains = [
 ];
 
 // The portrait, cut out from its background (the original is portrait.jpg).
-export const portrait = { src: '/images/portrait-cut.webp', width: 1024, height: 1385 };
+export const portrait = { src: '/images/portrait-cut.webp', width: 1024, height: 1163 };
 
 const pic = (file, alt, credit, href, licence) => ({ src: `/world/${file}`, alt, credit, href, licence });
 
