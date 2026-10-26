@@ -60,7 +60,7 @@ export default function Who() {
         </Stagger>
         <p className="who__hint">
           <span className="hint-fine">Move over the dots to see the photograph underneath.</span>
-          <span className="hint-touch">That’s me, in 9,000 points. Tap the dots to see the photograph.</span>
+          <span className="hint-touch">That’s me, in 15,000 points. Tap the dots to see the photograph.</span>
         </p>
       </div>
     </section>

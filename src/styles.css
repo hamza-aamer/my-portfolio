@@ -333,7 +333,7 @@ a { color: inherit; text-decoration: none; }
 .who__stage {
   grid-column: 1 / 6;
   position: relative;
-  aspect-ratio: 1024 / 1163;
+  aspect-ratio: 1024 / 1385;
   max-height: 84svh;
   width: 100%;
   justify-self: center;

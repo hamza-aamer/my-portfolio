@@ -47,7 +47,7 @@ void main() {
 
   // Breathing at rest, and streaks when the page is flung.
   float t = uTime;
-  p += vec2(sin(t * 0.8 + aRand.z * 40.0), cos(t * 0.7 + aRand.w * 40.0)) * 0.45 * uMotion;
+  p += vec2(sin(t * 0.8 + aRand.z * 40.0), cos(t * 0.7 + aRand.w * 40.0)) * 1.1 * uMotion;
   p.y += uVel * (aRand.x - 0.5) * 1.4 * uStreak * uMotion;
   p.x += uVel * (aRand.w - 0.5) * 0.5 * uStreak * uMotion;
 

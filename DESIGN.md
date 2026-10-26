@@ -46,7 +46,7 @@ Headings use `<Stretch>` (`src/lib/motion.jsx`). They widen from 62% to 125% wid
 ## The particle field (`src/lib/field.js`, `src/lib/shapes.js`, `src/components/Field.jsx`)
 
 **Rendering.**
-- A single raw WebGL draw call: 15,000 points on desktop, 9,000 on phones. No three.js.
+- A single raw WebGL draw call: 15,000 points on every screen, drawn smaller on phones. No three.js.
 - The canvas is fixed under the page content. Text always reads above it.
 
 **Stages.**
@@ -55,7 +55,7 @@ Headings use `<Stretch>` (`src/lib/motion.jsx`). They widen from 62% to 125% wid
 
 **Shapes.**
 - Text is sampled from Archivo on a canvas.
-- The portrait is a dithered print of the cut-out photograph (`portrait-cut.webp`, cropped at mid-chest so the face gets the points): error diffusion on a box-averaged grid places one point per printed dot, in ink, with blue where grey catches the light in the hair. The face is lightened and sharpened against its surroundings so the features carry it; the black shirt prints as a dark texture. Variants were compared side by side at phone and desktop size before this one was chosen.
+- The portrait is a four-tone halftone of the cut-out photograph (`portrait-cut.webp`): dark to light reads ink, blue, red, yellow, with more points where the photo is darker. Only the person is sampled. Phones get the same 15,000 points as desktop, drawn smaller, so it reads the same at both sizes.
 - The other shapes are generated.
 
 **Colour.**

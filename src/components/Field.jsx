@@ -40,7 +40,9 @@ export default function Field() {
     const root = document.documentElement;
     const narrow = window.innerWidth < 720;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const n = narrow ? 9000 : 15000;
+    // The same 15,000 points everywhere; on a phone they are drawn smaller,
+    // so every shape reads like a scaled-down desktop print.
+    const n = 15000;
     let field;
     try {
       // On a phone the flick of a thumb is fast; the streaks are kept short.
@@ -54,9 +56,9 @@ export default function Field() {
 
     let alive = true;
     const size = (name) => {
-      if (name === 'name') return narrow ? 2.6 : 3.4;
-      if (name === 'portrait') return narrow ? 2.4 : 3;
-      return narrow ? 2.2 : 2.8;
+      if (name === 'name') return narrow ? 2 : 3.4;
+      if (name === 'portrait') return narrow ? 1.8 : 3;
+      return narrow ? 1.7 : 2.8;
     };
     const els = [...document.querySelectorAll('[data-stage]')];
     const stages = els.map((el) => ({ el, name: el.dataset.stage, shape: null, size: size(el.dataset.stage) }));
