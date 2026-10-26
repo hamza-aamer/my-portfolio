@@ -2,20 +2,6 @@
 // Where the two disagreed, resume.pdf wins. Nothing here is invented: a case
 // study that lacks a field simply leaves that section out.
 
-// Changes of role, dated, so the site moves from one to the next by itself
-// on the day, without a redeploy. The KIT positions run to the end of
-// November 2026; Mercedes-Benz Tech Innovation starts in December.
-const today = new Date();
-const since = (iso) => today >= new Date(`${iso}T00:00:00`);
-export const kitEnded = since('2026-12-01');
-export const atMercedes = since('2026-12-01');
-
-export const mercedes = {
-  role: 'Working Student, AI Agents & Robotics',
-  org: 'Mercedes-Benz Tech Innovation',
-  short: 'working student in AI agents & robotics at Mercedes-Benz Tech Innovation',
-};
-
 export const person = {
   name: 'Hamza Aamer',
   email: 'hamzaaamer6@gmail.com',
@@ -26,10 +12,9 @@ export const person = {
   line: 'I build AI systems from the GPU kernel to the agent loop.',
   now: [
     { role: 'Senior AI Engineer', org: 'Aiden Risk', href: 'https://aidenrisk.com/' },
-    ...(kitEnded ? [] : [{ role: 'Research Assistant', org: 'KIT' }]),
-    ...(atMercedes ? [{ role: 'Working Student', org: 'Mercedes-Benz Tech Innovation' }] : []),
+    { role: 'Working Student, AI Agents & Robotics', org: 'Mercedes-Benz Tech Innovation' },
+    { role: 'Research Assistant', org: 'KIT' },
   ],
-  next: atMercedes ? null : { role: 'Working Student', org: 'Mercedes-Benz Tech Innovation', from: 'December 2026' },
   openTo: 'research collaborations and AI-systems roles',
 };
 
@@ -239,10 +224,10 @@ export const research = [
     lab: 'Chair for Embedded Systems (CES/ITEC), KIT',
     lead: 'Prof. Dr. Jörg Henkel',
     role: 'Research Assistant (HiWi)',
-    dates: 'April – November 2026',
+    dates: 'April – September 2026',
     topic: 'ML-driven GPU resource management for LLM inference',
     points: [
-      'Extending the gpu_ext eBPF/struct_ops framework to expose scheduling, memory and frequency levers on real hardware.',
+      'Extended the gpu_ext eBPF/struct_ops framework to expose scheduling, memory and frequency levers on real hardware.',
       'Designed and validated a channel-disable scheduling policy that separates latency-critical from best-effort work: up to 15× better latency.',
       'Evaluated unified-memory prefetch and oversubscription policies: 5–12% more throughput.',
       'Reproduced published kernel-level DVFS results, and characterised GPU frequency-switching cost through NVML, separating API latency from the physical clock transition to find the feasible granularity of frequency control.',
@@ -254,7 +239,7 @@ export const research = [
     lab: 'TECO, Pervasive Computing Systems, KIT',
     lead: 'Prof. Dr. Michael Beigl',
     role: 'Research Assistant (HiWi)',
-    dates: 'April – November 2026',
+    dates: 'April 2026 – present',
     topic: 'edge-ml: machine learning for wearables',
     points: [
       'Full-stack development on edge-ml, a microservice platform for training and deploying ML models on wearable and IoT sensor time-series.',
@@ -286,12 +271,11 @@ export const axis = { from: 2020, to: 2027 };
 export const experience = [
   {
     id: 'mercedes',
-    role: mercedes.role,
-    org: mercedes.org,
-    dates: atMercedes ? 'December 2026 – present' : 'From December 2026',
+    role: 'Working Student, AI Agents & Robotics',
+    org: 'Mercedes-Benz Tech Innovation',
+    dates: 'December 2026 – present',
     span: [2026 + 11 / 12, 2027],
-    now: atMercedes,
-    next: !atMercedes,
+    now: true,
   },
   {
     id: 'aiden',

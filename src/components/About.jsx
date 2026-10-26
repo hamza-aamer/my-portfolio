@@ -1,4 +1,4 @@
-import { atMercedes, education, mercedes, person } from '../data.js';
+import { education, person } from '../data.js';
 import { Item, Stagger, Stretch } from '../lib/motion.jsx';
 
 export default function About() {
@@ -13,13 +13,9 @@ export default function About() {
       </div>
       <Stagger className="about__cols" gap={0.1}>
         <Item as="p">
-          <strong>I’m Hamza Aamer</strong>, a Senior AI Engineer at <span className="hl">Aiden Risk</span>
-          {atMercedes ? (
-            <> and a {mercedes.short.replace('Mercedes-Benz Tech Innovation', '')}<span className="hl">Mercedes-Benz Tech Innovation</span>. </>
-          ) : (
-            <>, a research assistant at KIT until November, and from December a {mercedes.short.replace('Mercedes-Benz Tech Innovation', '')}<span className="hl">Mercedes-Benz Tech Innovation</span>. </>
-          )}
-          At the Karlsruhe Institute of Technology I’m reading for an{' '}
+          <strong>I’m Hamza Aamer</strong>, a Senior AI Engineer at <span className="hl">Aiden Risk</span>, a
+          working student in AI agents &amp; robotics at <span className="hl">Mercedes-Benz Tech Innovation</span>,
+          and a research assistant at the Karlsruhe Institute of Technology, where I’m reading for an{' '}
           <span className="hl">M.Sc. in Human-centred Machine Intelligence</span>. I took my B.Sc. in Computer
           Science at FAST-NUCES in Islamabad and graduated in 2025 as <span className="hl hl--grey">Gold Medalist</span>,
           on the Rector’s List of Honor.

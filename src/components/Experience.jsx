@@ -40,12 +40,11 @@ function Row({ r, open, onToggle }) {
               transition={{ duration: 1.1, ease: EASE, delay: 0.15 }}
             />
           </span>
-          <span className="row__dates">{r.now ? 'Now · ' : r.next ? 'Next · ' : ''}{r.dates}</span>
+          <span className="row__dates">{r.now ? 'Now · ' : ''}{r.dates}</span>
         </button>
       </h3>
       {r.now && r.href && (
         <p className="row__note">
-          My current role.{' '}
           <a className="link" href={r.href} target="_blank" rel="noreferrer">aidenrisk.com</a>
         </p>
       )}
