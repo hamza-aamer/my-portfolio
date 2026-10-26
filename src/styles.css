@@ -966,6 +966,8 @@ html.has-cursor.cursor-in .cursor { opacity: 1; }
 .case__head { padding: clamp(40px, 6vw, 96px) var(--m) 0; }
 .case__meta { display: flex; flex-wrap: wrap; gap: 8px 28px; color: var(--fg-soft); margin-bottom: 24px; }
 .case__meta strong { color: var(--ink); font-weight: 600; }
+/* The title takes focus only so screen readers start there; it is not a control. */
+.case__title:focus { outline: none; }
 .case__title {
   font: 900 clamp(56px, 11vw, 200px)/0.86 var(--display);
   font-stretch: 125%;
@@ -1049,6 +1051,21 @@ html.has-cursor.cursor-in .cursor { opacity: 1; }
   .approach--artisan li { width: calc(70% + var(--k) * 6%); }
   .approach--antai li { margin-left: calc(var(--k) * 6%); max-width: none; }
 }
+
+/* Sonar: each step carries one more ring, like a ping travelling out. */
+.approach--sonar li { position: relative; padding-left: 76px; min-height: 56px; }
+.approach--sonar li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: inset 0 0 0 calc(22px - var(--k) * 5px) var(--yellow);
+}
+.approach--sonar li:last-child::before { background: var(--red-deep); }
 
 /* View transitions: a poster grows into the case study's problem plate. */
 ::view-transition-group(*) { animation-duration: 680ms; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }

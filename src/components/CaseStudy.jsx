@@ -7,14 +7,18 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Close } from './Icons.jsx';
 
 const GROUNDS = ['red', 'blue', 'yellow'];
 
+// How the project was built, or, for confidential work, what made the
+// problem hard: the same list either way, under its own heading.
 function Approach({ p }) {
-  if (!p.approach) return null;
+  const items = p.approach ?? p.challenge;
+  if (!items) return null;
+  const title = p.approach ? 'Approach' : 'The challenge';
   const variant = p.diagram ? ` approach--${p.diagram}` : '';
   return (
     <section aria-labelledby="case-approach">
-      <h2 id="case-approach">Approach</h2>
+      <h2 id="case-approach">{title}</h2>
       <Stagger as="ol" className={`approach${variant}`} gap={0.07}>
-        {p.approach.map((a, k) => (
+        {items.map((a, k) => (
           <Item as="li" key={a.h} style={{ '--k': k }}>
             <h3>{a.h}</h3>
             <p>{a.p}</p>

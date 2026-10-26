@@ -30,6 +30,34 @@ const pic = (file, alt, credit, href, licence) => ({ src: `/world/${file}`, alt,
 
 export const projects = [
   {
+    // Confidential client work: the page states the problem and the results,
+    // never how the system solves it.
+    id: 'sonar',
+    title: 'Sonar',
+    kind: 'One submission, every carrier',
+    domains: ['agents'],
+    domainLabel: 'Agents',
+    year: '2026',
+    date: 'September 2026',
+    where: 'Aiden Risk',
+    role: 'My idea, designed and built from scratch at Aiden Risk, where I am Senior AI Engineer. I still lead it, and review every change from the team that has since joined it.',
+    problem:
+      'Commercial insurance is still quoted through carrier portals. A broker quoting one small business types the same client into every insurer’s site, again and again.',
+    challenge: [
+      { h: 'No shared language', p: 'Every portal asks for the same client differently. One wants the “Named insured”, another the “Legal entity name”, a third the “Business name”. Most have no API, and the ones that do don’t share one.' },
+      { h: 'Scripts break', p: 'The usual answer is to map every field of every portal in advance and replay a script. It breaks the day a carrier moves a button, and has to be rebuilt for every new carrier.' },
+      { h: 'Safety is not optional', p: 'Software working inside an insurer’s website must only ever ask for quotes, never buy or bind a policy, and must treat every login with care.' },
+    ],
+    diagram: 'sonar',
+    outcome: [
+      { v: '50+', u: '', l: 'carriers onboarded on one system' },
+      { v: '1', u: '', l: 'submission, quoted on as many carriers as needed, in parallel' },
+    ],
+    note: 'Sonar is an AI-agent system that takes one submission to every carrier and brings the quotes back. How it does that is confidential.',
+    stack: ['Python', 'AI agents', 'LLMs'],
+    proprietary: true,
+  },
+  {
     id: 'ascend',
     title: 'Ascend',
     kind: 'A data engineering framework',
@@ -245,6 +273,17 @@ export const experience = [
     dates: 'September 2026 – present',
     span: [2026 + 8 / 12, 2027],
     now: true,
+    owned: [
+      'Conceived Sonar, an AI-agent system that takes one insurance submission to every carrier portal and brings the quotes back.',
+      'Designed and built it from scratch, and took it from a research-lab prototype to a service the company’s platform runs on.',
+      'Lead the system and review every change from the engineering team that has since joined it.',
+    ],
+    impact: [
+      { v: '50+', l: 'carriers onboarded' },
+      { v: '1', l: 'submission to every carrier, in parallel' },
+    ],
+    stack: ['Python', 'AI agents', 'LLMs'],
+    built: ['sonar'],
   },
   {
     id: 'adept',

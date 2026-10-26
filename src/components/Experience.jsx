@@ -100,7 +100,7 @@ function Row({ r, open, onToggle }) {
 }
 
 export default function Experience() {
-  const [open, setOpen] = useState(() => new Set(['adept']));
+  const [open, setOpen] = useState(() => new Set(['aiden']));
   const toggle = (id) => setOpen((s) => {
     const n = new Set(s);
     if (n.has(id)) n.delete(id); else n.add(id);

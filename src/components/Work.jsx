@@ -188,7 +188,7 @@ function Pinned({ activeId }) {
     >
       <div className="work__pin">
         <motion.ol className="work__track" ref={track} style={{ x }}>
-          <Intro lede="Eight projects: synthetic data, agents, vision and 3D, and systems in C. Keep scrolling and they slide past." />
+          <Intro lede="Nine projects: agents, synthetic data, vision and 3D, and systems in C. Keep scrolling and they slide past." />
           {projects.map((p, i) => (
             <Poster key={p.id} p={p} i={i} activeId={activeId} onFocusCard={onFocusCard} />
           ))}
@@ -236,7 +236,7 @@ function Swipe({ activeId }) {
 
   return (
     <section className="work work--swipe" id="work" aria-labelledby="work-h" data-chapter="cream">
-      <Intro as="div" lede="Eight projects: synthetic data, agents, vision and 3D, and systems in C. Swipe along the row." />
+      <Intro as="div" lede="Nine projects: agents, synthetic data, vision and 3D, and systems in C. Swipe along the row." />
       <ol className="work__rail" ref={rail} aria-label="Projects">
         {projects.map((p, i) => (
           <Poster key={p.id} p={p} i={i} activeId={activeId} />
