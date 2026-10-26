@@ -55,7 +55,7 @@ Headings use `<Stretch>` (`src/lib/motion.jsx`). They widen from 62% to 125% wid
 
 **Shapes.**
 - Text is sampled from Archivo on a canvas.
-- The portrait is a stipple of the cut-out photograph (`portrait-cut.webp`): denser where the photo is darker, red for skin, ink and blue for hair and beard, blue for the shirt, and the strong edges in ink.
+- The portrait is a dithered print of the cut-out photograph (`portrait-cut.webp`): error diffusion places one point per printed dot, in ink, with blue where grey catches the light in the hair. The face is lightened and sharpened so the features carry it; the black shirt prints as a dark texture.
 - The other shapes are generated.
 
 **Colour.**

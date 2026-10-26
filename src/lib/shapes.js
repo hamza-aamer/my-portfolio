@@ -100,11 +100,11 @@ export function textShape(lines, n, aspect, seed = 3) {
   }, seed);
 }
 
-// The portrait as a four-tone halftone of the cut-out photograph. Only the
-// person is sampled (the cut-out's alpha). Hair, beard and shirt are read by
-// their darkness; the face is read by its local shading, so a likeness
-// survives at a few thousand points: red skin, blue shadow, white light,
-// and the strong edges (eyes, brows, nose, mouth) in ink.
+// The portrait as a dithered print of the cut-out photograph: one point per
+// printed dot, placed by error diffusion so the light and shade of the face
+// survive at a few thousand points. Only the person is printed (the
+// cut-out's alpha): ink throughout, with blue where grey catches the light
+// in the hair, and the black shirt as a dark texture.
 export function portraitShape(img, n, seed = 7) {
   const rand = rng(seed);
   const aspect = img.naturalWidth / img.naturalHeight;
@@ -165,39 +165,71 @@ export function portraitShape(img, n, seed = 7) {
     return Math.min(1, Math.hypot(gx, gy));
   };
 
-  const cands = [];
-  let guard = 0;
-  while (cands.length < n * 1.15 && guard < n * 80) {
-    guard += 1;
-    const x = rand();
-    const y = rand();
-    const px = Math.floor(x * w);
-    const py = Math.floor(y * h);
-    const i = py * w + px;
-    if (!inside[i]) continue;
-    const l = lum[i];
-    // A stipple: the darker the photograph, the denser the dots, so the
-    // face reads by its light and shade like an engraving. Skin keeps a
-    // floor of density so the face never thins out to bare patches.
-    const e = edge(px, py);
-    let keep;
-    let tone;
-    if (skin[i]) {
-      const d = l - mean(px, py);
-      tone = e > 0.5 || d < -0.08 ? INK : d < -0.03 ? BLUE : RED;
-      keep = 0.24 + 0.9 * Math.pow(1 - l, 1.4) + e * 0.5;
-    } else if (y > 0.67) {
-      // Everything dark below the beard is the shirt: one colour, kept
-      // light so it doesn't swallow the points.
-      tone = BLUE;
-      keep = 0.26;
-    } else {
-      // Grey strands in the hair and beard catch the light in blue.
-      tone = l > 0.3 ? BLUE : INK;
-      keep = Math.min(0.68, Math.pow(1 - l, 1.5) + 0.05 + e * 0.5);
+  // The tone each pixel should print at (0 white, 1 black). Skin is
+  // lightened and sharpened against its surroundings so the features carry
+  // the face; the black shirt prints dark, but open enough to stay a texture.
+  const ink = new Float32Array(w * h);
+  let total = 0;
+  for (let y = 0; y < h; y += 1) {
+    for (let x = 0; x < w; x += 1) {
+      const i = y * w + x;
+      if (!inside[i]) continue;
+      const l = lum[i];
+      let t;
+      if (skin[i]) {
+        const sharp = l + 1.6 * (l - mean(x, y));
+        t = 1 - Math.min(1, Math.max(0, (sharp - 0.3) / 0.5));
+        t = Math.pow(t, 1.15);
+      } else if (y / h > 0.67) {
+        t = 0.6;
+      } else {
+        t = Math.min(1, (1 - l) * 1.05);
+      }
+      ink[i] = t;
+      total += t;
     }
-    if (rand() > keep) continue;
-    cands.push([x, y, tone]);
+  }
+
+  // Error diffusion (Floyd–Steinberg) on a grid sized so that about `n`
+  // cells print. Each printed cell becomes one point.
+  const k = Math.sqrt(n / Math.max(1, total));
+  const gw = Math.max(1, Math.round(w * k));
+  const gh = Math.max(1, Math.round(h * k));
+  const grid = new Float32Array(gw * gh);
+  const mask = new Uint8Array(gw * gh);
+  const grey = new Uint8Array(gw * gh);
+  for (let gy = 0; gy < gh; gy += 1) {
+    for (let gx = 0; gx < gw; gx += 1) {
+      const sx = Math.min(w - 1, Math.floor(((gx + 0.5) / gw) * w));
+      const sy = Math.min(h - 1, Math.floor(((gy + 0.5) / gh) * h));
+      const i = sy * w + sx;
+      const g = gy * gw + gx;
+      mask[g] = inside[i];
+      grid[g] = ink[i];
+      grey[g] = !skin[i] && sy / h <= 0.67 && lum[i] > 0.3 ? 1 : 0;
+    }
+  }
+  const cands = [];
+  const spread = (gx, gy, err) => {
+    if (gx < 0 || gx >= gw || gy >= gh) return;
+    const g = gy * gw + gx;
+    if (mask[g]) grid[g] += err;
+  };
+  for (let gy = 0; gy < gh; gy += 1) {
+    for (let gx = 0; gx < gw; gx += 1) {
+      const g = gy * gw + gx;
+      if (!mask[g]) continue;
+      const on = grid[g] > 0.5 ? 1 : 0;
+      const err = grid[g] - on;
+      spread(gx + 1, gy, (err * 7) / 16);
+      spread(gx - 1, gy + 1, (err * 3) / 16);
+      spread(gx, gy + 1, (err * 5) / 16);
+      spread(gx + 1, gy + 1, err / 16);
+      if (!on) continue;
+      // Grey strands in the hair catch the light in blue; the rest is ink.
+      const tone = grey[g] && rand() < 0.7 ? BLUE : INK;
+      cands.push([(gx + 0.5 + (rand() - 0.5) * 0.5) / gw, (gy + 0.5 + (rand() - 0.5) * 0.5) / gh, tone]);
+    }
   }
   return fill(make(n, aspect), cands, rand);
 }
