@@ -333,7 +333,7 @@ a { color: inherit; text-decoration: none; }
 .who__stage {
   grid-column: 1 / 6;
   position: relative;
-  aspect-ratio: 1024 / 1536;
+  aspect-ratio: 1024 / 1385;
   max-height: 84svh;
   width: 100%;
   justify-self: center;
@@ -344,15 +344,15 @@ a { color: inherit; text-decoration: none; }
 }
 .who__stage.is-peek { --rr: clamp(110px, 11vw, 170px); }
 .who__stage.is-open { --rr: 140%; transition-duration: 900ms; }
+/* The cut-out photograph stands on a blue disc, like a poster portrait.
+   Both open together through a circle at the pointer (or the finger). */
 .who__photo {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  mix-blend-mode: multiply;
   clip-path: circle(var(--rr) at var(--rx) var(--ry));
 }
+.who__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.who__disc { position: absolute; left: 4%; top: 3%; width: 92%; aspect-ratio: 1; border-radius: 50%; background: var(--blue); }
 .no-field .who__photo, html:not(.has-field) .who__photo { --rr: 140%; }
 .who__toggle {
   position: absolute;
@@ -394,7 +394,7 @@ a { color: inherit; text-decoration: none; }
 }
 @media (max-width: 860px) {
   .who { min-height: 0; row-gap: 40px; }
-  .who__stage { grid-column: 1 / -1; width: min(78vw, 50svh); }
+  .who__stage { grid-column: 1 / -1; width: min(86vw, 58svh); }
   .who__text { grid-column: 1 / -1; }
   .who__figures { font-size: 24px; }
 }

@@ -1,15 +1,22 @@
 import { useState } from 'react';
+import { portrait } from '../data.js';
 import { Count, Item, Stagger, fade } from '../lib/motion.jsx';
 
-// The portrait arrives as a four-tone halftone of points. Under the pointer
-// the points part and the photograph shows through; on a phone, a tap
-// opens the whole photograph.
+// The portrait arrives as a four-tone halftone of points. Under the mouse
+// the points part and the photograph shows through. On a phone, a tap on
+// the dots opens the photograph from under the finger, and another closes
+// it; the button does the same for keyboards.
 function Portrait() {
   const [open, setOpen] = useState(false);
-  const onMove = (e) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty('--rx', `${e.clientX - r.left}px`);
-    e.currentTarget.style.setProperty('--ry', `${e.clientY - r.top}px`);
+  const place = (el, e) => {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--rx', `${e.clientX - r.left}px`);
+    el.style.setProperty('--ry', `${e.clientY - r.top}px`);
+  };
+  const onTap = (e) => {
+    if (e.pointerType === 'mouse' || e.target.closest('button')) return;
+    place(e.currentTarget, e);
+    setOpen((v) => !v);
   };
   return (
     <div
@@ -17,11 +24,15 @@ function Portrait() {
       data-stage="portrait"
       data-reveal
       data-cursor="Look"
-      onPointerMove={onMove}
+      onPointerMove={(e) => e.pointerType === 'mouse' && place(e.currentTarget, e)}
       onPointerEnter={(e) => e.pointerType === 'mouse' && e.currentTarget.classList.add('is-peek')}
       onPointerLeave={(e) => e.currentTarget.classList.remove('is-peek')}
+      onPointerUp={onTap}
     >
-      <img className="who__photo" src="/images/portrait.jpg" alt="Portrait of Hamza Aamer" width="1024" height="1536" loading="lazy" decoding="async" />
+      <span className="who__photo">
+        <span className="who__disc" aria-hidden="true" />
+        <img src={portrait.src} alt="Portrait of Hamza Aamer" width={portrait.width} height={portrait.height} decoding="async" />
+      </span>
       <button type="button" className="who__toggle" aria-pressed={open} onClick={() => setOpen((v) => !v)}>
         {open ? 'Back to the dots' : 'Show the photograph'}
       </button>
@@ -49,7 +60,7 @@ export default function Who() {
         </Stagger>
         <p className="who__hint">
           <span className="hint-fine">Move over the dots to see the photograph underneath.</span>
-          <span className="hint-touch">That’s me, in 6,500 points. Tap the button to see the photograph.</span>
+          <span className="hint-touch">That’s me, in 6,500 points. Tap the dots to see the photograph.</span>
         </p>
       </div>
     </section>

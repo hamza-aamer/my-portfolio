@@ -100,11 +100,15 @@ export function textShape(lines, n, aspect, seed = 3) {
   }, seed);
 }
 
-// The portrait as a four-tone halftone: dark to light reads ink, blue, red, yellow.
+// The portrait as a four-tone halftone of the cut-out photograph. Only the
+// person is sampled (the cut-out's alpha). Hair, beard and shirt are read by
+// their darkness; the face is read by its local shading, so a likeness
+// survives at a few thousand points: red skin, blue shadow, white light,
+// and the strong edges (eyes, brows, nose, mouth) in ink.
 export function portraitShape(img, n, seed = 7) {
   const rand = rng(seed);
   const aspect = img.naturalWidth / img.naturalHeight;
-  const h = 300;
+  const h = 320;
   const w = Math.round(h * aspect);
   const c = document.createElement('canvas');
   c.width = w;
@@ -112,21 +116,83 @@ export function portraitShape(img, n, seed = 7) {
   const ctx = c.getContext('2d', { willReadFrequently: true });
   ctx.drawImage(img, 0, 0, w, h);
   const data = ctx.getImageData(0, 0, w, h).data;
-  const lum = (x, y) => {
-    const i = (Math.min(h - 1, y) * w + Math.min(w - 1, x)) * 4;
-    return (0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2]) / 255;
+
+  const lum = new Float32Array(w * h);
+  const inside = new Uint8Array(w * h);
+  const skin = new Uint8Array(w * h);
+  for (let i = 0; i < w * h; i += 1) {
+    const k = i * 4;
+    lum[i] = (0.2126 * data[k] + 0.7152 * data[k + 1] + 0.0722 * data[k + 2]) / 255;
+    inside[i] = data[k + 3] > 140 ? 1 : 0;
+    // Skin is warm (red well above blue); hair, beard and shirt are grey.
+    skin[i] = inside[i] && lum[i] > 0.28 && data[k] - data[k + 2] > 35 ? 1 : 0;
+  }
+
+  // Mean brightness of the skin around each pixel (summed-area tables over
+  // skin only, so hair and beard never make the skin beside them look lit):
+  // darker than its surroundings is shadow, lighter is highlight.
+  const W = w + 1;
+  const sum = new Float64Array(W * (h + 1));
+  const cnt = new Float64Array(W * (h + 1));
+  for (let y = 0; y < h; y += 1) {
+    let rs = 0;
+    let rc = 0;
+    for (let x = 0; x < w; x += 1) {
+      const i = y * w + x;
+      if (skin[i]) {
+        rs += lum[i];
+        rc += 1;
+      }
+      sum[(y + 1) * W + x + 1] = sum[y * W + x + 1] + rs;
+      cnt[(y + 1) * W + x + 1] = cnt[y * W + x + 1] + rc;
+    }
+  }
+  const R = 6;
+  const box = (t, x0, y0, x1, y1) => t[y1 * W + x1] - t[y0 * W + x1] - t[y1 * W + x0] + t[y0 * W + x0];
+  const mean = (x, y) => {
+    const x0 = Math.max(0, x - R);
+    const y0 = Math.max(0, y - R);
+    const x1 = Math.min(w, x + R + 1);
+    const y1 = Math.min(h, y + R + 1);
+    const c = box(cnt, x0, y0, x1, y1);
+    return c ? box(sum, x0, y0, x1, y1) / c : lum[y * w + x];
   };
+  const edge = (x, y) => {
+    if (x < 1 || y < 1 || x >= w - 1 || y >= h - 1) return 0;
+    const L = (dx, dy) => lum[(y + dy) * w + x + dx];
+    const gx = L(1, -1) + 2 * L(1, 0) + L(1, 1) - L(-1, -1) - 2 * L(-1, 0) - L(-1, 1);
+    const gy = L(-1, 1) + 2 * L(0, 1) + L(1, 1) - L(-1, -1) - 2 * L(0, -1) - L(1, -1);
+    return Math.min(1, Math.hypot(gx, gy));
+  };
+
   const cands = [];
   let guard = 0;
-  while (cands.length < n * 1.2 && guard < n * 60) {
+  while (cands.length < n * 1.15 && guard < n * 80) {
     guard += 1;
     const x = rand();
     const y = rand();
-    const l = lum(Math.floor(x * w), Math.floor(y * h));
-    if (l > 0.93) continue;
-    const keep = Math.pow(1 - l, 0.9) + 0.06;
+    const px = Math.floor(x * w);
+    const py = Math.floor(y * h);
+    const i = py * w + px;
+    if (!inside[i]) continue;
+    const l = lum[i];
+    // A stipple: the darker the photograph, the denser the dots, so the
+    // face reads by its light and shade like an engraving.
+    const e = edge(px, py);
+    let keep = Math.pow(1 - l, 1.5) + 0.05 + e * 0.5;
+    let tone;
+    if (skin[i]) {
+      const d = l - mean(px, py);
+      tone = e > 0.5 || d < -0.08 ? INK : d < -0.03 ? BLUE : RED;
+    } else if (y > 0.78) {
+      // The shirt, kept light so it doesn't swallow the points.
+      tone = BLUE;
+      keep = 0.3;
+    } else {
+      // Grey strands in the hair and beard catch the light in blue.
+      tone = l > 0.3 ? BLUE : INK;
+    }
     if (rand() > keep) continue;
-    const tone = l < 0.22 ? INK : l < 0.45 ? BLUE : l < 0.68 ? RED : YELLOW;
     cands.push([x, y, tone]);
   }
   return fill(make(n, aspect), cands, rand);

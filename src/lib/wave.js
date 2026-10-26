@@ -5,7 +5,7 @@
 export const WAVE_EVENT = 'field:wave';
 
 const COLOURS = ['var(--red)', 'var(--blue)', 'var(--yellow)'];
-const SKIP = 'a, button, input, textarea, select, label, summary, [role="button"], .case, .menu, .intro';
+const SKIP = 'a, button, input, textarea, select, label, summary, [role="button"], [data-reveal], .case, .menu, .intro';
 let turn = 0;
 
 const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;

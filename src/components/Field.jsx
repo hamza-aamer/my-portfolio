@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { createField } from '../lib/field.js';
 import { PALETTES, watchChapters } from '../lib/chapters.js';
 import { WAVE_EVENT } from '../lib/wave.js';
+import { portrait } from '../data.js';
 import { bauhausShape, chipShape, DISPLAY_FONT, fanShape, networkShape, portraitShape, textShape } from '../lib/shapes.js';
 
 const loadImage = (src) => new Promise((resolve, reject) => {
@@ -22,7 +23,7 @@ const aspectOf = (el) => {
 async function build(name, el, n) {
   switch (name) {
     case 'name': return textShape(['HAMZA', 'AAMER'], n, aspectOf(el), 3);
-    case 'portrait': return portraitShape(await loadImage('/images/portrait.jpg'), n, 7);
+    case 'portrait': return portraitShape(await loadImage(portrait.src), n, 7);
     case 'bauhaus': return bauhausShape(n);
     case 'chip': return chipShape(n);
     case 'network': return networkShape(n);
@@ -54,7 +55,7 @@ export default function Field() {
     let alive = true;
     const size = (name) => {
       if (name === 'name') return narrow ? 2.6 : 3.4;
-      if (name === 'portrait') return narrow ? 2.4 : 3;
+      if (name === 'portrait') return narrow ? 2.7 : 3;
       return narrow ? 2.2 : 2.8;
     };
     const els = [...document.querySelectorAll('[data-stage]')];

@@ -55,7 +55,7 @@ Headings use `<Stretch>` (`src/lib/motion.jsx`). They widen from 62% to 125% wid
 
 **Shapes.**
 - Text is sampled from Archivo on a canvas.
-- The portrait is a four-tone halftone of `portrait.jpg`.
+- The portrait is a stipple of the cut-out photograph (`portrait-cut.webp`): denser where the photo is darker, red for skin, ink and blue for hair and beard, blue for the shirt, and the strong edges in ink.
 - The other shapes are generated.
 
 **Colour.**
@@ -71,7 +71,7 @@ Headings use `<Stretch>` (`src/lib/motion.jsx`). They widen from 62% to 125% wid
 
 ## Signature interactions
 
-- **Portrait peek (Who):** over the dotted portrait, a circle of the real photograph opens under the pointer, and the points part around it. A button shows the whole photograph, for touch and keyboard users.
+- **Portrait peek (Who):** over the dotted portrait, a circle of the real photograph opens under the pointer, and the points part around it. On a phone, a tap on the dots opens the photograph from under the finger and another tap closes it. A button does the same for keyboards.
 - **Shockwaves (`src/lib/wave.js`):**
   - Tap or click anywhere that is not a control. A ring of primary colour rolls out from that spot, shoves the points it passes and flips them to the next colour for a moment.
   - The hero badge sends the biggest wave, from the middle of the name.
@@ -90,7 +90,7 @@ Headings use `<Stretch>` (`src/lib/motion.jsx`). They widen from 62% to 125% wid
 
 ## Imagery
 
-- **Portrait:** `public/images/portrait.jpg`. It appears as the dotted halftone and as the photograph revealed beneath it, multiplied onto the yellow.
+- **Portrait:** `public/images/portrait-cut.webp`, cut out from `portrait.jpg` (which stays as the social-card image). It appears as the dotted stipple and as the photograph revealed beneath it, standing on a blue disc.
 - **KIT campus:** `public/world/kit.jpg`, CC BY 3.0, credited in its caption and in the footer. It is printed as a yellow-and-black duotone and opens from an inset as it enters.
 - **Projects:** no pictures, by the owner's choice. Each poster's art is a generated composition, and the text sits on a solid ground.
 
