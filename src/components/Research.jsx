@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'motion/react';
-import { kitPicture, research } from '../data.js';
+import { kitEnded, kitPicture, research } from '../data.js';
 import { Item, Stagger, Stretch, rise } from '../lib/motion.jsx';
 import { useScrub } from '../lib/media.js';
 
@@ -73,7 +73,8 @@ export default function Research() {
             <Stretch id="research-h" className="h2" lines={['Research']} />
             <Stagger className="lede" as="div">
               <Item as="p">
-                Alongside industry work I hold two research assistant (HiWi) positions at KIT: GPU resource
+                Alongside industry work I {kitEnded ? 'held' : 'hold'} two research assistant (HiWi) positions at KIT,
+                from April {kitEnded ? 'to' : 'until'} November 2026: GPU resource
                 management for LLM inference at the Chair for Embedded Systems, and on-device machine learning
                 for wearables at TECO. Before Karlsruhe, I worked on document understanding at DataInsight.
               </Item>

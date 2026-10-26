@@ -93,8 +93,8 @@ export default function Footer() {
         </div>
         <div className="footer__col">
           <span>Now</span>
-          <span>Senior AI Engineer, Aiden Risk</span>
-          <span>Research Assistant, KIT</span>
+          {person.now.map((r) => <span key={r.org}>{r.role}, {r.org}</span>)}
+          {person.next && <span>From {person.next.from}: {person.next.role}, {person.next.org}</span>}
         </div>
         <p className="footer__credits">
           Photograph of the KIT campus:{' '}

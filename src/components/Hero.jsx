@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
-import { person } from '../data.js';
+import { atMercedes, mercedes, person } from '../data.js';
+
+const capital = (t) => t[0].toUpperCase() + t.slice(1);
 import { EASE } from '../lib/motion.jsx';
 import { wave } from '../lib/wave.js';
 import { ArrowDown } from './Icons.jsx';
@@ -100,8 +102,11 @@ export default function Hero() {
         <motion.div className="hero__side" {...up(1.35)}>
           <p className="hero__now">
             Senior AI Engineer at{' '}
-            <a className="link" href={person.now[0].href} target="_blank" rel="noreferrer">Aiden Risk</a>.
-            Research assistant at KIT. Based in Karlsruhe.
+            <a className="link" href={person.now[0].href} target="_blank" rel="noreferrer">Aiden Risk</a>.{' '}
+            {atMercedes
+              ? `${capital(mercedes.short)}.`
+              : `Research assistant at KIT until November, then ${mercedes.short}.`}{' '}
+            Based in Karlsruhe.
           </p>
           <div className="hero__actions">
             <a className="button" href="#work" data-magnetic>

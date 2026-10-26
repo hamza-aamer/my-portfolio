@@ -21,7 +21,7 @@ Each case study and role panel has to serve both: impact and scope first, method
 
 ## Product Purpose
 
-Personal portfolio of Hamza Aamer, Senior AI Engineer at Aiden Risk and Research Assistant (HiWi) at KIT. It shows end-to-end AI-systems work, from GPU kernel scheduling to on-device runtimes, vision/3D models, multi-agent systems, and data synthesis. Success means a visitor leaves understanding what he has built, at what depth, and how to reach him (email, résumé PDF, GitHub).
+Personal portfolio of Hamza Aamer, Senior AI Engineer at Aiden Risk, Research Assistant (HiWi) at KIT until November 2026, and from December 2026 Working Student, AI Agents & Robotics at Mercedes-Benz Tech Innovation. It shows end-to-end AI-systems work, from GPU kernel scheduling to on-device runtimes, vision/3D models, multi-agent systems, and data synthesis. Success means a visitor leaves understanding what he has built, at what depth, and how to reach him (email, résumé PDF, GitHub).
 
 ## Positioning
 
@@ -47,12 +47,14 @@ Source of truth for facts is `resume.pdf` (owner-confirmed: where the résumé a
 
 Roles:
 - Aiden Risk: Senior AI Engineer, Sep 2026 – present. No detail beyond title and date.
-- CES/ITEC, KIT (Prof. Dr. Jörg Henkel): Research Assistant (HiWi), Apr 2026 – present. ML-driven GPU resource management for LLM inference; extends the gpu_ext eBPF/struct_ops framework; channel-disable scheduling policy (up to 15× latency improvement); unified-memory prefetch/oversubscription policies (5–12% throughput gain); reproduced kernel-level DVFS results; characterised GPU frequency-switching cost via NVML.
-- TECO, KIT (Prof. Dr. Michael Beigl): Research Assistant (HiWi), Apr 2026 – present. edge-ml microservice platform (FastAPI, React, Docker) for wearable/IoT sensor time-series; on-device export via ExecuTorch to .pte with auto-generated Kotlin integration code; multi-architecture CI/CD.
+- CES/ITEC, KIT (Prof. Dr. Jörg Henkel): Research Assistant (HiWi), Apr – Nov 2026. ML-driven GPU resource management for LLM inference; extends the gpu_ext eBPF/struct_ops framework; channel-disable scheduling policy (up to 15× latency improvement); unified-memory prefetch/oversubscription policies (5–12% throughput gain); reproduced kernel-level DVFS results; characterised GPU frequency-switching cost via NVML.
+- TECO, KIT (Prof. Dr. Michael Beigl): Research Assistant (HiWi), Apr – Nov 2026. edge-ml microservice platform (FastAPI, React, Docker) for wearable/IoT sensor time-series; on-device export via ExecuTorch to .pte with auto-generated Kotlin integration code; multi-architecture CI/CD.
 - Adept Tech Solutions: AI Engineer & Product Lead, Nov 2024 – Aug 2026. Data synthesis and analysis (10× improvement in data-generation accuracy); built Ascend and Artisan; production CLI tooling on Spark clusters.
 - Antematter: AI Engineer, Jan 2023 – Nov 2024. Multi-agent frameworks (CrewAI, LangChain, ELIZA, Phidata), outreach up 10×; built Ant-AI; supervisory agents that spawn function-calling agents; ELIZA personality clones (8× online engagement); Nedge Computing × NVIDIA project on virtual cloud systems with split vGPU access to NVIDIA A16 GPUs.
 - DataInsight Research Lab, FAST-NUCES: Research Assistant, May 2023 – Dec 2023. $90K ML project on document understanding; YOLO pipeline (2.5× faster dataset acquisition); OCR on medical prescriptions at 84% accuracy; end-to-end transformer approach (DocParser, Donut) cut compute by 50%.
 - Afiniti Software Solutions: Project Trainee, Jun 2020 – Aug 2021. NLP and speech-to-text system; client-facing delivery.
+
+- Mercedes-Benz Tech Innovation: Working Student, AI Agents & Robotics, from Dec 2026. The site switches its "now" wording on 2026-12-01 by itself (`src/data.js`, `kitEnded` / `atMercedes`).
 
 Education: M.Sc. Computer Science (Human-centred Machine Intelligence), KIT, Oct 2025 – Aug 2027 (expected). B.Sc. Computer Science, FAST-NUCES, Aug 2021 – Jun 2025, Gold Medalist, Rector's List of Honor.
 
